@@ -1,7 +1,7 @@
 # typed-arrays
 A library using PHP's scalar type declarations to control types within arrays
 
-## Deeper Explanation
+## Explanation of Design Choices
 #### Why not implement ArrayAccess?
 Making these classes implement PHP's [ArrayAccess interface](https://www.php.net/manual/en/class.arrayaccess.php) would allow you do this:
 ```
@@ -16,9 +16,12 @@ and even with docblocks, your IDE doesn't complain when you do this:
 ```
 $intArray = new IntToIntArray();
 
+//IDE doesn't complain, but PHP throws a TypeError here:
 $intArray['string'] = 'string';
 ```
-Implementing ArrayAccess is not worth the risk, particularly when the alternative is so straightforward:
+Of course we can still protect the key and value types of the actual array, by calling the IntToIntArray `setItem` method from the ArrayAccess `offsetSet` method.
+
+However, implementing ArrayAccess is just not worth the risk when the alternative is so straightforward:
 ```
 $intArray = new IntToIntArray();
 
