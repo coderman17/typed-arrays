@@ -8,22 +8,29 @@ use PHPUnit\Framework\TestCase;
 
 class TestHelpers extends TestCase
 {
-    public static function getParameterType(string $className, string $methodName, string $parameterName): string
+    public static function getParameterType(string $className, string $methodName, string $parameterName, object $callingTestObject): string
     {
-        $setItemMethod = new \ReflectionMethod($className, $methodName);
+        try {
+            $setItemMethod = new \ReflectionMethod($className, $methodName);
 
-        $params = $setItemMethod->getParameters();
+            $params = $setItemMethod->getParameters();
 
-        foreach ($params as $param){
-            if($param->getName() === $parameterName){
-                if($param->getType() === null){
-                    throw new \Exception("The '" . $parameterName . "' parameter doesn't specify a type in '" . $methodName . "' method in '" . $className . "' class");
+            foreach ($params as $param){
+                if($param->getName() === $parameterName){
+                    if($param->getType() === null){
+                        throw new \Exception("The '" . $parameterName . "' parameter doesn't specify a type in '" . $methodName . "' method in '" . $className . "' class");
+                    }
+
+                    return $param->getType()->getName();
                 }
-
-                return $param->getType()->getName();
             }
-        }
 
-        throw new \Exception("Couldn't find '" . $parameterName . "' parameter in '" . $methodName . "' method in '" . $className . "' class");
+            throw new \Exception("Couldn't find '" . $parameterName . "' parameter in '" . $methodName . "' method in '" . $className . "' class");
+
+        } catch (\Exception $e) {
+            $callingTestObject::fail($e->getMessage());
+
+            return '';
+        }
     }
 }

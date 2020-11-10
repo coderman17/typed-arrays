@@ -33,7 +33,7 @@ final class IntIntArrayTest extends TestCase
     public function testUnsetItemKeyIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntIntArray', 'unsetItem', 'key'),
+            TestHelpers::getParameterType('TypedArrays\IntIntArray', 'unsetItem', 'key', $this),
             'int'
         );
     }
@@ -53,7 +53,7 @@ final class IntIntArrayTest extends TestCase
     public function testSetItemKeyIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntIntArray', 'setItem', 'key'),
+            TestHelpers::getParameterType('TypedArrays\IntIntArray', 'setItem', 'key', $this),
             'int'
         );
     }
@@ -61,7 +61,7 @@ final class IntIntArrayTest extends TestCase
     public function testSetItemValueIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntIntArray', 'setItem', 'value'),
+            TestHelpers::getParameterType('TypedArrays\IntIntArray', 'setItem', 'value', $this),
             'int'
         );
     }
@@ -83,7 +83,7 @@ final class IntIntArrayTest extends TestCase
     public function testSetItemPushItemValueIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntIntArray', 'pushItem', 'value'),
+            TestHelpers::getParameterType('TypedArrays\IntIntArray', 'pushItem', 'value', $this),
             'int'
         );
     }
