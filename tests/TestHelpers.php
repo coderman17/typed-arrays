@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class TestHelpers extends TestCase
 {
-    public static function getParameterType(string $className, string $methodName, string $parameterName, object $callingTestObject): string
+    public static function getParameterType(string $className, string $methodName, string $parameterName, object $callingTest): string
     {
         try {
             $setItemMethod = new \ReflectionMethod($className, $methodName);
@@ -28,7 +28,7 @@ class TestHelpers extends TestCase
             throw new \Exception("Couldn't find '" . $parameterName . "' parameter in '" . $methodName . "' method in '" . $className . "' class");
 
         } catch (\Exception $e) {
-            $callingTestObject::fail($e->getMessage());
+            $callingTest::fail($e->getMessage());
 
             return '';
         }
