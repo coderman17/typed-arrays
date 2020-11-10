@@ -1,0 +1,6 @@
+html-coverage/
+notes.txt
+vendor/
+.idea/
+php_errors.log
+.phpunit.result.cache

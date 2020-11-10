@@ -1,0 +1,10 @@
+<phpunit>
+    <coverage>
+        <include>
+            <directory suffix = ".php">src</directory>
+        </include>
+        <report>
+            <html outputDirectory="html-coverage"/>
+        </report>
+    </coverage>
+</phpunit>
