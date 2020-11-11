@@ -45,7 +45,9 @@ final class IntToIntArrayTest extends TestCase
         $intToIntArray = new IntToIntArray();
         $intToIntArray->setItem(0, 0);
         $this::assertSame(
-            [0 => 0],
+            [
+                0 => 0
+            ],
             $intToIntArray->getItems()
         );
     }

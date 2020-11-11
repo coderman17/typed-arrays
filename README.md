@@ -21,11 +21,11 @@ Then run `composer update`
 #### Classes:
 - IntToIntArray
 - IntToStringArray
-- IntToObjectArray (coming soon)
+- IntToFloatArray (coming later)
 - IntToClassArray (coming soon)
 - StringToIntArray (coming soon)
-- StringToStringArray (coming soon)
-- StringToObjectArray (coming soon)
+- StringToStringArray
+- StringToFloatArray (coming later)
 - StringToClassArray (coming soon)
 
 #### Note:
