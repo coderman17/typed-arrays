@@ -64,13 +64,19 @@ final class StringToStringArrayTest extends TestCase
         }
 
         $this::expectException('Exception');
+        $stringToStringArray->setItem('0', '0');            //zero int              ...as string
+
+        $this::expectException('Exception');
         $stringToStringArray->setItem('4', '4');            //int                   ...as string
+
+        $this::expectException('Exception');
+        $stringToStringArray->setItem('400', '4');          //larger int            ...as string
 
         $this::expectException('Exception');
         $stringToStringArray->setItem('-4', '4');           //neg int               ...as string
 
         $this::expectException('Exception');
-        $stringToStringArray->setItem('-40', '4');          //neg larger int        ...as string
+        $stringToStringArray->setItem('-400', '4');         //neg larger int        ...as string
     }
 
     public function testSetItemKeyIsTypeString(): void
