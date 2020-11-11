@@ -5,35 +5,35 @@ declare(strict_types = 1);
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
-use TypedArrays\IntStringArray;
+use TypedArrays\IntToStringArray;
 
 
-final class IntStringArrayTest extends TestCase
+final class IntToStringArrayTest extends TestCase
 {
     //unsetItem:
 
     public function testUnsetItem(): void
     {
-        $intStringArray = new IntStringArray();
-        $intStringArray->setItem(0, '0');
-        $intStringArray->setItem(1, '1');
-        $intStringArray->setItem(2, '2');
+        $intToStringArray = new IntToStringArray();
+        $intToStringArray->setItem(0, '0');
+        $intToStringArray->setItem(1, '1');
+        $intToStringArray->setItem(2, '2');
 
-        $intStringArray->unsetItem(1);
+        $intToStringArray->unsetItem(1);
 
         $this::assertSame(
             [
                 0 => '0',
                 2 => '2'
             ],
-            $intStringArray->getItems()
+            $intToStringArray->getItems()
         );
     }
 
     public function testUnsetItemKeyIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntStringArray', 'unsetItem', 'key', $this),
+            TestHelpers::getParameterType('TypedArrays\IntToStringArray', 'unsetItem', 'key', $this),
             'int'
         );
     }
@@ -42,12 +42,12 @@ final class IntStringArrayTest extends TestCase
 
     public function testSetItem(): void
     {
-        $intStringArray = new IntStringArray();
-        $intStringArray->setItem(0, '0');
-        $intStringArray->setItem(1, '1.0');
-        $intStringArray->setItem(2, 'two');
-        $intStringArray->setItem(3, 'false');
-        $intStringArray->setItem(4, 'null');
+        $intToStringArray = new IntToStringArray();
+        $intToStringArray->setItem(0, '0');
+        $intToStringArray->setItem(1, '1.0');
+        $intToStringArray->setItem(2, 'two');
+        $intToStringArray->setItem(3, 'false');
+        $intToStringArray->setItem(4, 'null');
         $this::assertSame(
             [
                 0 => '0',
@@ -56,14 +56,14 @@ final class IntStringArrayTest extends TestCase
                 3 => 'false',
                 4 => 'null'
             ],
-            $intStringArray->getItems()
+            $intToStringArray->getItems()
         );
     }
 
     public function testSetItemKeyIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntStringArray', 'setItem', 'key', $this),
+            TestHelpers::getParameterType('TypedArrays\IntToStringArray', 'setItem', 'key', $this),
             'int'
         );
     }
@@ -71,7 +71,7 @@ final class IntStringArrayTest extends TestCase
     public function testSetItemValueIsTypeString(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntStringArray', 'setItem', 'value', $this),
+            TestHelpers::getParameterType('TypedArrays\IntToStringArray', 'setItem', 'value', $this),
             'string'
         );
     }
@@ -80,20 +80,20 @@ final class IntStringArrayTest extends TestCase
 
     public function testPushItem(): void
     {
-        $intStringArray = new IntStringArray();
-        $intStringArray->pushItem('0');
+        $intToStringArray = new IntToStringArray();
+        $intToStringArray->pushItem('0');
         $this::assertSame(
             [
                 0 => '0'
             ],
-            $intStringArray->getItems()
+            $intToStringArray->getItems()
         );
     }
 
     public function testSetItemPushItemValueIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntStringArray', 'pushItem', 'value', $this),
+            TestHelpers::getParameterType('TypedArrays\IntToStringArray', 'pushItem', 'value', $this),
             'string'
         );
     }
