@@ -1,6 +1,56 @@
 # typed-arrays
-A library using PHP's scalar type declarations to control types within arrays
+A library of simple classes using PHP's scalar type declarations to control types within arrays
 
+## Pre-requisites
+You must have [composer](https://getcomposer.org/download/) and php >= 7.4 installed.
+## Installation
+Add this to your composer.json file:
+```
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/coderman17/typed-arrays"
+    }
+  ],
+  "require": {
+    "coderman17/typed-arrays": "dev-master"
+  }
+```
+Then run `composer update`
+## Use
+#####Classes:
+- IntToIntArray
+- IntToStringArray
+- IntToObjectArray (coming soon)
+- IntToClassArray (coming soon)
+- StringToIntArray (coming soon)
+- StringToStringArray (coming soon)
+- StringToObjectArray (coming soon)
+- StringToClassArray (coming soon)
+
+#####Note:
+If you don't add `declare(strict_types = 1);` to the top of the files from which you call TypedArray methods, then PHP
+may typecast your variables to match the types declared on those methods.  
+For example:
+```
+//no declare strict_types line
+
+$x = new IntToIntArray();
+
+//no TypeError thrown because the strings are successfully cast to integers
+$x->setItem('0', '0');
+
+/*
+    $x->getItems() now returns:
+
+    array(1) {
+        [0]=>
+        int(0)
+    }
+*/
+```
+This still guarantees the type of the values stored in the `items` array,
+but allowing PHP to magically convert your variable type is rather against the spirit of this project, and I'd recommend you convert types explicitly if necessary.
 ## Explanation of Design Choices
 #### Why not implement ArrayAccess?
 Making these classes implement PHP's [ArrayAccess interface](https://www.php.net/manual/en/class.arrayaccess.php) would allow you to do this:

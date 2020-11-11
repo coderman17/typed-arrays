@@ -5,35 +5,35 @@ declare(strict_types = 1);
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
-use TypedArrays\IntIntArray;
+use TypedArrays\IntToIntArray;
 
 
-final class IntIntArrayTest extends TestCase
+final class IntToIntArrayTest extends TestCase
 {
     //unsetItem:
 
     public function testUnsetItem(): void
     {
-        $intIntArray = new IntIntArray();
-        $intIntArray->setItem(0, 0);
-        $intIntArray->setItem(1, 1);
-        $intIntArray->setItem(2, 2);
+        $intToIntArray = new IntToIntArray();
+        $intToIntArray->setItem(0, 0);
+        $intToIntArray->setItem(1, 1);
+        $intToIntArray->setItem(2, 2);
 
-        $intIntArray->unsetItem(1);
+        $intToIntArray->unsetItem(1);
 
         $this::assertSame(
             [
                 0 => 0,
                 2 => 2
             ],
-            $intIntArray->getItems()
+            $intToIntArray->getItems()
         );
     }
 
     public function testUnsetItemKeyIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntIntArray', 'unsetItem', 'key', $this),
+            TestHelpers::getParameterType('TypedArrays\IntToIntArray', 'unsetItem', 'key', $this),
             'int'
         );
     }
@@ -42,18 +42,18 @@ final class IntIntArrayTest extends TestCase
 
     public function testSetItem(): void
     {
-        $intIntArray = new IntIntArray();
-        $intIntArray->setItem(0, 0);
+        $intToIntArray = new IntToIntArray();
+        $intToIntArray->setItem(0, 0);
         $this::assertSame(
             [0 => 0],
-            $intIntArray->getItems()
+            $intToIntArray->getItems()
         );
     }
 
     public function testSetItemKeyIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntIntArray', 'setItem', 'key', $this),
+            TestHelpers::getParameterType('TypedArrays\IntToIntArray', 'setItem', 'key', $this),
             'int'
         );
     }
@@ -61,7 +61,7 @@ final class IntIntArrayTest extends TestCase
     public function testSetItemValueIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntIntArray', 'setItem', 'value', $this),
+            TestHelpers::getParameterType('TypedArrays\IntToIntArray', 'setItem', 'value', $this),
             'int'
         );
     }
@@ -70,20 +70,20 @@ final class IntIntArrayTest extends TestCase
 
     public function testPushItem(): void
     {
-        $intIntArray = new IntIntArray();
-        $intIntArray->pushItem(0);
+        $intToIntArray = new IntToIntArray();
+        $intToIntArray->pushItem(0);
         $this::assertSame(
             [
                 0 => 0
             ],
-            $intIntArray->getItems()
+            $intToIntArray->getItems()
         );
     }
 
     public function testSetItemPushItemValueIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntIntArray', 'pushItem', 'value', $this),
+            TestHelpers::getParameterType('TypedArrays\IntToIntArray', 'pushItem', 'value', $this),
             'int'
         );
     }
