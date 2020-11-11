@@ -23,7 +23,7 @@ Then run `composer update`
 - IntToStringArray
 - IntToFloatArray (coming later)
 - IntToClassArray (coming soon)
-- StringToIntArray (coming soon)
+- StringToIntArray
 - StringToStringArray
 - StringToFloatArray (coming later)
 - StringToClassArray (coming soon)
