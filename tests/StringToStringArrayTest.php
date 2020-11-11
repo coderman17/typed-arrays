@@ -43,6 +43,7 @@ final class StringToStringArrayTest extends TestCase
     public function testSetItem(): void
     {
         $stringToStringArray = new StringToStringArray();
+        //These tests check that PHP isn't quietly converting string keys to integers
         $stringToStringArray->setItem('0.1', '0.1');        //float from 0          ...as string
         $stringToStringArray->setItem('2.2', '2.2');        //float from >=1        ...as string
         $stringToStringArray->setItem('true', 'true');      //bool                  ...as string
@@ -63,6 +64,7 @@ final class StringToStringArrayTest extends TestCase
             $this::assertIsString($v);
         }
 
+        //These tests check an exception is thrown rather than letting PHP quietly convert string keys to integers
         $this::expectException('Exception');
         $stringToStringArray->setItem('0', '0');            //zero int              ...as string
 
