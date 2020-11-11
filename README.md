@@ -18,7 +18,7 @@ Add this to your composer.json file:
 ```
 Then run `composer update`
 ## Use
-#####Classes:
+#### Classes:
 - IntToIntArray
 - IntToStringArray
 - IntToObjectArray (coming soon)
@@ -28,7 +28,7 @@ Then run `composer update`
 - StringToObjectArray (coming soon)
 - StringToClassArray (coming soon)
 
-#####Note:
+#### Note:
 If you don't add `declare(strict_types = 1);` to the top of the files from which you call TypedArray methods, then PHP
 may typecast your variables to match the types declared on those methods.  
 For example:
