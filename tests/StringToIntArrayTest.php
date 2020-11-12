@@ -89,7 +89,7 @@ final class StringToIntArrayTest extends TestCase
         );
     }
 
-    public function testSetItemValueIsTypeString(): void
+    public function testSetItemValueIsTypeInt(): void
     {
         $this::assertSame(
             TestHelpers::getParameterType('TypedArrays\StringToIntArray', 'setItem', 'value', $this),
