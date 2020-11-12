@@ -82,7 +82,7 @@ final class IntToIntArrayTest extends TestCase
         );
     }
 
-    public function testSetItemPushItemValueIsTypeInt(): void
+    public function testPushItemValueIsTypeInt(): void
     {
         $this::assertSame(
             TestHelpers::getParameterType('TypedArrays\IntToIntArray', 'pushItem', 'value', $this),

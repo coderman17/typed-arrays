@@ -10,6 +10,7 @@ use TypedArrays\IntToClassArray;
 
 final class IntToClassArrayTest extends TestCase
 {
+    //This sets className property automatically only for testing purposes
     protected function extendIntToClassArray(object $obj): object
     {
         return new class($obj) extends IntToClassArray
@@ -70,8 +71,6 @@ final class IntToClassArrayTest extends TestCase
 
         $extendsIntToClassArray->setItem(0, $a);
 
-        $extendsIntToClassArray->unsetItem(1);
-
         $this::assertSame(
             [
                 0 => $a
@@ -111,8 +110,6 @@ final class IntToClassArrayTest extends TestCase
 
         $extendsIntToClassArray->pushItem($a);
 
-        $extendsIntToClassArray->unsetItem(1);
-
         $this::assertSame(
             [
                 0 => $a
@@ -124,7 +121,7 @@ final class IntToClassArrayTest extends TestCase
         $extendsIntToClassArray->pushItem(new \stdClass());
     }
 
-    public function testSetItemPushItemValueIsTypeObject(): void
+    public function testPushItemValueIsTypeObject(): void
     {
         $this::assertSame(
             TestHelpers::getParameterType('TypedArrays\IntToClassArray', 'pushItem', 'value', $this),
