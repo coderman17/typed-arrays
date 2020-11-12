@@ -4,38 +4,24 @@ declare(strict_types = 1);
 
 require 'vendor/autoload.php';
 
-use TypedArrays\Demo\IntToBlogPostArray;
-use TypedArrays\Demo\BlogPost;
+use TypedArrays\Demo\BlogPost;                                                      //The class of object we want to put inside a Typed Array
+use TypedArrays\Demo\IntToBlogPostArray;                                            //A simple extension of the IntToClassArray abstract class
 
-
-//Function declares type of array object required
-function greet_from_blog_posts (IntToBlogPostArray $intToBlogPostArray): void
+function show_blog_posts_content (IntToBlogPostArray $intToBlogPostArray): void     //Function declares type of array object required
 {
-    //The IntToBlogPostArray object can be used like an array in a foreach loop
-    foreach ($intToBlogPostArray as $blogPost){
+    foreach ($intToBlogPostArray as $blogPost){                                     //The IntToBlogPostArray object can be used like an array in a foreach loop
         echo $blogPost->getContent() . "\n";
     }
 
-
-    //Or, the array can be retrieved as a whole via getItems()
-    $blogPosts = $intToBlogPostArray->getItems();
+    $blogPosts = $intToBlogPostArray->getItems();                                   //Or, the array can be retrieved as a whole via getItems()
 }
 
+$intToBlogPostArray = new IntToBlogPostArray();                                     //Make new Array object
 
-//Make new Array object
-$intToBlogPostArray = new IntToBlogPostArray();
+                                                                                    //Can add objects of correct class successfully
+$intToBlogPostArray->pushItem(new BlogPost('This is a blog post about cats'));      //- via pushItem()
+$intToBlogPostArray->setItem(1, new BlogPost('This is a blog post about food'));    //- via setItem() to specify the key too
 
+show_blog_posts_content($intToBlogPostArray);                                       //Pass array to function with full type hinting
 
-//Can add objects of correct class successfully:
-//via pushItem()
-$intToBlogPostArray->pushItem(new BlogPost('This is a blog post about cats'));
-//or, via setItem() to specify the key too
-$intToBlogPostArray->setItem(1, new BlogPost('This is a blog post about food'));
-
-
-//Pass array to function with full type hinting
-greet_from_blog_posts($intToBlogPostArray);
-
-
-//Exception because of wrong class:
-//$intToBlogPostArray->pushItem(new stdClass());
+//$intToBlogPostArray->pushItem(new stdClass());                                    //Exception because of wrong class

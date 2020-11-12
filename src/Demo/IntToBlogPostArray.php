@@ -10,5 +10,3 @@ class IntToBlogPostArray extends IntToClassArray
 {
     protected string $className = 'TypedArrays\Demo\BlogPost';
 }
-
-new IntToBlogPostArray();
