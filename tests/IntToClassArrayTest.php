@@ -119,6 +119,9 @@ final class IntToClassArrayTest extends TestCase
             ],
             $extendsIntToClassArray->getItems()
         );
+
+        $this::expectException('Exception');
+        $extendsIntToClassArray->pushItem(new \stdClass());
     }
 
     public function testSetItemPushItemValueIsTypeObject(): void
