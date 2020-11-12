@@ -119,12 +119,6 @@ final class IntToClassArrayTest extends TestCase
             ],
             $extendsIntToClassArray->getItems()
         );
-        $this::assertSame(
-            [
-                0 => $a
-            ],
-            $extendsIntToClassArray->getItems()
-        );
     }
 
     public function testSetItemPushItemValueIsTypeObject(): void
