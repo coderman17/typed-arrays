@@ -78,7 +78,7 @@ final class IntToClassArrayTest extends TestCase
             $extendsIntToClassArray->getItems()
         );
 
-        $this::expectException('Exception');
+        $this::expectException('TypeError');
         $extendsIntToClassArray->setItem(0, new \stdClass());
     }
 
@@ -117,7 +117,7 @@ final class IntToClassArrayTest extends TestCase
             $extendsIntToClassArray->getItems()
         );
 
-        $this::expectException('Exception');
+        $this::expectException('TypeError');
         $extendsIntToClassArray->pushItem(new \stdClass());
     }
 
