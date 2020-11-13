@@ -7,10 +7,10 @@ namespace TypedArrays\Demo;
 require 'vendor/autoload.php';
 
 
-$intToBlogPostArray = new IntToBlogPostArray();                                     //Make new Typed Array object
+$intToBlogPostArray = new IntToBlogPostArray();                                     //Make new Typed Array object from a simple extension of the IntToClassArray abstract class
 
 
-$intToBlogPostArray->pushItem(new BlogPost('This is a blog post about cats'));      //Can add objects of correct class via pushItem()
+$intToBlogPostArray->pushItem(new BlogPost('This is a blog post about cats'));      //You can add objects of correct class via pushItem()
 $intToBlogPostArray->setItem(1, new BlogPost('This is a blog post about food'));    //Or via setItem(), to specify the key too
 
 
