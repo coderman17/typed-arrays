@@ -18,14 +18,61 @@ Add this to your composer.json file:
 ```
 Then run `composer update`
 ## Use
+The use of the scalar typed arrays is straightforward - simply create a new instance of the class and rest assured it
+will only contain the types you expect.  
+You can also use the class as a type declaration in your methods, to be certain that incoming array variables are of
+the correct key and value type:
+```
+$intToStringArray = new IntToStringArray();
+
+$intToStringArray->setItem(0, "string 1");
+
+$intToStringArray->pushItem("string 2");
+
+function echo_strings (IntToStringArray $intToStringArray): void
+{
+    foreach ($intToStringArray as $key => $value){
+        echo "For each item in the array (now on item: " . strval($key) . ")\n";
+        echo "- The key is always of type integer: " . gettype($key) . "\n";
+        echo "- The value is always of type string: " . gettype($value) . "\n\n";
+    }
+}
+
+echo_strings($intToStringArray);
+
+/*
+For each item in the array (now on item: 0)
+- The key is always of type integer: integer
+- The value is always of type string: string
+
+For each item in the array (now on item: 1)
+- The key is always of type integer: integer
+- The value is always of type string: string
+*/
+```
+The StringTo... classes will throw an exception if PHP is about to silently convert your string keys into integers,
+polluting the array with types you didn't expect:
+```
+$stringToIntArray->setItem('1', 1);
+
+/*
+Fatal error: Uncaught Exception: PHP will silently cast the key '1' to an integer, violating the key type of string
+*/
+```
+The IntToClassArray and StringToClassArray are abstract, and require a simple class extending them to specify your desired object type,
+as in ['IntToBlogPostArray']().  
+Just like you can with the scalar type arrays, you can use your extending class as a type declaration in your methods:
+```
+function show_blog_posts_content(IntToBlogPostArray $intToBlogPostArray): void
+```  
+You can see a working labelled example of this in ['demo.php']().
+ 
 #### Classes:
 - IntToIntArray
 - IntToStringArray
-- IntToFloatArray (coming later)
-- IntToClassArray (coming soon)
+- IntToClassArray
 - StringToIntArray
 - StringToStringArray
-- StringToFloatArray (coming later)
 - StringToClassArray (coming soon)
 
 #### Note:

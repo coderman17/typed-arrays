@@ -21,7 +21,7 @@ trait StringKeyAnyValue
 
         if ($matches[0] === $key) {
             throw new \Exception(
-                "Php will cast the key '" . $key . "' to an integer, violating the key type of string"
+                "PHP will silently cast the key '" . $key . "' to an integer, violating the key type of string"
             );
         }
     }

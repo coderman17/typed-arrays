@@ -29,7 +29,7 @@ abstract class IntToClassArray extends TypedKeyValueArray
     protected function checkClass(object $value): void
     {
         if (get_class($value) !== $this->className) {
-            throw new \Exception('Given object is of incorrect class');
+            throw new \TypeError('Given object is of incorrect class');
         }
     }
 }
