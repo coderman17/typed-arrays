@@ -8,9 +8,9 @@ class BlogPost
 {
     protected string $content;
 
-    public function __construct(string $contents)
+    public function __construct(string $content)
     {
-        $this->content = $contents;
+        $this->content = $content;
     }
 
     public function getContent(): string
