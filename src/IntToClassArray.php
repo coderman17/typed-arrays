@@ -4,11 +4,13 @@ declare(strict_types = 1);
 
 namespace TypedArrays;
 
-use TypedArrays\Traits\IntKeyAnyValue;
+use TypedArrays\Traits\IntToAnyMethods;
+use TypedArrays\Traits\AnyToClassMethods;
 
 abstract class IntToClassArray extends TypedKeyValueArray
 {
-    use IntKeyAnyValue;
+    use IntToAnyMethods;
+    use AnyToClassMethods;
 
     protected string $className = '';
 
@@ -24,12 +26,5 @@ abstract class IntToClassArray extends TypedKeyValueArray
         $this->checkClass($value);
 
         array_push($this->items, $value);
-    }
-
-    protected function checkClass(object $value): void
-    {
-        if (get_class($value) !== $this->className) {
-            throw new \TypeError('Given object is of incorrect class');
-        }
     }
 }
