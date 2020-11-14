@@ -1,5 +1,6 @@
 # typed-arrays
-A library of simple classes using PHP's scalar type declarations to control types within arrays
+A library of simple classes using PHP's scalar type declarations to control types within arrays.
+The library uses PHPUnit tests, written to thoroughly check that incorrect types can't be added to the arrays.
 
 ## Pre-requisites
 You must have [composer](https://getcomposer.org/download/) and php >= 7.4 installed.
