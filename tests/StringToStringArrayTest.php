@@ -43,42 +43,26 @@ final class StringToStringArrayTest extends TestCase
     public function testSetItem(): void
     {
         $stringToStringArray = new StringToStringArray();
+
+        //This test checks an exception is thrown rather than letting PHP quietly convert string keys to integers
+        foreach (TestHelpers::STRING_KEYS_PHP_WILL_CAST_AS_INT as $stringKey){
+            TestHelpers::expectExceptionOnSetItem($stringToStringArray, $stringKey, 'a', $this);
+        }
+
+        $this::assertSame(
+            $stringToStringArray->getItems(),
+            []
+        );
+
         //These tests check that PHP isn't quietly converting string keys to integers
-        $stringToStringArray->setItem('0.1', '0.1');        //float from 0          ...as string
-        $stringToStringArray->setItem('2.2', '2.2');        //float from >=1        ...as string
-        $stringToStringArray->setItem('true', 'true');      //bool                  ...as string
-        $stringToStringArray->setItem('false', 'false');    //bool                  ...as string
-        $stringToStringArray->setItem('null', 'null');      //null                  ...as string
-        $stringToStringArray->setItem('a', 'a');            //string                ...as string
-        $stringToStringArray->setItem('2a', '2b');          //int-string            ...as string
-        $stringToStringArray->setItem('a3', 'a3');          //string-int            ...as string
-        $stringToStringArray->setItem('04', '04');          //int, leading zero     ...as string
-        $stringToStringArray->setItem('0x05', '5');         //hexadecimal           ...as string
-        $stringToStringArray->setItem('0b100', '4');        //binary                ...as string
-        $stringToStringArray->setItem('-0', '-4');          //neg 0 (not cast)      ...as string
-        $stringToStringArray->setItem('-0.5', '-4');        //neg float (not cast)  ...as string
-        $stringToStringArray->setItem('-5.5', '-4');        //neg float (not cast)  ...as string
+        foreach (TestHelpers::STRING_KEYS_PHP_WILL_NOT_CAST_AS_INT as $stringKey){
+            $stringToStringArray->setItem($stringKey, 'a');
+        }
 
         foreach ($stringToStringArray->getItems() as $k => $v){
             $this::assertIsString($k);
             $this::assertIsString($v);
         }
-
-        //These tests check an exception is thrown rather than letting PHP quietly convert string keys to integers
-        $this::expectException('Exception');
-        $stringToStringArray->setItem('0', '0');            //zero int              ...as string
-
-        $this::expectException('Exception');
-        $stringToStringArray->setItem('4', '4');            //int                   ...as string
-
-        $this::expectException('Exception');
-        $stringToStringArray->setItem('400', '4');          //larger int            ...as string
-
-        $this::expectException('Exception');
-        $stringToStringArray->setItem('-4', '4');           //neg int               ...as string
-
-        $this::expectException('Exception');
-        $stringToStringArray->setItem('-400', '4');         //neg larger int        ...as string
     }
 
     public function testSetItemKeyIsTypeString(): void
