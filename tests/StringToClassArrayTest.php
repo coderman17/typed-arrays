@@ -84,9 +84,14 @@ final class StringToClassArrayTest extends TestCase
             $extendsStringToClassArray->setItem($stringKey, $a);
         }
 
+        $expectedClass = get_class($a);
+
         foreach ($extendsStringToClassArray->getItems() as $k => $v){
             $this::assertIsString($k);
-            $this::assertIsObject($v);
+            $this::assertSame(
+                get_class($v),
+                $expectedClass
+            );
         }
 
         //This test checks a TypeError exception is thrown if the wrong class is passed to setItem()
