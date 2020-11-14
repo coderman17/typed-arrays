@@ -4,11 +4,11 @@ declare(strict_types = 1);
 
 namespace TypedArrays;
 
-use TypedArrays\Traits\StringKeyAnyValue;
+use TypedArrays\Traits\StringToAnyMethods;
 
 class StringToIntArray extends TypedKeyValueArray
 {
-    use StringKeyAnyValue;
+    use StringToAnyMethods;
 
     public function setItem(string $key, int $value): void
     {
