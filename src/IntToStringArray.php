@@ -6,7 +6,7 @@ namespace TypedArrays;
 
 use TypedArrays\Traits\IntToAnyMethods;
 
-class IntToStringArray extends TypedKeyValueArray
+class IntToStringArray extends KeyToValueArray
 {
     use IntToAnyMethods;
 
