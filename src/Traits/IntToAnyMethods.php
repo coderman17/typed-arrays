@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace TypedArrays\Traits;
 
-trait IntKeyAnyValue
+trait IntToAnyMethods
 {
     public function unsetItem(int $key): void
     {
