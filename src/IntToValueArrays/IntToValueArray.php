@@ -2,9 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace TypedArrays\Traits;
+namespace TypedArrays\IntToValueArrays;
 
-trait IntToAnyMethods
+use TypedArrays\KeyToValueArray;
+
+abstract class IntToValueArray extends KeyToValueArray
 {
     public function unsetItem(int $key): void
     {
