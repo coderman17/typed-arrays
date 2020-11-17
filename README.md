@@ -61,12 +61,12 @@ Fatal error: Uncaught Exception: PHP will silently cast the key '1' to an intege
 */
 ```
 The IntToClassArray and StringToClassArray are abstract, and require a simple class extending them to specify your desired object type,
-as in ['IntToBlogPostArray']().  
+as in ['IntToBlogPostArray'](https://github.com/coderman17/typed-arrays/blob/master/src/Demo/IntToBlogPostArray.php).  
 Just like you can with the scalar type arrays, you can use your extending class as a type declaration in your methods:
 ```
 function show_blog_posts_content(IntToBlogPostArray $intToBlogPostArray): void
 ```  
-You can see a working labelled example of this in ['demo.php']().
+You can see a working labelled example of this in ['demo.php'](https://github.com/coderman17/typed-arrays/blob/master/demo.php).
  
 #### Classes:
 - IntToIntArray
