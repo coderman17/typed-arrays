@@ -2,14 +2,23 @@
 
 declare(strict_types = 1);
 
-namespace Tests;
+namespace Tests\StringToValueArrays;
 
+use TypedArrays\StringToValueArrays\StringToClassArray;
 use PHPUnit\Framework\TestCase;
-use TypedArrays\StringToClassArray;
-
+use Tests\TestHelpers;
 
 final class StringToClassArrayTest extends TestCase
 {
+    protected string $fullyQualifiedClassName;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->fullyQualifiedClassName = 'TypedArrays\StringToValueArrays\StringToClassArray';
+    }
+
     //This sets className property automatically only for testing purposes
     protected function extendStringToClassArray(object $obj): object
     {
@@ -54,7 +63,7 @@ final class StringToClassArrayTest extends TestCase
     public function testUnsetItemKeyIsTypeString(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\StringToClassArray', 'unsetItem', 'key', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this),
             'string'
         );
     }
@@ -102,7 +111,7 @@ final class StringToClassArrayTest extends TestCase
     public function testSetItemKeyIsTypeString(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\StringToClassArray', 'setItem', 'key', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'key', $this),
             'string'
         );
     }
@@ -110,7 +119,7 @@ final class StringToClassArrayTest extends TestCase
     public function testSetItemValueIsTypeObject(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\StringToClassArray', 'setItem', 'value', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'value', $this),
             'object'
         );
     }

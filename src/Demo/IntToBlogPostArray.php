@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace TypedArrays\Demo;
 
-use TypedArrays\IntToClassArray;
+use TypedArrays\IntToValueArrays\IntToClassArray;
 
 class IntToBlogPostArray extends IntToClassArray
 {

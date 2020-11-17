@@ -2,14 +2,23 @@
 
 declare(strict_types = 1);
 
-namespace Tests;
+namespace Tests\IntToValueArrays;
 
+use TypedArrays\IntToValueArrays\IntToStringArray;
 use PHPUnit\Framework\TestCase;
-use TypedArrays\IntToStringArray;
-
+use Tests\TestHelpers;
 
 final class IntToStringArrayTest extends TestCase
 {
+    protected string $fullyQualifiedClassName;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->fullyQualifiedClassName = 'TypedArrays\IntToValueArrays\IntToStringArray';
+    }
+
     //unsetItem:
 
     public function testUnsetItem(): void
@@ -33,7 +42,7 @@ final class IntToStringArrayTest extends TestCase
     public function testUnsetItemKeyIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntToStringArray', 'unsetItem', 'key', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this),
             'int'
         );
     }
@@ -63,7 +72,7 @@ final class IntToStringArrayTest extends TestCase
     public function testSetItemKeyIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntToStringArray', 'setItem', 'key', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'key', $this),
             'int'
         );
     }
@@ -71,7 +80,7 @@ final class IntToStringArrayTest extends TestCase
     public function testSetItemValueIsTypeString(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntToStringArray', 'setItem', 'value', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'value', $this),
             'string'
         );
     }
@@ -93,7 +102,7 @@ final class IntToStringArrayTest extends TestCase
     public function testPushItemValueIsTypeString(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntToStringArray', 'pushItem', 'value', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'pushItem', 'value', $this),
             'string'
         );
     }

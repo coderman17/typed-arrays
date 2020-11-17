@@ -2,17 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace TypedArrays;
+namespace TypedArrays\IntToValueArrays;
 
-use TypedArrays\Traits\IntToAnyMethods;
-use TypedArrays\Traits\AnyToClassMethods;
+use TypedArrays\Traits\KeyToClassMethods;
 
-abstract class IntToClassArray extends KeyToValueArray
+abstract class IntToClassArray extends IntToValueArray
 {
-    use IntToAnyMethods;
-    use AnyToClassMethods;
-
-    protected string $className = '';
+    use KeyToClassMethods;
 
     public function setItem(int $key, object $value): void
     {

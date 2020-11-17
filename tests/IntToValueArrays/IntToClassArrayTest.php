@@ -2,14 +2,23 @@
 
 declare(strict_types = 1);
 
-namespace Tests;
+namespace Tests\IntToValueArrays;
 
+use TypedArrays\IntToValueArrays\IntToClassArray;
 use PHPUnit\Framework\TestCase;
-use TypedArrays\IntToClassArray;
-
+use Tests\TestHelpers;
 
 final class IntToClassArrayTest extends TestCase
 {
+    protected string $fullyQualifiedClassName;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->fullyQualifiedClassName = 'TypedArrays\IntToValueArrays\IntToClassArray';
+    }
+
     //This sets className property automatically only for testing purposes
     protected function extendIntToClassArray(object $obj): object
     {
@@ -54,7 +63,7 @@ final class IntToClassArrayTest extends TestCase
     public function testUnsetItemKeyIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntToClassArray', 'unsetItem', 'key', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this),
             'int'
         );
     }
@@ -85,7 +94,7 @@ final class IntToClassArrayTest extends TestCase
     public function testSetItemKeyIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntToClassArray', 'setItem', 'key', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'key', $this),
             'int'
         );
     }
@@ -93,7 +102,7 @@ final class IntToClassArrayTest extends TestCase
     public function testSetItemValueIsTypeObject(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntToClassArray', 'setItem', 'value', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'value', $this),
             'object'
         );
     }
@@ -124,7 +133,7 @@ final class IntToClassArrayTest extends TestCase
     public function testPushItemValueIsTypeObject(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntToClassArray', 'pushItem', 'value', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'pushItem', 'value', $this),
             'object'
         );
     }

@@ -2,9 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace TypedArrays\Traits;
+namespace TypedArrays\StringToValueArrays;
 
-trait StringToAnyMethods
+use TypedArrays\KeyToValueArray;
+
+abstract class StringToValueArray extends KeyToValueArray
 {
     public function unsetItem(string $key): void
     {
