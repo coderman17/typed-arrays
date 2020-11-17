@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace TypedArrays;
 
-abstract class TypedKeyValueArray implements \Iterator
+abstract class KeyToValueArray implements \Iterator
 {
     protected array $items = [];
 
