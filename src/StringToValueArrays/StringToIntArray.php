@@ -2,14 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace TypedArrays;
+namespace TypedArrays\StringToValueArrays;
 
-use TypedArrays\Traits\StringToAnyMethods;
-
-class StringToIntArray extends KeyToValueArray
+class StringToIntArray extends StringToValueArray
 {
-    use StringToAnyMethods;
-
     public function setItem(string $key, int $value): void
     {
         $this->validateKey($key);

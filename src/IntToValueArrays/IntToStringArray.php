@@ -2,14 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace TypedArrays;
+namespace TypedArrays\IntToValueArrays;
 
-use TypedArrays\Traits\IntToAnyMethods;
-
-class IntToStringArray extends KeyToValueArray
+class IntToStringArray extends IntToValueArray
 {
-    use IntToAnyMethods;
-
     public function setItem(int $key, string $value): void
     {
         $this->items[$key] = $value;

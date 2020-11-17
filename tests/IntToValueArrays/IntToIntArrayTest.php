@@ -2,14 +2,23 @@
 
 declare(strict_types = 1);
 
-namespace Tests;
+namespace Tests\IntToValueArrays;
 
+use TypedArrays\IntToValueArrays\IntToIntArray;
 use PHPUnit\Framework\TestCase;
-use TypedArrays\IntToIntArray;
-
+use Tests\TestHelpers;
 
 final class IntToIntArrayTest extends TestCase
 {
+    protected string $fullyQualifiedClassName;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->fullyQualifiedClassName = 'TypedArrays\IntToValueArrays\IntToIntArray';
+    }
+
     //unsetItem:
 
     public function testUnsetItem(): void
@@ -33,7 +42,7 @@ final class IntToIntArrayTest extends TestCase
     public function testUnsetItemKeyIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntToIntArray', 'unsetItem', 'key', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this),
             'int'
         );
     }
@@ -55,7 +64,7 @@ final class IntToIntArrayTest extends TestCase
     public function testSetItemKeyIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntToIntArray', 'setItem', 'key', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'key', $this),
             'int'
         );
     }
@@ -63,7 +72,7 @@ final class IntToIntArrayTest extends TestCase
     public function testSetItemValueIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntToIntArray', 'setItem', 'value', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'value', $this),
             'int'
         );
     }
@@ -85,7 +94,7 @@ final class IntToIntArrayTest extends TestCase
     public function testPushItemValueIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType('TypedArrays\IntToIntArray', 'pushItem', 'value', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'pushItem', 'value', $this),
             'int'
         );
     }
