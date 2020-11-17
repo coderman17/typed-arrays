@@ -39,4 +39,18 @@ final class KeyToValueArrayTest extends TestCase
             $keyToValueArray->getItems()
         );
     }
+
+    //countable:
+
+    public function testCountable(): void
+    {
+        $keyToValueArray = new class extends KeyToValueArray{};
+        $keyToValueArray->setItems(0, 0);
+        $keyToValueArray->setItems(1, 1);
+        $keyToValueArray->setItems(2, 2);
+        $this::assertSame(
+            count($keyToValueArray),
+            3
+        );
+    }
 }
