@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace TypedArrays;
 
-abstract class KeyToValueArray implements \Iterator
+abstract class KeyToValueArray implements \Iterator, \Countable
 {
     protected array $items = [];
 
@@ -51,6 +51,11 @@ abstract class KeyToValueArray implements \Iterator
     public function rewind(): void
     {
         reset($this->items);
+    }
+
+    public function count(): int
+    {
+        return count($this->items);
     }
 }
 
