@@ -15,4 +15,13 @@ class IntToIntArray extends IntToValueArray
     {
         array_push($this->items, $value);
     }
+
+    /**
+     * @param int $key
+     * @param int $value
+     */
+    public function offsetSet($key, $value)
+    {
+        $this->setItem($key, $value);
+    }
 }

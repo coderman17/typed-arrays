@@ -70,4 +70,38 @@ final class IntToIntArrayTest extends TestCase
             'int'
         );
     }
+
+    //offsetSet:
+
+    public function testOffsetSet(): void
+    {
+        $intToIntArray = new IntToIntArray();
+
+        $intToIntArray[0] = 0;
+
+        $this::assertSame(
+            [
+                0 => 0
+            ],
+            $intToIntArray->getItems()
+        );
+    }
+
+    public function testOffsetSetKeyError(): void
+    {
+        $intToIntArray = new IntToIntArray();
+
+        $this::expectException('TypeError');
+
+        $intToIntArray['0'] = 0;
+    }
+
+    public function testOffsetSetValueError(): void
+    {
+        $intToIntArray = new IntToIntArray();
+
+        $this::expectException('TypeError');
+
+        $intToIntArray[0] = '0';
+    }
 }

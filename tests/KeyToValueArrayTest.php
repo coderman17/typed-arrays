@@ -16,15 +16,30 @@ final class KeyToValueArrayTest extends TestCase
         parent::setUp();
 
         $this->keyToValueArray = new class extends KeyToValueArray{
+            /**
+             * @param $key
+             * @param $value
+             */
             public function setItem($key, $value){
                 $this->items[$key] = $value;
             }
+
+            /**
+             * @param $key
+             * @param $value
+             */
+            public function offsetSet($key, $value){}
+
+            /**
+             * @param $key
+             */
+            public function offsetUnset($key){}
         };
     }
-    
-    //setItem, getItem:
 
-    public function testSetItem(): void
+    //getItem:
+
+    public function testGetItems(): void
     {
         $this->keyToValueArray->setItem(0, 0);
         $this::assertSame(
@@ -40,7 +55,6 @@ final class KeyToValueArrayTest extends TestCase
         $this->keyToValueArray->setItem(0, 0);
         $this->keyToValueArray->setItem("string1", "string2");
         $this->keyToValueArray->setItem(2, true);
-        $string = null;
         $array = [];
         foreach ($this->keyToValueArray as $k => $v){
             $array[$k] = $v;
@@ -61,6 +75,32 @@ final class KeyToValueArrayTest extends TestCase
         $this::assertSame(
             count($this->keyToValueArray),
             3
+        );
+    }
+
+    //2 of the arrayAccess methods implemented on this class:
+
+    public function testOffsetGet(): void
+    {
+        $this->keyToValueArray->setItem(0, 0);
+
+        $this::assertSame(
+            $this->keyToValueArray[0],
+            0
+        );
+    }
+
+    public function testOffsetExists(): void
+    {
+        $this->keyToValueArray->setItem(0, 0);
+        $this::assertSame(
+            isset($this->keyToValueArray[0]),
+            true
+        );
+
+        $this::assertSame(
+            isset($this->keyToValueArray[1]),
+            false
         );
     }
 }

@@ -25,15 +25,11 @@ final class StringToIntArrayTest extends TestCase
     {
         $stringToIntArray = new StringToIntArray();
 
-        //This test checks an exception is thrown rather than letting PHP quietly convert string keys to integers
-        foreach (TestHelpers::STRING_KEYS_PHP_WILL_CAST_AS_INT as $stringKey){
-            TestHelpers::expectExceptionOnSetItem($stringToIntArray, $stringKey, 0, $this);
-        }
+        $setMethod = function ($key, $value) use ($stringToIntArray){
+            $stringToIntArray->setItem($key, $value);
+        };
 
-        $this::assertSame(
-            $stringToIntArray->getItems(),
-            []
-        );
+        TestHelpers::checkForSilentKeyTypeCastingException($setMethod, 0, $this);
 
         //These tests check that PHP isn't quietly converting string keys to integers
         foreach (TestHelpers::STRING_KEYS_PHP_WILL_NOT_CAST_AS_INT as $stringKey){
@@ -60,5 +56,42 @@ final class StringToIntArrayTest extends TestCase
             TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'value', $this),
             'int'
         );
+    }
+
+    //offsetSet:
+
+    public function testOffsetSet(): void
+    {
+        $stringToIntArray = new StringToIntArray();
+
+        $offsetSetMethod = function ($key, $value) use ($stringToIntArray){
+            $stringToIntArray[$key] = $value;
+        };
+
+        TestHelpers::checkForSilentKeyTypeCastingException($offsetSetMethod, 0, $this);
+
+        //These tests check that PHP isn't quietly converting string keys to integers
+        foreach (TestHelpers::STRING_KEYS_PHP_WILL_NOT_CAST_AS_INT as $stringKey){
+            $stringToIntArray[$stringKey] = 0;
+        }
+
+        foreach ($stringToIntArray->getItems() as $k => $v){
+            $this::assertIsString($k);
+            $this::assertIsInt($v);
+        }
+    }
+
+    public function testOffsetSetKeyError(): void
+    {
+        $stringToIntArray = new StringToIntArray();
+        $this::expectException('TypeError');
+        $stringToIntArray[0] = 0;
+    }
+
+    public function testOffsetSetValueError(): void
+    {
+        $stringToIntArray = new StringToIntArray();
+        $this::expectException('TypeError');
+        $stringToIntArray['a'] = '0';
     }
 }

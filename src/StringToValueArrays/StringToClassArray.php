@@ -14,8 +14,17 @@ abstract class StringToClassArray extends StringToValueArray
     {
         $this->checkClass($value);
 
-        $this->validateKey($key);
+        $this->checkForKeyCasting($key);
 
         $this->items[$key] = $value;
+    }
+
+    /**
+     * @param string $key
+     * @param object $value
+     */
+    public function offsetSet($key, $value)
+    {
+        $this->setItem($key, $value);
     }
 }

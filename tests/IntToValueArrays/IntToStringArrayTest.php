@@ -78,4 +78,38 @@ final class IntToStringArrayTest extends TestCase
             'string'
         );
     }
+
+    //offsetSet:
+
+    public function testOffsetSet(): void
+    {
+        $intToStringArray = new IntToStringArray();
+
+        $intToStringArray[0] = '0';
+
+        $this::assertSame(
+            [
+                0 => '0'
+            ],
+            $intToStringArray->getItems()
+        );
+    }
+
+    public function testOffsetSetKeyError(): void
+    {
+        $intToStringArray = new IntToStringArray();
+
+        $this::expectException('TypeError');
+
+        $intToStringArray['0'] = 'a';
+    }
+
+    public function testOffsetSetValueError(): void
+    {
+        $intToStringArray = new IntToStringArray();
+
+        $this::expectException('TypeError');
+
+        $intToStringArray[0] = 0;
+    }
 }
