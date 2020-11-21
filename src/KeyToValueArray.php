@@ -14,15 +14,6 @@ abstract class KeyToValueArray implements \Iterator, \Countable
     }
 
     /**
-     * @param int|string $key
-     * @param mixed $value
-     */
-    public function setItems($key, $value): void
-    {
-        $this->items[$key] = $value;
-    }
-
-    /**
      * @return mixed
      */
     public function current()
