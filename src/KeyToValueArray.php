@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace TypedArrays;
 
-abstract class KeyToValueArray implements \Iterator, \Countable
+abstract class KeyToValueArray implements \Iterator, \Countable, \ArrayAccess
 {
     protected array $items = [];
 
@@ -47,6 +47,24 @@ abstract class KeyToValueArray implements \Iterator, \Countable
     public function count(): int
     {
         return count($this->items);
+    }
+
+    /**
+     * @param int|string $key
+     * @return bool
+     */
+    public function offsetExists($key): bool
+    {
+        return isset($this->items[$key]);
+    }
+
+    /**
+     * @param int|string $key
+     * @return mixed
+     */
+    public function offsetGet($key)
+    {
+        return $this->items[$key];
     }
 }
 

@@ -12,4 +12,18 @@ abstract class IntToValueArray extends KeyToValueArray
     {
         unset($this->items[$key]);
     }
+
+    /**
+     * @param mixed $key
+     * @throws \Exception
+     */
+    public function offsetUnset($key)
+    {
+        //this has to be checked explicitly to avoid PHP type casting
+        if(!is_int($key)){
+            throw new \TypeError('An attempt was made to unset an array with integer keys, using a non-integer');
+        }
+
+        $this->unsetItem($key);
+    }
 }

@@ -8,8 +8,13 @@ class StringToIntArray extends StringToValueArray
 {
     public function setItem(string $key, int $value): void
     {
-        $this->validateKey($key);
+        $this->checkForKeyCasting($key);
 
         $this->items[$key] = $value;
+    }
+
+    public function offsetSet($key, $value)
+    {
+        $this->setItem($key, $value);
     }
 }

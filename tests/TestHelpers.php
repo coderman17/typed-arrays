@@ -37,22 +37,42 @@ class TestHelpers extends TestCase
      * Unlike PHPUnit's expectException, this allows for testing of multiple exceptions thrown from a loop
      * (expectException stops processing after the first exception is thrown)
      *
-     * @param object $arrayObject
-     * @param $key
-     * @param $value
-     * @param object $callingTest
+     * @param callable $method
+     * @param array $args
+     * @param TestCase $callingTest
+     * @return \Exception
      */
-    public static function expectExceptionOnSetItem(object $arrayObject, $key, $value, object $callingTest)
+    public static function expectExceptionOnMethod(callable $method, array $args, TestCase $callingTest): \Exception
     {
         try {
-            $arrayObject->setItem($key, $value);
+            $method(...$args);
         } catch (\Exception $e){
-            return;
+            return $e;
         }
         $callingTest::fail('Expected an exception but one was not thrown');
     }
+
+    /**
+     * This test checks an exception is thrown rather than letting PHP quietly convert string keys to integers
+     *
+     * @param callable $method
+     * @param $value
+     * @param TestCase $callingTest
+     */
+    public static function checkForSilentKeyTypeCastingException(callable $method, $value, TestCase $callingTest)
+    {
+        $keyList = TestHelpers::STRING_KEYS_PHP_WILL_CAST_AS_INT;
+
+        for ($i = 0; $i < count($keyList); $i++){
+            $e = TestHelpers::expectExceptionOnMethod($method, [$keyList[$i], $value], $callingTest);
+            $callingTest::assertSame(
+                substr($e->getMessage(), 0, 38),
+                "PHP was about to silently cast the key"
+            );
+        }
+    }
     
-    public static function getParameterType(string $className, string $methodName, string $parameterName, object $callingTest): string
+    public static function getParameterType(string $className, string $methodName, string $parameterName, TestCase $callingTest): string
     {
         try {
             $setItemMethod = new \ReflectionMethod($className, $methodName);

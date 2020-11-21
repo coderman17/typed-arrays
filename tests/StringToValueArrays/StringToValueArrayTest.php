@@ -26,6 +26,8 @@ final class StringToValueArrayTest extends TestCase
             public function setItem($key, $value){
                 $this->items[$key] = $value;
             }
+
+            public function offsetSet($key, $value){}
         };
 
         $this->fullyQualifiedClassName = 'TypedArrays\StringToValueArrays\StringToValueArray';
@@ -56,5 +58,33 @@ final class StringToValueArrayTest extends TestCase
             TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this),
             'string'
         );
+    }
+
+    //offsetUnset:
+
+    public function testoffsetUnset(): void
+    {
+        $this->stringToValueArray->setItem('a', 0);
+        $this->stringToValueArray->setItem('b', 1);
+        $this->stringToValueArray->setItem('c', 2);
+
+        unset($this->stringToValueArray['b']);
+
+        $this::assertSame(
+            $this->stringToValueArray->getItems(),
+            [
+                'a' => 0,
+                'c' => 2
+            ]
+        );
+    }
+
+    public function testOffsetUnsetKeyError(): void
+    {
+        $this->stringToValueArray->setItem(0, 0);
+
+        $this::expectException('TypeError');
+
+        unset($this->stringToValueArray[0]);
     }
 }

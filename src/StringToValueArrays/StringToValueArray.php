@@ -13,7 +13,20 @@ abstract class StringToValueArray extends KeyToValueArray
         unset($this->items[$key]);
     }
 
-    protected function validateKey(string $key): void
+    /**
+     * @param mixed $key
+     */
+    public function offsetUnset($key)
+    {
+        //this has to be checked explicitly to avoid PHP type casting
+        if(!is_string($key)){
+            throw new \TypeError('An attempt was made to unset an array with string keys, using a non-string');
+        }
+
+        $this->unsetItem($key);
+    }
+
+    protected function checkForKeyCasting(string $key): void
     {
         preg_match('/^[1-9][0-9]+|^[0-9]|^[-][1-9][0-9]*$/', $key, $matches);
 
@@ -23,7 +36,7 @@ abstract class StringToValueArray extends KeyToValueArray
 
         if ($matches[0] === $key) {
             throw new \Exception(
-                "PHP will silently cast the key '" . $key . "' to an integer, violating the key type of string"
+                "PHP was about to silently cast the key '" . $key . "' to an integer, an exception was thrown instead"
             );
         }
     }

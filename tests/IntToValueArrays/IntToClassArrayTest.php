@@ -102,4 +102,51 @@ final class IntToClassArrayTest extends TestCase
             'object'
         );
     }
+
+    //offsetSet:
+
+    public function testoffsetSet(): void
+    {
+        $testClass = new class {};
+
+        $a = new $testClass();
+
+        $extendsIntToClassArray = $this->extendIntToClassArray($a);
+
+        $extendsIntToClassArray[0] = $a;
+
+        $this::assertSame(
+            [
+                0 => $a
+            ],
+            $extendsIntToClassArray->getItems()
+        );
+    }
+
+
+    public function testOffsetSetKeyError(): void
+    {
+        $testClass = new class {};
+
+        $a = new $testClass();
+
+        $extendsIntToClassArray = $this->extendIntToClassArray($a);
+
+        $this::expectException('TypeError');
+
+        $extendsIntToClassArray['0'] = $a;
+    }
+
+    public function testOffsetSetValueError(): void
+    {
+        $testClass = new class {};
+
+        $a = new $testClass();
+
+        $extendsIntToClassArray = $this->extendIntToClassArray($a);
+
+        $this::expectException('TypeError');
+
+        $extendsIntToClassArray[0] = new \stdClass();
+    }
 }
