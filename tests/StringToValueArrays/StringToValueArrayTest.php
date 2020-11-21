@@ -66,7 +66,7 @@ final class StringToValueArrayTest extends TestCase
 
     //offsetUnset:
 
-    public function testoffsetUnset(): void
+    public function testOffsetUnset(): void
     {
         $this->stringToValueArray->setItem('a', 0);
         $this->stringToValueArray->setItem('b', 1);
@@ -85,7 +85,7 @@ final class StringToValueArrayTest extends TestCase
 
     public function testOffsetUnsetKeyError(): void
     {
-        $this->stringToValueArray->setItem(0, 0);
+        $this->stringToValueArray->setItem('0', 0);
 
         $this::expectException('TypeError');
 

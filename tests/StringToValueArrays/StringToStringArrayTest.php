@@ -60,7 +60,7 @@ final class StringToStringArrayTest extends TestCase
 
     //offsetSet:
 
-    public function testoffsetSet(): void
+    public function testOffsetSet(): void
     {
         $stringToStringArray = new StringToStringArray();
 

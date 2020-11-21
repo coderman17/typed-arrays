@@ -66,7 +66,7 @@ final class IntToValueArrayTest extends TestCase
 
     //offsetUnset:
 
-    public function testoffsetUnset(): void
+    public function testOffsetUnset(): void
     {
         $this->intToValueArray->setItem(0, 0);
         $this->intToValueArray->setItem(1, 1);

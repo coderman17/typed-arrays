@@ -81,10 +81,12 @@ final class IntToStringArrayTest extends TestCase
 
     //offsetSet:
 
-    public function testoffsetSet(): void
+    public function testOffsetSet(): void
     {
         $intToStringArray = new IntToStringArray();
+
         $intToStringArray[0] = '0';
+
         $this::assertSame(
             [
                 0 => '0'
@@ -96,14 +98,18 @@ final class IntToStringArrayTest extends TestCase
     public function testOffsetSetKeyError(): void
     {
         $intToStringArray = new IntToStringArray();
+
         $this::expectException('TypeError');
+
         $intToStringArray['0'] = 'a';
     }
 
     public function testOffsetSetValueError(): void
     {
         $intToStringArray = new IntToStringArray();
+
         $this::expectException('TypeError');
+
         $intToStringArray[0] = 0;
     }
 }

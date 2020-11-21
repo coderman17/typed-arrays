@@ -14,7 +14,7 @@ abstract class IntToValueArray extends KeyToValueArray
     }
 
     /**
-     * @param mixed $key
+     * @param int $key
      * @throws \Exception
      */
     public function offsetUnset($key)

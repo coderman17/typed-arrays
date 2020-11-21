@@ -87,7 +87,7 @@ final class StringToClassArrayTest extends TestCase
 
     //offsetSet:
 
-    public function testoffsetSet(): void
+    public function testOffsetSet(): void
     {
         $testClass = new class {};
 

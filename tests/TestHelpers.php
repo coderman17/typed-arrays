@@ -39,10 +39,9 @@ class TestHelpers extends TestCase
      *
      * @param callable $method
      * @param array $args
-     * @param TestCase $callingTest
-     * @return \Exception
+     * @return null|\Exception
      */
-    public static function expectExceptionOnMethod(callable $method, array $args, TestCase $callingTest): ?\Exception
+    public static function expectExceptionOnMethod(callable $method, array $args): ?\Exception
     {
         try {
             $method(...$args);
@@ -57,15 +56,15 @@ class TestHelpers extends TestCase
      * This test checks an exception is thrown rather than letting PHP quietly convert string keys to integers
      *
      * @param callable $method
-     * @param $value
+     * @param $acceptableArrayValue
      * @param TestCase $callingTest
      */
-    public static function checkForSilentKeyTypeCastingException(callable $method, $value, TestCase $callingTest)
+    public static function checkForSilentKeyTypeCastingException(callable $method, $acceptableArrayValue, TestCase $callingTest)
     {
         $keyList = TestHelpers::STRING_KEYS_PHP_WILL_CAST_AS_INT;
 
         for ($i = 0; $i < count($keyList); $i++){
-            $e = TestHelpers::expectExceptionOnMethod($method, [$keyList[$i], $value], $callingTest);
+            $e = TestHelpers::expectExceptionOnMethod($method, [$keyList[$i], $acceptableArrayValue]);
 
             if ($e === null){
                 $callingTest::fail('Expected an exception but one was not thrown');
