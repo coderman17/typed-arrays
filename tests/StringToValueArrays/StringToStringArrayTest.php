@@ -19,34 +19,6 @@ final class StringToStringArrayTest extends TestCase
         $this->fullyQualifiedClassName = 'TypedArrays\StringToValueArrays\StringToStringArray';
     }
 
-    //unsetItem:
-
-    public function testUnsetItem(): void
-    {
-        $stringToStringArray = new StringToStringArray();
-        $stringToStringArray->setItem('a1', 'a2');
-        $stringToStringArray->setItem('b1', 'b2');
-        $stringToStringArray->setItem('c1', 'c2');
-
-        $stringToStringArray->unsetItem('b1');
-
-        $this::assertSame(
-            [
-                'a1' => 'a2',
-                'c1' => 'c2'
-            ],
-            $stringToStringArray->getItems()
-        );
-    }
-
-    public function testUnsetItemKeyIsTypeString(): void
-    {
-        $this::assertSame(
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this),
-            'string'
-        );
-    }
-
     //setItem:
 
     public function testSetItem(): void

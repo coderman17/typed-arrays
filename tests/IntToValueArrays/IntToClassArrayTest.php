@@ -33,41 +33,6 @@ final class IntToClassArrayTest extends TestCase
         };
     }
 
-    //unsetItem:
-
-    public function testUnsetItem(): void
-    {
-        $testClass = new class {};
-
-        $a = new $testClass();
-        $b = new $testClass();
-        $c = new $testClass();
-
-        $extendsIntToClassArray = $this->extendIntToClassArray($a);
-
-        $extendsIntToClassArray->setItem(0, $a);
-        $extendsIntToClassArray->setItem(1, $b);
-        $extendsIntToClassArray->setItem(2, $c);
-
-        $extendsIntToClassArray->unsetItem(1);
-
-        $this::assertSame(
-            [
-                0 => $a,
-                2 => $c
-            ],
-            $extendsIntToClassArray->getItems()
-        );
-    }
-
-    public function testUnsetItemKeyIsTypeInt(): void
-    {
-        $this::assertSame(
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this),
-            'int'
-        );
-    }
-
     //setItem:
 
     public function testSetItem(): void
