@@ -9,15 +9,27 @@ use TypedArrays\KeyToValueArray;
 
 final class KeyToValueArrayTest extends TestCase
 {
+    protected KeyToValueArray $keyToValueArray;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->keyToValueArray = new class extends KeyToValueArray{
+            public function setItem($key, $value){
+                $this->items[$key] = $value;
+            }
+        };
+    }
+    
     //setItem, getItem:
 
     public function testSetItem(): void
     {
-        $keyToValueArray = new class extends KeyToValueArray{};
-        $keyToValueArray->setItems(0, 0);
+        $this->keyToValueArray->setItem(0, 0);
         $this::assertSame(
             [0 => 0],
-            $keyToValueArray->getItems()
+            $this->keyToValueArray->getItems()
         );
     }
 
@@ -25,18 +37,17 @@ final class KeyToValueArrayTest extends TestCase
 
     public function testIterator(): void
     {
-        $keyToValueArray = new class extends KeyToValueArray{};
-        $keyToValueArray->setItems(0, 0);
-        $keyToValueArray->setItems("string1", "string2");
-        $keyToValueArray->setItems(2, true);
+        $this->keyToValueArray->setItem(0, 0);
+        $this->keyToValueArray->setItem("string1", "string2");
+        $this->keyToValueArray->setItem(2, true);
         $string = null;
         $array = [];
-        foreach ($keyToValueArray as $k => $v){
+        foreach ($this->keyToValueArray as $k => $v){
             $array[$k] = $v;
         }
         $this::assertSame(
             $array,
-            $keyToValueArray->getItems()
+            $this->keyToValueArray->getItems()
         );
     }
 
@@ -44,12 +55,11 @@ final class KeyToValueArrayTest extends TestCase
 
     public function testCountable(): void
     {
-        $keyToValueArray = new class extends KeyToValueArray{};
-        $keyToValueArray->setItems(0, 0);
-        $keyToValueArray->setItems(1, 1);
-        $keyToValueArray->setItems(2, 2);
+        $this->keyToValueArray->setItem(0, 0);
+        $this->keyToValueArray->setItem(1, 1);
+        $this->keyToValueArray->setItem(2, 2);
         $this::assertSame(
-            count($keyToValueArray),
+            count($this->keyToValueArray),
             3
         );
     }
