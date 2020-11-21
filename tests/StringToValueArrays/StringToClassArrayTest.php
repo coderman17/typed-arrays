@@ -33,41 +33,6 @@ final class StringToClassArrayTest extends TestCase
         };
     }
 
-    //unsetItem:
-
-    public function testUnsetItem(): void
-    {
-        $testClass = new class {};
-
-        $a = new $testClass();
-        $b = new $testClass();
-        $c = new $testClass();
-
-        $extendsStringToClassArray = $this->extendStringToClassArray($a);
-
-        $extendsStringToClassArray->setItem('a', $a);
-        $extendsStringToClassArray->setItem('b', $b);
-        $extendsStringToClassArray->setItem('c', $c);
-
-        $extendsStringToClassArray->unsetItem('b');
-
-        $this::assertSame(
-            [
-                'a' => $a,
-                'c' => $c
-            ],
-            $extendsStringToClassArray->getItems()
-        );
-    }
-
-    public function testUnsetItemKeyIsTypeString(): void
-    {
-        $this::assertSame(
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this),
-            'string'
-        );
-    }
-
     //setItem:
 
     public function testSetItem(): void

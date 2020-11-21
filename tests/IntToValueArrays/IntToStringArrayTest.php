@@ -19,34 +19,6 @@ final class IntToStringArrayTest extends TestCase
         $this->fullyQualifiedClassName = 'TypedArrays\IntToValueArrays\IntToStringArray';
     }
 
-    //unsetItem:
-
-    public function testUnsetItem(): void
-    {
-        $intToStringArray = new IntToStringArray();
-        $intToStringArray->setItem(0, '0');
-        $intToStringArray->setItem(1, '1');
-        $intToStringArray->setItem(2, '2');
-
-        $intToStringArray->unsetItem(1);
-
-        $this::assertSame(
-            [
-                0 => '0',
-                2 => '2'
-            ],
-            $intToStringArray->getItems()
-        );
-    }
-
-    public function testUnsetItemKeyIsTypeInt(): void
-    {
-        $this::assertSame(
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this),
-            'int'
-        );
-    }
-
     //setItem:
 
     public function testSetItem(): void
