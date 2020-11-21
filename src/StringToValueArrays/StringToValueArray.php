@@ -15,6 +15,7 @@ abstract class StringToValueArray extends KeyToValueArray
 
     /**
      * @param string $key
+     * @throws \TypeError
      */
     public function offsetUnset($key)
     {

@@ -15,7 +15,7 @@ abstract class IntToValueArray extends KeyToValueArray
 
     /**
      * @param int $key
-     * @throws \Exception
+     * @throws \TypeError
      */
     public function offsetUnset($key)
     {
