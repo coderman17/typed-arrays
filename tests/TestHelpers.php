@@ -42,14 +42,15 @@ class TestHelpers extends TestCase
      * @param TestCase $callingTest
      * @return \Exception
      */
-    public static function expectExceptionOnMethod(callable $method, array $args, TestCase $callingTest): \Exception
+    public static function expectExceptionOnMethod(callable $method, array $args, TestCase $callingTest): ?\Exception
     {
         try {
             $method(...$args);
         } catch (\Exception $e){
             return $e;
         }
-        $callingTest::fail('Expected an exception but one was not thrown');
+
+        return null;
     }
 
     /**
@@ -65,6 +66,11 @@ class TestHelpers extends TestCase
 
         for ($i = 0; $i < count($keyList); $i++){
             $e = TestHelpers::expectExceptionOnMethod($method, [$keyList[$i], $value], $callingTest);
+
+            if ($e === null){
+                $callingTest::fail('Expected an exception but one was not thrown');
+            }
+
             $callingTest::assertSame(
                 substr($e->getMessage(), 0, 38),
                 "PHP was about to silently cast the key"

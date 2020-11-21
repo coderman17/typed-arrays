@@ -24,6 +24,10 @@ abstract class IntToClassArray extends IntToValueArray
         array_push($this->items, $value);
     }
 
+    /**
+     * @param int $key
+     * @param object $value
+     */
     public function offsetSet($key, $value)
     {
         $this->setItem($key, $value);

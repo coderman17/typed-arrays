@@ -27,6 +27,10 @@ final class StringToValueArrayTest extends TestCase
                 $this->items[$key] = $value;
             }
 
+            /**
+             * @param $key
+             * @param $value
+             */
             public function offsetSet($key, $value){}
         };
 

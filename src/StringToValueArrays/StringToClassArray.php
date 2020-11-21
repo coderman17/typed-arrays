@@ -19,6 +19,10 @@ abstract class StringToClassArray extends StringToValueArray
         $this->items[$key] = $value;
     }
 
+    /**
+     * @param string $key
+     * @param object $value
+     */
     public function offsetSet($key, $value)
     {
         $this->setItem($key, $value);

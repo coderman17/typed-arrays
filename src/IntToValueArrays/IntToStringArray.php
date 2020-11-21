@@ -16,6 +16,10 @@ class IntToStringArray extends IntToValueArray
         array_push($this->items, $value);
     }
 
+    /**
+     * @param int $key
+     * @param string $value
+     */
     public function offsetSet($key, $value)
     {
         $this->setItem($key, $value);

@@ -27,6 +27,10 @@ final class IntToValueArrayTest extends TestCase
                 $this->items[$key] = $value;
             }
 
+            /**
+             * @param $key
+             * @param $value
+             */
             public function offsetSet($key, $value){}
         };
 

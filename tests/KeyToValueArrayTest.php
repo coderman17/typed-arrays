@@ -16,12 +16,23 @@ final class KeyToValueArrayTest extends TestCase
         parent::setUp();
 
         $this->keyToValueArray = new class extends KeyToValueArray{
+            /**
+             * @param $key
+             * @param $value
+             */
             public function setItem($key, $value){
                 $this->items[$key] = $value;
             }
 
+            /**
+             * @param $key
+             * @param $value
+             */
             public function offsetSet($key, $value){}
 
+            /**
+             * @param $key
+             */
             public function offsetUnset($key){}
         };
     }
