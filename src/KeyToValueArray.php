@@ -48,23 +48,5 @@ abstract class KeyToValueArray implements \Iterator, \Countable, \ArrayAccess
     {
         return count($this->items);
     }
-
-    /**
-     * @param int|string $key
-     * @return bool
-     */
-    public function offsetExists($key): bool
-    {
-        return isset($this->items[$key]);
-    }
-
-    /**
-     * @param int|string $key
-     * @return mixed
-     */
-    public function offsetGet($key)
-    {
-        return $this->items[$key];
-    }
 }
 

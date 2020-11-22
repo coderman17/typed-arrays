@@ -91,4 +91,50 @@ final class IntToValueArrayTest extends TestCase
 
         unset($this->intToValueArray['0']);
     }
+
+    //offsetGet:
+
+    public function testOffsetGet(): void
+    {
+        $this->intToValueArray->setItem(0, 0);
+
+        $this::assertSame(
+            $this->intToValueArray[0],
+            0
+        );
+    }
+
+    public function testOffsetGetKeyError(): void
+    {
+        $this->intToValueArray->setItem(0, 0);
+
+        $this::expectException('TypeError');
+
+        $this->intToValueArray['0'];
+    }
+
+    //offsetExists:
+
+    public function testOffsetExists(): void
+    {
+        $this->intToValueArray->setItem(0, 0);
+        $this::assertSame(
+            isset($this->intToValueArray[0]),
+            true
+        );
+
+        $this::assertSame(
+            isset($this->intToValueArray[1]),
+            false
+        );
+    }
+
+    public function testOffsetExistsKeyError(): void
+    {
+        $this->intToValueArray->setItem(0, 0);
+
+        $this::expectException('TypeError');
+
+        echo isset($this->intToValueArray['0']);
+    }
 }

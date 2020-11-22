@@ -91,4 +91,50 @@ final class StringToValueArrayTest extends TestCase
 
         unset($this->stringToValueArray[0]);
     }
+
+    //offsetGet:
+
+    public function testOffsetGet(): void
+    {
+        $this->stringToValueArray->setItem('0', 0);
+
+        $this::assertSame(
+            $this->stringToValueArray['0'],
+            0
+        );
+    }
+
+    public function testOffsetGetKeyError(): void
+    {
+        $this->stringToValueArray->setItem('0', 0);
+
+        $this::expectException('TypeError');
+
+        $this->stringToValueArray[0];
+    }
+
+    //offsetExists:
+
+    public function testOffsetExists(): void
+    {
+        $this->stringToValueArray->setItem('0', 0);
+        $this::assertSame(
+            isset($this->stringToValueArray['0']),
+            true
+        );
+
+        $this::assertSame(
+            isset($this->stringToValueArray['1']),
+            false
+        );
+    }
+
+    public function testOffsetExistsKeyError(): void
+    {
+        $this->stringToValueArray->setItem('0', 0);
+
+        $this::expectException('TypeError');
+
+        echo isset($this->stringToValueArray[0]);
+    }
 }

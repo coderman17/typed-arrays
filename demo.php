@@ -22,6 +22,9 @@ function show_blog_posts_content(IntToBlogPostArray $intToBlogPostArray): void  
         echo ' - ' . $blogPost->getContent() . "\n";
     }
 
+    echo "\nTyped array contents can be accessed via var[key] format:\n";
+
+    echo ' - ' . $intToBlogPostArray[0]->getContent() . "\n";                       //The IntToBlogPostArray object's contents can be accessed like an array via var[key]
 
     echo "\nThe getItems() method on the typed array object gives:\n";
 
