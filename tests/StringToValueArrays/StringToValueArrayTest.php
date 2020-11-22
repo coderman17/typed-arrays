@@ -118,6 +118,7 @@ final class StringToValueArrayTest extends TestCase
     public function testOffsetExists(): void
     {
         $this->stringToValueArray->setItem('0', 0);
+
         $this::assertSame(
             isset($this->stringToValueArray['0']),
             true

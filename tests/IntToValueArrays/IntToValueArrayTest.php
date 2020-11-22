@@ -118,6 +118,7 @@ final class IntToValueArrayTest extends TestCase
     public function testOffsetExists(): void
     {
         $this->intToValueArray->setItem(0, 0);
+
         $this::assertSame(
             isset($this->intToValueArray[0]),
             true
