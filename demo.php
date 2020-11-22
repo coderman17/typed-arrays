@@ -18,13 +18,17 @@ function show_blog_posts_content(IntToBlogPostArray $intToBlogPostArray): void  
 {                                                                                   //The array object can be used with assurance that it will only contain int keys and BlogPost objects
     echo "\nThe contents of the BlogPosts in the typed array object are:\n";
 
-    foreach ($intToBlogPostArray as $blogPost) {                                    //The IntToBlogPostArray object can be used like an array in a foreach loop
+    foreach ($intToBlogPostArray as $blogPost) {                                    //The arrays implement Iterator, so they can be used like an array in a foreach loop
         echo ' - ' . $blogPost->getContent() . "\n";
     }
 
     echo "\nTyped array contents can be accessed via var[key] format:\n";
 
-    echo ' - ' . $intToBlogPostArray[0]->getContent() . "\n";                       //The IntToBlogPostArray object's contents can be accessed like an array via var[key]
+    echo ' - ' . $intToBlogPostArray[0]->getContent() . "\n";                       //The arrays implement ArrayAccess, so isset(), unset(), and getting/setting values are possible via the var[key] format
+
+    echo "\nTyped array contents can be counted just like an array:\n";
+
+    echo 'Number of items in the array: ' . count($intToBlogPostArray) . "\n";      //The arrays implement Countable so can be counted just like an array
 
     echo "\nThe getItems() method on the typed array object gives:\n";
 
