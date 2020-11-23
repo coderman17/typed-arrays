@@ -74,7 +74,7 @@ You can see a working labelled example of this and other features here: ['demo.p
 - IntToClassArray
 - StringToIntArray
 - StringToStringArray
-- StringToClassArray (coming soon)
+- StringToClassArray
 
 #### Note:
 If you don't add `declare(strict_types = 1);` to the top of the files from which you call TypedArray methods, then PHP
