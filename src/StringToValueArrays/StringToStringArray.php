@@ -6,6 +6,11 @@ namespace TypedArrays\StringToValueArrays;
 
 class StringToStringArray extends StringToValueArray
 {
+    /**
+     * @param string $key
+     * @param string $value
+     * @throws \Exception
+     */
     public function setItem(string $key, string $value): void
     {
         $this->checkForKeyCasting($key);
@@ -16,6 +21,10 @@ class StringToStringArray extends StringToValueArray
     /**
      * @param string $key
      * @param string $value
+     * @throws \Exception
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
      */
     public function offsetSet($key, $value)
     {

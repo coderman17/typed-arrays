@@ -6,7 +6,6 @@ namespace Tests\IntToValueArrays;
 
 use TypedArrays\IntToValueArrays\IntToValueArray;
 use PHPUnit\Framework\TestCase;
-use Tests\TestHelpers;
 
 final class IntToValueArrayTest extends TestCase
 {

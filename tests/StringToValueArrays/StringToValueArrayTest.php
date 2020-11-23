@@ -6,7 +6,6 @@ namespace Tests\StringToValueArrays;
 
 use TypedArrays\StringToValueArrays\StringToValueArray;
 use PHPUnit\Framework\TestCase;
-use Tests\TestHelpers;
 
 final class StringToValueArrayTest extends TestCase
 {

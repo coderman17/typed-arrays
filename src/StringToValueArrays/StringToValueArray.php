@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 declare(strict_types = 1);
 
@@ -11,6 +11,9 @@ abstract class StringToValueArray extends KeyToValueArray
     /**
      * @param string $key
      * @throws \TypeError
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
      */
     public function offsetUnset($key)
     {
@@ -23,8 +26,11 @@ abstract class StringToValueArray extends KeyToValueArray
 
     /**
      * @param string $key
-     * @throws \TypeError
      * @return bool
+     * @throws \TypeError
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
      */
     public function offsetExists($key): bool
     {
@@ -39,6 +45,9 @@ abstract class StringToValueArray extends KeyToValueArray
      * @param string $key
      * @throws \TypeError
      * @return mixed
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
      */
     public function offsetGet($key)
     {
@@ -49,6 +58,10 @@ abstract class StringToValueArray extends KeyToValueArray
         return $this->items[$key];
     }
 
+    /**
+     * @param string $key
+     * @throws \Exception
+     */
     protected function checkForKeyCasting(string $key): void
     {
         preg_match('/^[1-9][0-9]+|^[0-9]|^[-][1-9][0-9]*$/', $key, $matches);

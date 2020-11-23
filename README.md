@@ -21,7 +21,7 @@ Then run `composer update`
 ## Use
 The use of the scalar typed arrays is straightforward - simply create a new instance of the class and rest assured it
 will only contain the types you expect.  
-You can also use the class as a type declaration in your methods, to be certain that incoming array variables are of
+You can also use the class as a type declaration in your methods, to be certain incoming array variables are of
 the correct key and value type:
 ```
 $intToStringArray = new IntToStringArray();

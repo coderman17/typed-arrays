@@ -19,6 +19,9 @@ class IntToStringArray extends IntToValueArray
     /**
      * @param int $key
      * @param string $value
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
      */
     public function offsetSet($key, $value)
     {

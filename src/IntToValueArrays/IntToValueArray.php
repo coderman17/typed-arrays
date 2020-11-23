@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 declare(strict_types = 1);
 
@@ -11,6 +11,9 @@ abstract class IntToValueArray extends KeyToValueArray
     /**
      * @param int $key
      * @throws \TypeError
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
      */
     public function offsetUnset($key)
     {
@@ -23,8 +26,11 @@ abstract class IntToValueArray extends KeyToValueArray
 
     /**
      * @param int $key
-     * @throws \TypeError
      * @return bool
+     * @throws \TypeError
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
      */
     public function offsetExists($key): bool
     {
@@ -39,6 +45,9 @@ abstract class IntToValueArray extends KeyToValueArray
      * @param int $key
      * @throws \TypeError
      * @return mixed
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
      */
     public function offsetGet($key)
     {
