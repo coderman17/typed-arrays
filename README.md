@@ -99,6 +99,7 @@ $x->setItem('0', '0');
 ```
 This still guarantees the type of the values stored in the `items` array,
 but allowing PHP to magically convert your variable type is rather against the spirit of this project, and I'd recommend you convert types explicitly if necessary.
+The project defends against this when using the `$x[1] = 'string'` format, and will throw a type error
 ## Explanation of Design Choices
 These classes implement the following to allow you to treat the object instances as if they were arrays:
 * PHP's [Countable interface](https://www.php.net/manual/en/class.countable) - allowing you to use `count($intToIntArray)`
