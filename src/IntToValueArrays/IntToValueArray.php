@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 declare(strict_types = 1);
 
@@ -8,28 +8,29 @@ use TypedArrays\KeyToValueArray;
 
 abstract class IntToValueArray extends KeyToValueArray
 {
-    public function unsetItem(int $key): void
-    {
-        unset($this->items[$key]);
-    }
-
     /**
      * @param int $key
      * @throws \TypeError
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
      */
-    public function offsetUnset($key)
+    public function offsetUnset($key): void
     {
         if(!is_int($key)){
             throw new \TypeError('An attempt was made to unset an array with integer keys, using a non-integer');
         }
 
-        $this->unsetItem($key);
+        unset($this->items[$key]);
     }
 
     /**
      * @param int $key
-     * @throws \TypeError
      * @return bool
+     * @throws \TypeError
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
      */
     public function offsetExists($key): bool
     {
@@ -44,6 +45,9 @@ abstract class IntToValueArray extends KeyToValueArray
      * @param int $key
      * @throws \TypeError
      * @return mixed
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
      */
     public function offsetGet($key)
     {

@@ -10,6 +10,11 @@ abstract class StringToClassArray extends StringToValueArray
 {
     use KeyToClassMethods;
 
+    /**
+     * @param string $key
+     * @param object $value
+     * @throws \Exception
+     */
     public function setItem(string $key, object $value): void
     {
         $this->checkClass($value);
@@ -22,8 +27,12 @@ abstract class StringToClassArray extends StringToValueArray
     /**
      * @param string $key
      * @param object $value
+     * @throws \Exception
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
      */
-    public function offsetSet($key, $value)
+    public function offsetSet($key, $value): void
     {
         $this->setItem($key, $value);
     }

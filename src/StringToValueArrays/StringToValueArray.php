@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 declare(strict_types = 1);
 
@@ -8,29 +8,29 @@ use TypedArrays\KeyToValueArray;
 
 abstract class StringToValueArray extends KeyToValueArray
 {
-    public function unsetItem(string $key): void
+    /**
+     * @param string $key
+     * @throws \TypeError
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
+     */
+    public function offsetUnset($key): void
     {
+        if(!is_string($key)){
+            throw new \TypeError('An attempt was made to unset an array with string keys, using a non-string');
+        }
+
         unset($this->items[$key]);
     }
 
     /**
      * @param string $key
-     * @throws \TypeError
-     */
-    public function offsetUnset($key)
-    {
-        //this has to be checked explicitly to avoid PHP type casting
-        if(!is_string($key)){
-            throw new \TypeError('An attempt was made to unset an array with string keys, using a non-string');
-        }
-
-        $this->unsetItem($key);
-    }
-
-    /**
-     * @param string $key
-     * @throws \TypeError
      * @return bool
+     * @throws \TypeError
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
      */
     public function offsetExists($key): bool
     {
@@ -45,6 +45,9 @@ abstract class StringToValueArray extends KeyToValueArray
      * @param string $key
      * @throws \TypeError
      * @return mixed
+     *
+     * Implements ArrayAccess so cannot add param type:
+     * @noinspection PhpMissingParamTypeInspection
      */
     public function offsetGet($key)
     {
@@ -55,6 +58,10 @@ abstract class StringToValueArray extends KeyToValueArray
         return $this->items[$key];
     }
 
+    /**
+     * @param string $key
+     * @throws \Exception
+     */
     protected function checkForKeyCasting(string $key): void
     {
         preg_match('/^[1-9][0-9]+|^[0-9]|^[-][1-9][0-9]*$/', $key, $matches);
