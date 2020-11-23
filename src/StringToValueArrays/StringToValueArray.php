@@ -15,7 +15,7 @@ abstract class StringToValueArray extends KeyToValueArray
      * Implements ArrayAccess so cannot add param type:
      * @noinspection PhpMissingParamTypeInspection
      */
-    public function offsetUnset($key)
+    public function offsetUnset($key): void
     {
         if(!is_string($key)){
             throw new \TypeError('An attempt was made to unset an array with string keys, using a non-string');

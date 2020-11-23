@@ -8,6 +8,10 @@ trait KeyToClassMethods
 {
     protected string $className = '';
 
+    /**
+     * @param object $value
+     * @throws \TypeError
+     */
     protected function checkClass(object $value): void
     {
         if (get_class($value) !== $this->className) {

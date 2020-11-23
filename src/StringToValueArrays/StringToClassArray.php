@@ -32,7 +32,7 @@ abstract class StringToClassArray extends StringToValueArray
      * Implements ArrayAccess so cannot add param type:
      * @noinspection PhpMissingParamTypeInspection
      */
-    public function offsetSet($key, $value)
+    public function offsetSet($key, $value): void
     {
         $this->setItem($key, $value);
     }
