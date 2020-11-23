@@ -8,23 +8,17 @@ use TypedArrays\KeyToValueArray;
 
 abstract class StringToValueArray extends KeyToValueArray
 {
-    public function unsetItem(string $key): void
-    {
-        unset($this->items[$key]);
-    }
-
     /**
      * @param string $key
      * @throws \TypeError
      */
     public function offsetUnset($key)
     {
-        //this has to be checked explicitly to avoid PHP type casting
         if(!is_string($key)){
             throw new \TypeError('An attempt was made to unset an array with string keys, using a non-string');
         }
 
-        $this->unsetItem($key);
+        unset($this->items[$key]);
     }
 
     /**

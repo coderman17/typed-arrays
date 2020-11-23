@@ -37,33 +37,6 @@ final class IntToValueArrayTest extends TestCase
         $this->fullyQualifiedClassName = 'TypedArrays\IntToValueArrays\IntToValueArray';
     }
 
-    //unsetItem:
-
-    public function testUnsetItem(): void
-    {
-        $this->intToValueArray->setItem(0, 0);
-        $this->intToValueArray->setItem(1, 1);
-        $this->intToValueArray->setItem(2, 2);
-
-        $this->intToValueArray->unsetItem(1);
-
-        $this::assertSame(
-            [
-                0 => 0,
-                2 => 2
-            ],
-            $this->intToValueArray->getItems()
-        );
-    }
-
-    public function testUnsetItemKeyIsTypeInt(): void
-    {
-        $this::assertSame(
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this),
-            'int'
-        );
-    }
-
     //offsetUnset:
 
     public function testOffsetUnset(): void
