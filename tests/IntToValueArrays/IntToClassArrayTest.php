@@ -137,7 +137,20 @@ final class IntToClassArrayTest extends TestCase
         $extendsIntToClassArray['0'] = $a;
     }
 
-    public function testOffsetSetValueError(): void
+    public function testOffsetSetValueTypeError(): void
+    {
+        $testClass = new class {};
+
+        $a = new $testClass();
+
+        $extendsIntToClassArray = $this->extendIntToClassArray($a);
+
+        $this::expectException('TypeError');
+
+        $extendsIntToClassArray[0] = true;
+    }
+
+    public function testOffsetSetValueClassError(): void
     {
         $testClass = new class {};
 

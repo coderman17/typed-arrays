@@ -8,6 +8,11 @@ use TypedArrays\KeyToValueArray;
 
 abstract class StringToValueArray extends KeyToValueArray
 {
+    public function unsetItem(string $key): void
+    {
+        unset($this->items[$key]);
+    }
+
     /**
      * @param string $key
      * @throws \TypeError

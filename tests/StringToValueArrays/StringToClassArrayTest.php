@@ -130,7 +130,20 @@ final class StringToClassArrayTest extends TestCase
         $extendsStringToClassArray[0] = $a;
     }
 
-    public function testOffsetSetValueError(): void
+    public function testOffsetSetValueTypeError(): void
+    {
+        $testClass = new class {};
+
+        $a = new $testClass();
+
+        $extendsStringToClassArray = $this->extendStringToClassArray($a);
+
+        $this::expectException('TypeError');
+
+        $extendsStringToClassArray['a'] = true;
+    }
+
+    public function testOffsetSetValueClassError(): void
     {
         $testClass = new class {};
 
