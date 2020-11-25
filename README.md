@@ -1,6 +1,14 @@
 # typed-arrays
-A library of simple classes using PHP's type declarations to control types within arrays.
+A PHP library of simple classes to control types within arrays. The project uses a *Key*To*Value*Array naming format (e.g. IntToStringArray) to let you specify both the key and value type.  
 The library uses PHPUnit tests, written to thoroughly check incorrect types can't be added to the arrays.
+
+#### Classes:
+- IntToIntArray
+- IntToStringArray
+- IntToClassArray
+- StringToIntArray
+- StringToStringArray
+- StringToClassArray
 
 ## Pre-requisites
 You must have [composer](https://getcomposer.org/download/) and php >= 7.4 installed.
@@ -14,7 +22,7 @@ Add this to your composer.json file:
     }
   ],
   "require": {
-    "coderman17/typed-arrays": "dev-master"
+    "coderman17/typed-arrays": "0.2.0"
   }
 ```
 Then run `composer update`
@@ -68,13 +76,7 @@ function show_blog_posts_content(IntToBlogPostArray $intToBlogPostArray): void
 ```  
 You can see a working labelled example of this and other features here: ['demo.php'](https://github.com/coderman17/typed-arrays/blob/master/demo.php).
  
-#### Classes:
-- IntToIntArray
-- IntToStringArray
-- IntToClassArray
-- StringToIntArray
-- StringToStringArray
-- StringToClassArray
+
 
 #### Note:
 If you don't add `declare(strict_types = 1);` to the top of the files from which you call TypedArray methods, then PHP
