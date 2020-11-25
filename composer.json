@@ -1,14 +1,12 @@
 {
 	"name": "coderman17/typed-arrays",
-	"description": "A library using PHP's scalar type declarations to control types within arrays",
+	"description": "A PHP library to control types within arrays",
 	"minimum-stability": "stable",
 	"type": "library",
 	"keywords": [
 		"php",
 		"typed",
 		"array",
-		"scalar",
-		"type",
 		"declarations"
 	],
 	"homepage": "https://github.com/coderman17/typed-arrays",
