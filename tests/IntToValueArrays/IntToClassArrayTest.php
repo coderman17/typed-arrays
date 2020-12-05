@@ -99,7 +99,7 @@ final class IntToClassArrayTest extends TestCase
     {
         $this::assertSame(
             'object',
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'pushItem', 'value', $this),
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'pushItem', 'value', $this)
         );
     }
 
