@@ -59,8 +59,8 @@ final class IntToValueArrayTest extends TestCase
     public function testUnsetItemKeyIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this),
-            'int'
+            'int',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this)
         );
     }
 
@@ -75,11 +75,11 @@ final class IntToValueArrayTest extends TestCase
         unset($this->intToValueArray[1]);
 
         $this::assertSame(
-            $this->intToValueArray->getItems(),
             [
                 0 => 0,
                 2 => 2
-            ]
+            ],
+            $this->intToValueArray->getItems()
         );
     }
 
@@ -99,8 +99,8 @@ final class IntToValueArrayTest extends TestCase
         $this->intToValueArray->setItem(0, 0);
 
         $this::assertSame(
-            $this->intToValueArray[0],
-            0
+            0,
+            $this->intToValueArray[0]
         );
     }
 
@@ -120,13 +120,13 @@ final class IntToValueArrayTest extends TestCase
         $this->intToValueArray->setItem(0, 0);
 
         $this::assertSame(
-            isset($this->intToValueArray[0]),
-            true
+            true,
+            isset($this->intToValueArray[0])
         );
 
         $this::assertSame(
-            isset($this->intToValueArray[1]),
-            false
+            false,
+            isset($this->intToValueArray[1])
         );
     }
 

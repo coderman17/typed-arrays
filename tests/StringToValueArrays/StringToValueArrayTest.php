@@ -59,8 +59,8 @@ final class StringToValueArrayTest extends TestCase
     public function testUnsetItemKeyIsTypeString(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this),
-            'string'
+            'string',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this)
         );
     }
 
@@ -75,11 +75,11 @@ final class StringToValueArrayTest extends TestCase
         unset($this->stringToValueArray['b']);
 
         $this::assertSame(
-            $this->stringToValueArray->getItems(),
             [
                 'a' => 0,
                 'c' => 2
-            ]
+            ],
+            $this->stringToValueArray->getItems()
         );
     }
 
@@ -99,8 +99,8 @@ final class StringToValueArrayTest extends TestCase
         $this->stringToValueArray->setItem('0', 0);
 
         $this::assertSame(
-            $this->stringToValueArray['0'],
-            0
+            0,
+            $this->stringToValueArray['0']
         );
     }
 
@@ -120,13 +120,13 @@ final class StringToValueArrayTest extends TestCase
         $this->stringToValueArray->setItem('0', 0);
 
         $this::assertSame(
-            isset($this->stringToValueArray['0']),
-            true
+            true,
+            isset($this->stringToValueArray['0'])
         );
 
         $this::assertSame(
-            isset($this->stringToValueArray['1']),
-            false
+            false,
+            isset($this->stringToValueArray['1'])
         );
     }
 

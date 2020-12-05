@@ -59,8 +59,8 @@ final class StringToClassArrayTest extends TestCase
         foreach ($extendsStringToClassArray->getItems() as $k => $v){
             $this::assertIsString($k);
             $this::assertSame(
-                get_class($v),
-                $expectedClass
+                $expectedClass,
+                get_class($v)
             );
         }
 
@@ -72,16 +72,16 @@ final class StringToClassArrayTest extends TestCase
     public function testSetItemKeyIsTypeString(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'key', $this),
-            'string'
+            'string',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'key', $this)
         );
     }
 
     public function testSetItemValueIsTypeObject(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'value', $this),
-            'object'
+            'object',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'value', $this)
         );
     }
 
@@ -111,8 +111,8 @@ final class StringToClassArrayTest extends TestCase
         foreach ($extendsStringToClassArray->getItems() as $k => $v){
             $this::assertIsString($k);
             $this::assertSame(
-                get_class($v),
-                $expectedClass
+                $expectedClass,
+                get_class($v)
             );
         }
     }

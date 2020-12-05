@@ -71,8 +71,8 @@ class TestHelpers extends TestCase
             }
 
             $callingTest::assertSame(
-                substr($e->getMessage(), 0, 38),
-                "PHP was about to silently cast the key"
+                "PHP was about to silently cast the key",
+                substr($e->getMessage(), 0, 38)
             );
         }
     }
