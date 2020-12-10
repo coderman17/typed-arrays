@@ -15,7 +15,7 @@ trait KeyToClassMethods
     protected function checkClass(object $value): void
     {
         if (get_class($value) !== $this->className) {
-            throw new \TypeError('Given object is of incorrect class');
+            throw new \TypeError('Expected an object of class "' . $this->className . '", but received one of class "' . get_class($value) . '"');
         }
     }
 }
