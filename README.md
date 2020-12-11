@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/coderman17/typed-arrays.svg?branch=master)](https://travis-ci.com/coderman17/typed-arrays)
 # typed-arrays
 A PHP library of simple classes to control types within arrays. The project uses a *Key*To*Value*Array naming format (e.g. IntToStringArray) to let you specify both the key and value type.  
 The library uses PHPUnit tests, written to thoroughly check incorrect types can't be added to the arrays.
