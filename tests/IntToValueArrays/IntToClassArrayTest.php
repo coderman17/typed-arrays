@@ -59,16 +59,16 @@ final class IntToClassArrayTest extends TestCase
     public function testSetItemKeyIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'key', $this),
-            'int'
+            'int',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'key', $this)
         );
     }
 
     public function testSetItemValueIsTypeObject(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'value', $this),
-            'object'
+            'object',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'value', $this)
         );
     }
 
@@ -98,8 +98,8 @@ final class IntToClassArrayTest extends TestCase
     public function testPushItemValueIsTypeObject(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'pushItem', 'value', $this),
-            'object'
+            'object',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'pushItem', 'value', $this)
         );
     }
 

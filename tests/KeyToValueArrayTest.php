@@ -83,8 +83,8 @@ final class KeyToValueArrayTest extends TestCase
         $this->keyToValueArray->setItem(1, 1);
         $this->keyToValueArray->setItem(2, 2);
         $this::assertSame(
-            count($this->keyToValueArray),
-            3
+            3,
+            count($this->keyToValueArray)
         );
     }
 }

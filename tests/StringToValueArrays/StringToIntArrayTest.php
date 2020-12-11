@@ -45,16 +45,16 @@ final class StringToIntArrayTest extends TestCase
     public function testSetItemKeyIsTypeString(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'key', $this),
-            'string'
+            'string',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'key', $this)
         );
     }
 
     public function testSetItemValueIsTypeInt(): void
     {
         $this::assertSame(
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'value', $this),
-            'int'
+            'int',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'value', $this)
         );
     }
 
