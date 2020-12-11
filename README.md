@@ -1,6 +1,14 @@
 # typed-arrays
-A library of simple classes using PHP's scalar type declarations to control types within arrays.
+A PHP library of simple classes to control types within arrays. The project uses a *Key*To*Value*Array naming format (e.g. IntToStringArray) to let you specify both the key and value type.  
 The library uses PHPUnit tests, written to thoroughly check incorrect types can't be added to the arrays.
+
+#### Classes:
+- IntToIntArray
+- IntToStringArray
+- IntToClassArray
+- StringToIntArray
+- StringToStringArray
+- StringToClassArray
 
 ## Pre-requisites
 You must have [composer](https://getcomposer.org/download/) and php >= 7.4 installed.
@@ -14,14 +22,14 @@ Add this to your composer.json file:
     }
   ],
   "require": {
-    "coderman17/typed-arrays": "dev-master"
+    "coderman17/typed-arrays": "0.2.0"
   }
 ```
 Then run `composer update`
 ## Use
 The use of the scalar typed arrays is straightforward - simply create a new instance of the class and rest assured it
 will only contain the types you expect.  
-You can also use the class as a type declaration in your methods, to be certain incoming array variables are of
+You can also use the class as a type declaration in your methods, to be certain incoming arrays are of
 the correct key and value type:
 ```
 $intToStringArray = new IntToStringArray();
@@ -57,24 +65,18 @@ polluting the array with types you didn't expect:
 $stringToIntArray->setItem('1', 1);
 
 /*
-Fatal error: Uncaught Exception: PHP will silently cast the key '1' to an integer, violating the key type of string
+Fatal error: Uncaught Exception: PHP will silently cast the key '1' to an integer, an exception was thrown instead
 */
 ```
-The IntToClassArray and StringToClassArray are abstract, and require a simple class extending them to specify your desired object type,
+The IntToClassArray and StringToClassArray classes are abstract, and require a simple class extending them to specify your desired object type,
 as in ['IntToBlogPostArray'](https://github.com/coderman17/typed-arrays/blob/master/src/Demo/IntToBlogPostArray.php).  
-Just like you can with the scalar type arrays, you can use your extending class as a type declaration in your methods:
+Just like you can with the scalar typed arrays, you can use your extending class as a type declaration in your methods:
 ```
 function show_blog_posts_content(IntToBlogPostArray $intToBlogPostArray): void
 ```  
-You can see a working labelled example of this in ['demo.php'](https://github.com/coderman17/typed-arrays/blob/master/demo.php).
+You can see a working labelled example of this and other features here: ['demo.php'](https://github.com/coderman17/typed-arrays/blob/master/demo.php).
  
-#### Classes:
-- IntToIntArray
-- IntToStringArray
-- IntToClassArray
-- StringToIntArray
-- StringToStringArray
-- StringToClassArray (coming soon)
+
 
 #### Note:
 If you don't add `declare(strict_types = 1);` to the top of the files from which you call TypedArray methods, then PHP
@@ -98,7 +100,8 @@ $x->setItem('0', '0');
 */
 ```
 This still guarantees the type of the values stored in the `items` array,
-but allowing PHP to magically convert your variable type is rather against the spirit of this project, and I'd recommend you convert types explicitly if necessary.
+but allowing PHP to magically convert your variable type is rather against the spirit of this project, and I'd recommend you convert types explicitly if necessary.  
+The project defends against this when using the `$x[1] = 'string'` format, and will throw a type error
 ## Explanation of Design Choices
 These classes implement the following to allow you to treat the object instances as if they were arrays:
 * PHP's [Countable interface](https://www.php.net/manual/en/class.countable) - allowing you to use `count($intToIntArray)`
