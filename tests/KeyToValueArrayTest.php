@@ -87,4 +87,11 @@ final class KeyToValueArrayTest extends TestCase
             3
         );
     }
+
+    //Fail on purpose for travis test:
+
+    public function testFail(): void
+    {
+        $this::fail('failed on purpose');
+    }
 }
