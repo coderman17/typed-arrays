@@ -59,17 +59,14 @@ final class IntToIntArrayTest extends TestCase
     {
         $this->array->setItem(0, 0);
 
-        $this::assertSame(
-            [
-                0 => 0
-            ],
-            $this->array->getItems()
-        );
+        $this->array->setItem(1, 1);
 
         $this->array->unsetItem(0);
 
         $this::assertSame(
-            [],
+            [
+                1 => 1
+            ],
             $this->array->getItems()
         );
     }
