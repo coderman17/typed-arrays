@@ -78,6 +78,34 @@ final class IntToClassArrayTest extends TestCase
         );
     }
 
+    //unsetItem:
+
+    public function testUnsetItem(): void
+    {
+        $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
+
+        $secondPermittedClassObject = new $this->permittedClassObject();
+
+        $this->extendsTypedArray->setItem(1, $secondPermittedClassObject);
+
+        $this->extendsTypedArray->unsetItem(0);
+
+        $this::assertSame(
+            [
+                1 => $secondPermittedClassObject
+            ],
+            $this->extendsTypedArray->getItems()
+        );
+    }
+
+    public function testUnsetItemKeyIsTypeInt(): void
+    {
+        $this::assertSame(
+            'int',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this)
+        );
+    }
+
     //pushItem:
 
     public function testPushItem(): void
@@ -121,7 +149,6 @@ final class IntToClassArrayTest extends TestCase
         );
     }
 
-
     public function testOffsetSetKeyError(): void
     {
         $this::expectException('TypeError');
@@ -141,5 +168,100 @@ final class IntToClassArrayTest extends TestCase
         $this::expectException('TypeError');
 
         $this->extendsTypedArray[0] = new \stdClass();
+    }
+
+    //offsetGet:
+
+    public function testOffsetGet(): void
+    {
+        $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
+
+        $this::assertSame(
+            $this->permittedClassObject,
+            $this->extendsTypedArray[0]
+        );
+    }
+
+    public function testOffsetGetKeyError(): void
+    {
+        $this::expectException('TypeError');
+
+        echo $this->extendsTypedArray['0'];
+    }
+
+    //offsetUnset:
+
+    public function testOffsetUnset(): void
+    {
+        $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
+
+        $secondPermittedClassObject = new $this->permittedClassObject();
+
+        $this->extendsTypedArray->setItem(1, $secondPermittedClassObject);
+
+        unset($this->extendsTypedArray[0]);
+
+        $this::assertSame(
+            [
+                1 => $secondPermittedClassObject
+            ],
+            $this->extendsTypedArray->getItems()
+        );
+    }
+
+    public function testOffsetUnsetKeyError(): void
+    {
+        $this::expectException('TypeError');
+
+        unset($this->extendsTypedArray['0']);
+    }
+
+    //offsetExists:
+
+    public function testOffsetExists(): void
+    {
+        $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
+
+        $this::assertSame(
+            true,
+            isset($this->extendsTypedArray[0])
+        );
+    }
+
+    public function testOffsetExistsKeyError(): void
+    {
+        $this::expectException('TypeError');
+
+        echo isset($this->extendsTypedArray['0']);
+    }
+
+    //countable:
+
+    public function testCountable(): void
+    {
+        $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
+
+        $this::assertSame(
+            1,
+            count($this->extendsTypedArray)
+        );
+    }
+
+    //Iterator:
+
+    public function testIterator(): void
+    {
+        $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
+
+        foreach ($this->extendsTypedArray as $key => $value) {
+            $this::assertSame(
+                0,
+                $key
+            );
+            $this::assertSame(
+                $this->permittedClassObject,
+                $value
+            );
+        }
     }
 }
