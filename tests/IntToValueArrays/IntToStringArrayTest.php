@@ -12,23 +12,26 @@ final class IntToStringArrayTest extends TestCase
 {
     protected string $fullyQualifiedClassName;
 
+    protected IntToStringArray $array;
+
     public function setUp(): void
     {
         parent::setUp();
 
         $this->fullyQualifiedClassName = 'TypedArrays\IntToValueArrays\IntToStringArray';
+
+        $this->array = new IntToStringArray();
     }
 
     //setItem:
 
     public function testSetItem(): void
     {
-        $intToStringArray = new IntToStringArray();
-        $intToStringArray->setItem(0, '0');
-        $intToStringArray->setItem(1, '1.0');
-        $intToStringArray->setItem(2, 'two');
-        $intToStringArray->setItem(3, 'false');
-        $intToStringArray->setItem(4, 'null');
+        $this->array->setItem(0, '0');
+        $this->array->setItem(1, '1.0');
+        $this->array->setItem(2, 'two');
+        $this->array->setItem(3, 'false');
+        $this->array->setItem(4, 'null');
         $this::assertSame(
             [
                 0 => '0',
@@ -37,7 +40,7 @@ final class IntToStringArrayTest extends TestCase
                 3 => 'false',
                 4 => 'null'
             ],
-            $intToStringArray->getItems()
+            $this->array->getItems()
         );
     }
 
@@ -61,13 +64,13 @@ final class IntToStringArrayTest extends TestCase
 
     public function testPushItem(): void
     {
-        $intToStringArray = new IntToStringArray();
-        $intToStringArray->pushItem('0');
+        $this->array->pushItem('0');
+
         $this::assertSame(
             [
                 0 => '0'
             ],
-            $intToStringArray->getItems()
+            $this->array->getItems()
         );
     }
 
@@ -83,33 +86,27 @@ final class IntToStringArrayTest extends TestCase
 
     public function testOffsetSet(): void
     {
-        $intToStringArray = new IntToStringArray();
-
-        $intToStringArray[0] = '0';
+        $this->array[0] = '0';
 
         $this::assertSame(
             [
                 0 => '0'
             ],
-            $intToStringArray->getItems()
+            $this->array->getItems()
         );
     }
 
     public function testOffsetSetKeyError(): void
     {
-        $intToStringArray = new IntToStringArray();
-
         $this::expectException('TypeError');
 
-        $intToStringArray['0'] = 'a';
+        $this->array['0'] = 'a';
     }
 
     public function testOffsetSetValueError(): void
     {
-        $intToStringArray = new IntToStringArray();
-
         $this::expectException('TypeError');
 
-        $intToStringArray[0] = 0;
+        $this->array[0] = 0;
     }
 }
