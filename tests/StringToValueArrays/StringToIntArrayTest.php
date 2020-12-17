@@ -60,6 +60,32 @@ final class StringToIntArrayTest extends TestCase
         );
     }
 
+    //unsetItem:
+
+    public function testUnsetItem(): void
+    {
+        $this->array->setItem('a', 0);
+
+        $this->array->setItem('b', 1);
+
+        $this->array->unsetItem('a');
+
+        $this::assertSame(
+            [
+                'b' => 1
+            ],
+            $this->array->getItems()
+        );
+    }
+
+    public function testUnsetItemKeyIsTypeString(): void
+    {
+        $this::assertSame(
+            'string',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this)
+        );
+    }
+
     //offsetSet:
 
     public function testOffsetSet(): void
@@ -93,5 +119,98 @@ final class StringToIntArrayTest extends TestCase
         $this::expectException('TypeError');
 
         $this->array['a'] = '0';
+    }
+
+    //offsetGet:
+
+    public function testOffsetGet(): void
+    {
+        $this->array->setItem('a', 0);
+
+        $this::assertSame(
+            0,
+            $this->array['a']
+        );
+    }
+
+    public function testOffsetGetKeyError(): void
+    {
+        $this::expectException('TypeError');
+
+        echo $this->array[0];
+    }
+
+    //offsetUnset:
+
+    public function testOffsetUnset(): void
+    {
+        $this->array->setItem('a', 0);
+
+        $this->array->setItem('b', 1);
+
+        unset($this->array['a']);
+
+        $this::assertSame(
+            [
+                'b' => 1
+            ],
+            $this->array->getItems()
+        );
+    }
+
+    public function testOffsetUnsetKeyError(): void
+    {
+        $this::expectException('TypeError');
+
+        unset($this->array[0]);
+    }
+
+    //offsetExists:
+
+    public function testOffsetExists(): void
+    {
+        $this->array->setItem('a', 0);
+
+        $this::assertSame(
+            true,
+            isset($this->array['a'])
+        );
+    }
+
+    public function testOffsetExistsKeyError(): void
+    {
+        $this::expectException('TypeError');
+
+        echo isset($this->array[0]);
+    }
+
+    //countable:
+
+    public function testCountable(): void
+    {
+        $this->array->setItem('a', 0);
+
+        $this::assertSame(
+            1,
+            count($this->array)
+        );
+    }
+
+    //Iterator:
+
+    public function testIterator(): void
+    {
+        $this->array->setItem('a', 0);
+
+        foreach ($this->array as $key => $value) {
+            $this::assertSame(
+                'a',
+                $key
+            );
+            $this::assertSame(
+                0,
+                $value
+            );
+        }
     }
 }
