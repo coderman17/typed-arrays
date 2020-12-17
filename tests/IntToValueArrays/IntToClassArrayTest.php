@@ -12,23 +12,31 @@ final class IntToClassArrayTest extends TestCase
 {
     protected string $fullyQualifiedClassName;
 
+    protected string $permittedClass;
+
+    protected object $permittedClassObject;
+
+    protected IntToClassArray $extendsTypedArray;
+
     public function setUp(): void
     {
         parent::setUp();
 
         $this->fullyQualifiedClassName = 'TypedArrays\IntToValueArrays\IntToClassArray';
-    }
 
-    //This sets className property automatically only for testing purposes
-    protected function extendIntToClassArray(object $obj): object
-    {
-        return new class($obj) extends IntToClassArray
+        $this->permittedClassObject = new class {};
+
+        $this->permittedClass = get_class($this->permittedClassObject);
+
+        //This sets the className property on construction only for testing purposes
+        //A genuine extending class of IntToClassArray would rightly have this hardcoded
+        $this->extendsTypedArray = new class($this->permittedClass) extends IntToClassArray
         {
             protected string $className;
 
-            public function __construct(object $obj)
+            public function __construct(string $className)
             {
-                $this->className = get_class($obj);
+                $this->className = $className;
             }
         };
     }
@@ -37,23 +45,21 @@ final class IntToClassArrayTest extends TestCase
 
     public function testSetItem(): void
     {
-        $testClass = new class {};
-
-        $a = new $testClass();
-
-        $extendsIntToClassArray = $this->extendIntToClassArray($a);
-
-        $extendsIntToClassArray->setItem(0, $a);
+        $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
 
         $this::assertSame(
             [
-                0 => $a
+                0 => $this->permittedClassObject
             ],
-            $extendsIntToClassArray->getItems()
+            $this->extendsTypedArray->getItems()
         );
+    }
 
+    public function testSetItemValueError(): void
+    {
         $this::expectException('TypeError');
-        $extendsIntToClassArray->setItem(0, new \stdClass());
+
+        $this->extendsTypedArray->setItem(0, new \stdClass());
     }
 
     public function testSetItemKeyIsTypeInt(): void
@@ -76,23 +82,21 @@ final class IntToClassArrayTest extends TestCase
 
     public function testPushItem(): void
     {
-        $testClass = new class {};
-
-        $a = new $testClass();
-
-        $extendsIntToClassArray = $this->extendIntToClassArray($a);
-
-        $extendsIntToClassArray->pushItem($a);
+        $this->extendsTypedArray->pushItem($this->permittedClassObject);
 
         $this::assertSame(
             [
-                0 => $a
+                0 => $this->permittedClassObject
             ],
-            $extendsIntToClassArray->getItems()
+            $this->extendsTypedArray->getItems()
         );
+    }
 
+    public function testPushItemValueError(): void
+    {
         $this::expectException('TypeError');
-        $extendsIntToClassArray->pushItem(new \stdClass());
+
+        $this->extendsTypedArray->pushItem(new \stdClass());
     }
 
     public function testPushItemValueIsTypeObject(): void
@@ -107,59 +111,35 @@ final class IntToClassArrayTest extends TestCase
 
     public function testOffsetSet(): void
     {
-        $testClass = new class {};
-
-        $a = new $testClass();
-
-        $extendsIntToClassArray = $this->extendIntToClassArray($a);
-
-        $extendsIntToClassArray[0] = $a;
+        $this->extendsTypedArray[0] = $this->permittedClassObject;
 
         $this::assertSame(
             [
-                0 => $a
+                0 => $this->permittedClassObject
             ],
-            $extendsIntToClassArray->getItems()
+            $this->extendsTypedArray->getItems()
         );
     }
 
 
     public function testOffsetSetKeyError(): void
     {
-        $testClass = new class {};
-
-        $a = new $testClass();
-
-        $extendsIntToClassArray = $this->extendIntToClassArray($a);
-
         $this::expectException('TypeError');
 
-        $extendsIntToClassArray['0'] = $a;
+        $this->extendsTypedArray['0'] = $this->permittedClassObject;
     }
 
     public function testOffsetSetValueTypeError(): void
     {
-        $testClass = new class {};
-
-        $a = new $testClass();
-
-        $extendsIntToClassArray = $this->extendIntToClassArray($a);
-
         $this::expectException('TypeError');
 
-        $extendsIntToClassArray[0] = true;
+        $this->extendsTypedArray[0] = true;
     }
 
     public function testOffsetSetValueClassError(): void
     {
-        $testClass = new class {};
-
-        $a = new $testClass();
-
-        $extendsIntToClassArray = $this->extendIntToClassArray($a);
-
         $this::expectException('TypeError');
 
-        $extendsIntToClassArray[0] = new \stdClass();
+        $this->extendsTypedArray[0] = new \stdClass();
     }
 }
