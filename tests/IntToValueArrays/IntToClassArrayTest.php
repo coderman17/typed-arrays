@@ -55,7 +55,7 @@ final class IntToClassArrayTest extends TestCase
         );
     }
 
-    public function testSetItemValueError(): void
+    public function testSetItemClassError(): void
     {
         $this::expectException('TypeError');
 
@@ -163,7 +163,7 @@ final class IntToClassArrayTest extends TestCase
         $this->extendsTypedArray[0] = true;
     }
 
-    public function testOffsetSetValueClassError(): void
+    public function testOffsetSetClassError(): void
     {
         $this::expectException('TypeError');
 
