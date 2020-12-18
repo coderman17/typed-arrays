@@ -12,61 +12,65 @@ final class StringToClassArrayTest extends TestCase
 {
     protected string $fullyQualifiedClassName;
 
+    protected string $permittedClass;
+
+    protected object $permittedClassObject;
+
+    protected StringToClassArray $extendsTypedArray;
+
     public function setUp(): void
     {
         parent::setUp();
 
         $this->fullyQualifiedClassName = 'TypedArrays\StringToValueArrays\StringToClassArray';
-    }
 
-    //This sets className property automatically only for testing purposes
-    protected function extendStringToClassArray(object $obj): object
-    {
-        return new class($obj) extends StringToClassArray
-        {
-            protected string $className;
+        $this->permittedClassObject = new class {};
 
-            public function __construct(object $obj)
+        $this->permittedClass = get_class($this->permittedClassObject);
+
+        //This sets the className property on construction only for testing purposes
+        //A genuine extending class of StringToClassArray would rightly have this hardcoded
+        $this->extendsTypedArray = new class($this->permittedClass) extends StringToClassArray
             {
-                $this->className = get_class($obj);
-            }
-        };
+                protected string $className;
+
+                public function __construct(string $className)
+                {
+                    $this->className = $className;
+                }
+            };
     }
 
-    //setItem:
+    //setItem & getItems:
 
     public function testSetItem(): void
     {
-        $testClass = new class {};
-
-        $a = new $testClass();
-
-        $extendsStringToClassArray = $this->extendStringToClassArray($a);
-
-        $setMethod = function ($key, $value) use ($extendsStringToClassArray){
-            $extendsStringToClassArray->setItem($key, $value);
+        $setMethod = function ($key, $value){
+            $this->extendsTypedArray->setItem($key, $value);
         };
 
-        TestHelpers::checkForSilentKeyTypeCastingException($setMethod, $a, $this);
+        TestHelpers::checkForSilentKeyTypeCastingException($setMethod, $this->permittedClassObject, $this);
 
         //These tests check that PHP isn't quietly converting string keys to integers
         foreach (TestHelpers::STRING_KEYS_PHP_WILL_NOT_CAST_AS_INT as $stringKey){
-            $extendsStringToClassArray->setItem($stringKey, $a);
+            $this->extendsTypedArray->setItem($stringKey, $this->permittedClassObject);
         }
 
-        $expectedClass = get_class($a);
-
-        foreach ($extendsStringToClassArray->getItems() as $k => $v){
+        foreach ($this->extendsTypedArray->getItems() as $k => $v){
             $this::assertIsString($k);
+
             $this::assertSame(
-                $expectedClass,
+                $this->permittedClass,
                 get_class($v)
             );
         }
+    }
 
-        //This test checks a TypeError exception is thrown if the wrong class is passed to setItem()
+    public function testSetItemClassError(): void
+    {
         $this::expectException('TypeError');
-        $extendsStringToClassArray->setItem('a', new \stdClass());
+
+        $this->extendsTypedArray->setItem('a', new \stdClass());
     }
 
     public function testSetItemKeyIsTypeString(): void
@@ -85,33 +89,54 @@ final class StringToClassArrayTest extends TestCase
         );
     }
 
+    //unsetItem:
+
+    public function testUnsetItem(): void
+    {
+        $this->extendsTypedArray->setItem('a', $this->permittedClassObject);
+
+        $secondPermittedClassObject = new $this->permittedClass();
+
+        $this->extendsTypedArray->setItem('b', $secondPermittedClassObject);
+
+        $this->extendsTypedArray->unsetItem('a');
+
+        $this::assertSame(
+            [
+                'b' => $secondPermittedClassObject
+            ],
+            $this->extendsTypedArray->getItems()
+        );
+    }
+
+    public function testUnsetItemKeyIsTypeString(): void
+    {
+        $this::assertSame(
+            'string',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this)
+        );
+    }
+
     //offsetSet:
 
     public function testOffsetSet(): void
     {
-        $testClass = new class {};
-
-        $a = new $testClass();
-
-        $extendsStringToClassArray = $this->extendStringToClassArray($a);
-
-        $offsetSetMethod = function ($key, $value) use ($extendsStringToClassArray){
-            $extendsStringToClassArray[$key] = $value;
+        $offsetSetMethod = function ($key, $value){
+            $this->extendsTypedArray[$key] = $value;
         };
 
-        TestHelpers::checkForSilentKeyTypeCastingException($offsetSetMethod, $a, $this);
+        TestHelpers::checkForSilentKeyTypeCastingException($offsetSetMethod, $this->permittedClassObject, $this);
 
         //These tests check that PHP isn't quietly converting string keys to integers
         foreach (TestHelpers::STRING_KEYS_PHP_WILL_NOT_CAST_AS_INT as $stringKey){
-            $extendsStringToClassArray[$stringKey] = $a;
+            $this->extendsTypedArray[$stringKey] = $this->permittedClassObject;
         }
 
-        $expectedClass = get_class($a);
-
-        foreach ($extendsStringToClassArray->getItems() as $k => $v){
+        foreach ($this->extendsTypedArray->getItems() as $k => $v){
             $this::assertIsString($k);
+
             $this::assertSame(
-                $expectedClass,
+                $this->permittedClass,
                 get_class($v)
             );
         }
@@ -119,40 +144,122 @@ final class StringToClassArrayTest extends TestCase
 
     public function testOffsetSetKeyError(): void
     {
-        $testClass = new class {};
-
-        $a = new $testClass();
-
-        $extendsStringToClassArray = $this->extendStringToClassArray($a);
-
         $this::expectException('TypeError');
 
-        $extendsStringToClassArray[0] = $a;
+        $this->extendsTypedArray[0] = $this->permittedClassObject;
     }
 
-    public function testOffsetSetValueTypeError(): void
+    public function testOffsetSetValueError(): void
     {
-        $testClass = new class {};
-
-        $a = new $testClass();
-
-        $extendsStringToClassArray = $this->extendStringToClassArray($a);
-
         $this::expectException('TypeError');
 
-        $extendsStringToClassArray['a'] = true;
+        $this->extendsTypedArray['a'] = true;
     }
 
-    public function testOffsetSetValueClassError(): void
+    public function testOffsetSetClassError(): void
     {
-        $testClass = new class {};
-
-        $a = new $testClass();
-
-        $extendsStringToClassArray = $this->extendStringToClassArray($a);
-
         $this::expectException('TypeError');
 
-        $extendsStringToClassArray['a'] = new \stdClass();
+        $this->extendsTypedArray['a'] = new \stdClass();
+    }
+
+    //offsetGet:
+
+    public function testOffsetGet(): void
+    {
+        $this->extendsTypedArray->setItem('a', $this->permittedClassObject);
+
+        $this::assertSame(
+            $this->permittedClassObject,
+            $this->extendsTypedArray['a']
+        );
+    }
+
+    public function testOffsetGetKeyError(): void
+    {
+        $this::expectException('TypeError');
+
+        echo $this->extendsTypedArray[0];
+    }
+
+    //offsetUnset:
+
+    public function testOffsetUnset(): void
+    {
+        $this->extendsTypedArray->setItem('a', $this->permittedClassObject);
+
+        $secondPermittedClassObject = new $this->permittedClass();
+
+        $this->extendsTypedArray->setItem('b', $secondPermittedClassObject);
+
+        unset($this->extendsTypedArray['a']);
+
+        $this::assertSame(
+            [
+                'b' => $secondPermittedClassObject
+            ],
+            $this->extendsTypedArray->getItems()
+        );
+    }
+
+    public function testOffsetUnsetKeyError(): void
+    {
+        $this::expectException('TypeError');
+
+        unset($this->extendsTypedArray[0]);
+    }
+
+    //offsetExists:
+
+    public function testOffsetExists(): void
+    {
+        $this->extendsTypedArray->setItem('a', $this->permittedClassObject);
+
+        $this::assertSame(
+            true,
+            isset($this->extendsTypedArray['a'])
+        );
+
+        $this::assertSame(
+            false,
+            isset($this->extendsTypedArray['b'])
+        );
+    }
+
+    public function testOffsetExistsKeyError(): void
+    {
+        $this::expectException('TypeError');
+
+        echo isset($this->extendsTypedArray[0]);
+    }
+
+    //countable:
+
+    public function testCountable(): void
+    {
+        $this->extendsTypedArray->setItem('a', $this->permittedClassObject);
+
+        $this::assertSame(
+            1,
+            count($this->extendsTypedArray)
+        );
+    }
+
+    //Iterator:
+
+    public function testIterator(): void
+    {
+        $this->extendsTypedArray->setItem('a', $this->permittedClassObject);
+
+        foreach ($this->extendsTypedArray as $key => $value) {
+            $this::assertSame(
+                'a',
+                $key
+            );
+            $this::assertSame(
+                $this->permittedClassObject,
+                $value
+            );
+        }
     }
 }
