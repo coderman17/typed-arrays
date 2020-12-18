@@ -23,7 +23,7 @@ final class IntToStringArrayTest extends TestCase
         $this->array = new IntToStringArray();
     }
 
-    //setItem:
+    //setItem & getItems:
 
     public function testSetItem(): void
     {
@@ -189,6 +189,11 @@ final class IntToStringArrayTest extends TestCase
         $this::assertSame(
             true,
             isset($this->array[0])
+        );
+
+        $this::assertSame(
+            false,
+            isset($this->array[1])
         );
     }
 

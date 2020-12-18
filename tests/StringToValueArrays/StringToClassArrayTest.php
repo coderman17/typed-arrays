@@ -41,7 +41,7 @@ final class StringToClassArrayTest extends TestCase
             };
     }
 
-    //setItem:
+    //setItem & getItems:
 
     public function testSetItem(): void
     {
@@ -218,6 +218,11 @@ final class StringToClassArrayTest extends TestCase
         $this::assertSame(
             true,
             isset($this->extendsTypedArray['a'])
+        );
+
+        $this::assertSame(
+            false,
+            isset($this->extendsTypedArray['b'])
         );
     }
 

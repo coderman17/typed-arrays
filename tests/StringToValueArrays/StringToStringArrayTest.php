@@ -23,7 +23,7 @@ final class StringToStringArrayTest extends TestCase
         $this->array = new StringToStringArray();
     }
 
-    //setItem:
+    //setItem & getItems:
 
     public function testSetItem(): void
     {
@@ -174,6 +174,11 @@ final class StringToStringArrayTest extends TestCase
         $this::assertSame(
             true,
             isset($this->array['a'])
+        );
+
+        $this::assertSame(
+            false,
+            isset($this->array['b'])
         );
     }
 

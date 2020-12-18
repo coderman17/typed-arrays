@@ -41,7 +41,7 @@ final class IntToClassArrayTest extends TestCase
         };
     }
 
-    //setItem:
+    //setItem & getItems:
 
     public function testSetItem(): void
     {
@@ -225,6 +225,11 @@ final class IntToClassArrayTest extends TestCase
         $this::assertSame(
             true,
             isset($this->extendsTypedArray[0])
+        );
+
+        $this::assertSame(
+            false,
+            isset($this->extendsTypedArray[1])
         );
     }
 
