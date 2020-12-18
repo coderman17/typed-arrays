@@ -156,7 +156,7 @@ final class IntToClassArrayTest extends TestCase
         $this->extendsTypedArray['0'] = $this->permittedClassObject;
     }
 
-    public function testOffsetSetValueTypeError(): void
+    public function testOffsetSetValueError(): void
     {
         $this::expectException('TypeError');
 
