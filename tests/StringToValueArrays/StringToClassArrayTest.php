@@ -95,7 +95,7 @@ final class StringToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem('a', $this->permittedClassObject);
 
-        $secondPermittedClassObject = new $this->permittedClassObject();
+        $secondPermittedClassObject = new $this->permittedClass();
 
         $this->extendsTypedArray->setItem('b', $secondPermittedClassObject);
 
@@ -188,7 +188,7 @@ final class StringToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem('a', $this->permittedClassObject);
 
-        $secondPermittedClassObject = new $this->permittedClassObject();
+        $secondPermittedClassObject = new $this->permittedClass();
 
         $this->extendsTypedArray->setItem('b', $secondPermittedClassObject);
 

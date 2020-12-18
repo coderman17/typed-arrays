@@ -84,7 +84,7 @@ final class IntToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
 
-        $secondPermittedClassObject = new $this->permittedClassObject();
+        $secondPermittedClassObject = new $this->permittedClass();
 
         $this->extendsTypedArray->setItem(1, $secondPermittedClassObject);
 
@@ -195,7 +195,7 @@ final class IntToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
 
-        $secondPermittedClassObject = new $this->permittedClassObject();
+        $secondPermittedClassObject = new $this->permittedClass();
 
         $this->extendsTypedArray->setItem(1, $secondPermittedClassObject);
 
