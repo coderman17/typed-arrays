@@ -118,7 +118,7 @@ final class StringToStringArrayTest extends TestCase
     {
         $this::expectException('TypeError');
 
-        $this->array['0'] = 0;
+        $this->array['a'] = 0;
     }
 
     //offsetGet:
