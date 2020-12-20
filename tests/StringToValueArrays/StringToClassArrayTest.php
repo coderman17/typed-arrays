@@ -68,7 +68,7 @@ final class StringToClassArrayTest extends TestCase
 
     public function testSetItemClassError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException('Exception');
 
         $this->extendsTypedArray->setItem('a', new \stdClass());
     }
@@ -158,7 +158,7 @@ final class StringToClassArrayTest extends TestCase
 
     public function testOffsetSetClassError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException('Exception');
 
         $this->extendsTypedArray['a'] = new \stdClass();
     }

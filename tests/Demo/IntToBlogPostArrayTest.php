@@ -53,7 +53,7 @@ final class IntToBlogPostArrayTest extends TestCase
             $intToBlogPostArray->getItems()
         );
 
-        $this::expectException('TypeError');
+        $this::expectException('Exception');
         $intToBlogPostArray->setItem(0, new \stdClass());
     }
 
@@ -74,7 +74,7 @@ final class IntToBlogPostArrayTest extends TestCase
             $intToBlogPostArray->getItems()
         );
 
-        $this::expectException('TypeError');
+        $this::expectException('Exception');
         $intToBlogPostArray->pushItem(new \stdClass());
     }
 }
