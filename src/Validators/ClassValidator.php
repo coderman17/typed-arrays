@@ -34,7 +34,7 @@ class ClassValidator implements IValidate
 
         try {
             $this->objectValidator->validate($value);
-        } catch (\Throwable $e) {
+        } catch (\TypeError $e) {
             throw new \TypeError($e->getMessage() . '. The expected class is: ' . $this->className);
         }
 
