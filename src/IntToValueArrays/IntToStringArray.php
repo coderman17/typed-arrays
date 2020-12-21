@@ -13,24 +13,16 @@ class IntToStringArray extends KeyToValueArray
 {
     public function setItem(int $key, string $value): void
     {
-        $this->validateKey($key);
-
-        $this->validateValue($value);
-
         $this->items[$key] = $value;
     }
 
     public function unsetItem(int $key): void
     {
-        $this->validateKey($key);
-
         unset($this->items[$key]);
     }
 
     public function pushItem(string $value): void
     {
-        $this->validateValue($value);
-
         array_push($this->items, $value);
     }
 

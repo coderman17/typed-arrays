@@ -11,15 +11,22 @@ use TypedArrays\Validators\StringValidator;
 
 class StringToStringArray extends KeyToValueArray
 {
+    /**
+     * @param string $key
+     * @param string $value
+     * @throws \Exception
+     */
     public function setItem(string $key, string $value): void
     {
         $this->validateKey($key);
 
-        $this->validateValue($value);
-
         $this->items[$key] = $value;
     }
 
+    /**
+     * @param string $key
+     * @throws \Exception
+     */
     public function unsetItem(string $key): void
     {
         $this->validateKey($key);

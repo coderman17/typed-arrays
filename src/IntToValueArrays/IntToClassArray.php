@@ -11,22 +11,30 @@ use TypedArrays\Validators\IValidate;
 
 abstract class IntToClassArray extends KeyToValueArray
 {
+    /**
+     * @param int $key
+     * @param object $value
+     * @throws \Exception
+     */
     public function setItem(int $key, object $value): void
     {
-        $this->validateKey($key);
-
         $this->validateValue($value);
 
         $this->items[$key] = $value;
     }
 
+    /**
+     * @param int $key
+     */
     public function unsetItem(int $key): void
     {
-        $this->validateKey($key);
-
         unset($this->items[$key]);
     }
 
+    /**
+     * @param object $value
+     * @throws \Exception
+     */
     public function pushItem(object $value): void
     {
         $this->validateValue($value);
