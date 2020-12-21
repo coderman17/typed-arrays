@@ -9,5 +9,5 @@ before_script: composer install
 script:
   vendor/bin/phpunit tests
   vendor/bin/phpstan analyse tests src
-  vendor/bin/phpstan
+  vendor/bin/psalm
 
