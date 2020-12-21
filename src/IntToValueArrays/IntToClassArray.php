@@ -44,5 +44,8 @@ abstract class IntToClassArray extends KeyToValueArray
         return new ClassValidator($this->getClassName());
     }
 
+    /**
+     * @return class-string
+     */
     abstract protected function getClassName(): string;
 }

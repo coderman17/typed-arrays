@@ -44,8 +44,16 @@ final class StringToClassArrayTest extends TestCase
                     parent::__construct();
                 }
 
+                /**
+                 * @return class-string
+                 *
+                 * It's not possible to generate a class-string from an anonymous class:
+                 * @psalm-suppress MoreSpecificReturnType
+                 * @psalm-suppress LessSpecificReturnStatement
+                 */
                 protected function getClassName(): string
                 {
+                    /** @phpstan-ignore-next-line */
                     return $this->className;
                 }
             };

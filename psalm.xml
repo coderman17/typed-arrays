@@ -26,11 +26,5 @@
                 <directory name="tests" />
             </errorLevel>
         </PropertyNotSetInConstructor>
-        <MixedArgument>
-            <!-- the validators are crafted to check the types themselves, psalm doesn't understand this -->
-            <errorLevel type="suppress">
-                <directory name="src\Validators" />
-            </errorLevel>
-        </MixedArgument>
     </issueHandlers>
 </psalm>
