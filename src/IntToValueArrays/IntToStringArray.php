@@ -4,36 +4,43 @@ declare(strict_types = 1);
 
 namespace TypedArrays\IntToValueArrays;
 
-class IntToStringArray extends IntToValueArray
+use TypedArrays\KeyToValueArray;
+use TypedArrays\Validators\IntValidator;
+use TypedArrays\Validators\IValidate;
+use TypedArrays\Validators\StringValidator;
+
+class IntToStringArray extends KeyToValueArray
 {
     public function setItem(int $key, string $value): void
     {
+        $this->validateKey($key);
+
+        $this->validateValue($value);
+
         $this->items[$key] = $value;
+    }
+
+    public function unsetItem(int $key): void
+    {
+        $this->validateKey($key);
+
+        unset($this->items[$key]);
     }
 
     public function pushItem(string $value): void
     {
+        $this->validateValue($value);
+
         array_push($this->items, $value);
     }
 
-    /**
-     * @param int $key
-     * @param string $value
-     * @throws \TypeError
-     *
-     * Implements ArrayAccess so cannot add param type:
-     * @noinspection PhpMissingParamTypeInspection
-     */
-    public function offsetSet($key, $value): void
+    protected function getKeyValidator(): IValidate
     {
-        if(!is_int($key)){
-            throw new \TypeError('An attempt was made to set a non-integer key on a typed array with integer keys');
-        }
+        return new IntValidator();
+    }
 
-        if(!is_string($value)){
-            throw new \TypeError('An attempt was made to set a non-string value on a typed array with string values');
-        }
-
-        $this->setItem($key, $value);
+    protected function getValueValidator(): IValidate
+    {
+        return new StringValidator();
     }
 }

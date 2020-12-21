@@ -4,44 +4,45 @@ declare(strict_types = 1);
 
 namespace TypedArrays\IntToValueArrays;
 
-use TypedArrays\Traits\KeyToClassMethods;
+use TypedArrays\KeyToValueArray;
+use TypedArrays\Validators\ClassValidator;
+use TypedArrays\Validators\IntValidator;
+use TypedArrays\Validators\IValidate;
 
-abstract class IntToClassArray extends IntToValueArray
+abstract class IntToClassArray extends KeyToValueArray
 {
-    use KeyToClassMethods;
-
     public function setItem(int $key, object $value): void
     {
-        $this->checkClass($value);
+        $this->validateKey($key);
+
+        $this->validateValue($value);
 
         $this->items[$key] = $value;
     }
 
+    public function unsetItem(int $key): void
+    {
+        $this->validateKey($key);
+
+        unset($this->items[$key]);
+    }
+
     public function pushItem(object $value): void
     {
-        $this->checkClass($value);
+        $this->validateValue($value);
 
         array_push($this->items, $value);
     }
 
-    /**
-     * @param int $key
-     * @param object $value
-     * @throws \TypeError
-     *
-     * Implements ArrayAccess so cannot add param type:
-     * @noinspection PhpMissingParamTypeInspection
-     */
-    public function offsetSet($key, $value): void
+    protected function getKeyValidator(): IValidate
     {
-        if(!is_int($key)){
-            throw new \TypeError('An attempt was made to set a non-integer key on a typed array with integer keys');
-        }
-
-        if(!is_object($value)){
-            throw new \TypeError('An attempt was made to set a non-object value on a typed array with object values');
-        }
-
-        $this->setItem($key, $value);
+        return new IntValidator();
     }
+
+    protected function getValueValidator(): IValidate
+    {
+        return new ClassValidator($this->getClassName());
+    }
+
+    abstract protected function getClassName(): string;
 }

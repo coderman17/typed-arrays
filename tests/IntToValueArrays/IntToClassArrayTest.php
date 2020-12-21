@@ -40,6 +40,13 @@ final class IntToClassArrayTest extends TestCase
             public function __construct(string $className)
             {
                 $this->className = $className;
+
+                parent::__construct();
+            }
+
+            protected function getClassName(): string
+            {
+                return $this->className;
             }
         };
     }
