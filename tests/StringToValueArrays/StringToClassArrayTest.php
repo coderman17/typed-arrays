@@ -201,14 +201,12 @@ final class StringToClassArrayTest extends TestCase
         );
     }
 
-    /**
-     * @psalm-suppress MixedArgument
-     */
     public function testOffsetGetKeyError(): void
     {
         $this::expectException(\TypeError::class);
 
-        echo $this->extendsTypedArray[0];
+        /** @phpstan-ignore-next-line it's fine that it doesn't do anything*/
+        $this->extendsTypedArray[0];
     }
 
     //offsetUnset:
