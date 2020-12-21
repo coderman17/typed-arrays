@@ -6,10 +6,16 @@ namespace TypedArrays\Validators;
 
 class ClassValidator implements IValidate
 {
+    /**
+     * @var class-string
+     */
     private string $className;
 
     protected ObjectValidator $objectValidator;
 
+    /**
+     * @param class-string $className
+     */
     public function __construct(string $className)
     {
         $this->className = $className;
@@ -20,6 +26,7 @@ class ClassValidator implements IValidate
     /**
      * @param mixed $value
      * @throws \Exception
+     * @throws \TypeError
      */
     public function validate($value): void
     {
