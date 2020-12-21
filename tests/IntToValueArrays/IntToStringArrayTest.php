@@ -10,15 +10,18 @@ use Tests\TestHelpers;
 
 final class IntToStringArrayTest extends TestCase
 {
+    /**
+     * @var class-string
+     */
     protected string $fullyQualifiedClassName;
 
     protected IntToStringArray $array;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->fullyQualifiedClassName = 'TypedArrays\IntToValueArrays\IntToStringArray';
+        $this->fullyQualifiedClassName = IntToStringArray::class;
 
         $this->array = new IntToStringArray();
     }
@@ -124,14 +127,14 @@ final class IntToStringArrayTest extends TestCase
 
     public function testOffsetSetKeyError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         $this->array['0'] = 'a';
     }
 
     public function testOffsetSetValueError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         $this->array[0] = 0;
     }
@@ -150,7 +153,7 @@ final class IntToStringArrayTest extends TestCase
 
     public function testOffsetGetKeyError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         echo $this->array['0'];
     }
@@ -175,7 +178,7 @@ final class IntToStringArrayTest extends TestCase
 
     public function testOffsetUnsetKeyError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         unset($this->array['0']);
     }
@@ -199,7 +202,7 @@ final class IntToStringArrayTest extends TestCase
 
     public function testOffsetExistsKeyError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         echo isset($this->array['0']);
     }

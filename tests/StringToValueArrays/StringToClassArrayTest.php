@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types = 1);
 
@@ -10,6 +10,9 @@ use Tests\TestHelpers;
 
 final class StringToClassArrayTest extends TestCase
 {
+    /**
+     * @var class-string
+     */
     protected string $fullyQualifiedClassName;
 
     protected string $permittedClass;
@@ -18,11 +21,11 @@ final class StringToClassArrayTest extends TestCase
 
     protected StringToClassArray $extendsTypedArray;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->fullyQualifiedClassName = 'TypedArrays\StringToValueArrays\StringToClassArray';
+        $this->fullyQualifiedClassName = StringToClassArray::class;
 
         $this->permittedClassObject = new class {};
 
@@ -37,6 +40,21 @@ final class StringToClassArrayTest extends TestCase
                 public function __construct(string $className)
                 {
                     $this->className = $className;
+
+                    parent::__construct();
+                }
+
+                /**
+                 * @return class-string
+                 *
+                 * It's not possible to generate a class-string from an anonymous class:
+                 * @psalm-suppress MoreSpecificReturnType
+                 * @psalm-suppress LessSpecificReturnStatement
+                 */
+                protected function getClassName(): string
+                {
+                    /** @phpstan-ignore-next-line */
+                    return $this->className;
                 }
             };
     }
@@ -68,7 +86,7 @@ final class StringToClassArrayTest extends TestCase
 
     public function testSetItemClassError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\Exception::class);
 
         $this->extendsTypedArray->setItem('a', new \stdClass());
     }
@@ -144,21 +162,21 @@ final class StringToClassArrayTest extends TestCase
 
     public function testOffsetSetKeyError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         $this->extendsTypedArray[0] = $this->permittedClassObject;
     }
 
     public function testOffsetSetValueError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         $this->extendsTypedArray['a'] = true;
     }
 
     public function testOffsetSetClassError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\Exception::class);
 
         $this->extendsTypedArray['a'] = new \stdClass();
     }
@@ -177,7 +195,7 @@ final class StringToClassArrayTest extends TestCase
 
     public function testOffsetGetKeyError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         echo $this->extendsTypedArray[0];
     }
@@ -204,7 +222,7 @@ final class StringToClassArrayTest extends TestCase
 
     public function testOffsetUnsetKeyError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         unset($this->extendsTypedArray[0]);
     }
@@ -228,7 +246,7 @@ final class StringToClassArrayTest extends TestCase
 
     public function testOffsetExistsKeyError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         echo isset($this->extendsTypedArray[0]);
     }

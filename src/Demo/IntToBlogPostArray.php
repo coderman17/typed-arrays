@@ -8,5 +8,8 @@ use TypedArrays\IntToValueArrays\IntToClassArray;
 
 class IntToBlogPostArray extends IntToClassArray
 {
-    protected string $className = 'TypedArrays\Demo\BlogPost';
+    protected function getClassName(): string
+    {
+        return BlogPost::class;
+    }
 }

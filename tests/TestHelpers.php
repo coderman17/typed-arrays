@@ -56,10 +56,10 @@ class TestHelpers extends TestCase
      * This test checks an exception is thrown rather than letting PHP quietly convert string keys to integers
      *
      * @param callable $method
-     * @param $acceptableArrayValue
+     * @param mixed $acceptableArrayValue
      * @param TestCase $callingTest
      */
-    public static function checkForSilentKeyTypeCastingException(callable $method, $acceptableArrayValue, TestCase $callingTest)
+    public static function checkForSilentKeyTypeCastingException(callable $method, $acceptableArrayValue, TestCase $callingTest): void
     {
         $keyList = TestHelpers::STRING_KEYS_PHP_WILL_CAST_AS_INT;
 
@@ -71,12 +71,19 @@ class TestHelpers extends TestCase
             }
 
             $callingTest::assertSame(
-                "PHP was about to silently cast the key",
+                'PHP was about to silently cast the key',
                 substr($e->getMessage(), 0, 38)
             );
         }
     }
-    
+
+    /**
+     * @param class-string $className
+     * @param string $methodName
+     * @param string $parameterName
+     * @param TestCase $callingTest
+     * @return string
+     */
     public static function getParameterType(string $className, string $methodName, string $parameterName, TestCase $callingTest): string
     {
         try {
@@ -90,7 +97,13 @@ class TestHelpers extends TestCase
                         throw new \Exception("The '" . $parameterName . "' parameter doesn't specify a type in '" . $methodName . "' method in '" . $className . "' class");
                     }
 
-                    return $param->getType()->getName();
+                    $type = $param->getType();
+
+                    if($type instanceof \ReflectionNamedType){
+                        return $type->getName();
+                    }
+
+                    throw new \Exception("The '" . $parameterName . "' parameter's type is not recognised");
                 }
             }
 
@@ -98,8 +111,6 @@ class TestHelpers extends TestCase
 
         } catch (\Exception $e) {
             $callingTest::fail($e->getMessage());
-
-            return '';
         }
     }
 }

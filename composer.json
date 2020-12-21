@@ -1,34 +1,36 @@
 {
-	"name": "coderman17/typed-arrays",
-	"description": "A PHP library to control types within arrays",
-	"minimum-stability": "stable",
-	"type": "library",
-	"keywords": [
-		"php",
-		"typed",
-		"array",
-		"declarations"
-	],
-	"homepage": "https://github.com/coderman17/typed-arrays",
-	"license": "BSD-3-Clause",
-	"support": {
-		"issues": "https://github.com/coderman17/typed-arrays/issues"
-	},
-	"authors": [
-		{
-			"name": "Dan Mathews"
-		}
-	],
-	"autoload": {
-		"psr-4": {
-			"TypedArrays\\": "src",
-			"Tests\\": "tests"
-		}
-	},
-	"require-dev": {
-		"phpunit/phpunit": "^9"
-	},
-	"require": {
-		"php": ">=7.4.11"
-	}
+    "name": "coderman17/typed-arrays",
+    "description": "A PHP library to control types within arrays",
+    "minimum-stability": "stable",
+    "type": "library",
+    "keywords": [
+        "php",
+        "typed",
+        "array",
+        "declarations"
+    ],
+    "homepage": "https://github.com/coderman17/typed-arrays",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/coderman17/typed-arrays/issues"
+    },
+    "authors": [
+        {
+            "name": "Dan Mathews"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "TypedArrays\\": "src",
+            "Tests\\": "tests"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9",
+        "vimeo/psalm": "^4.3",
+        "phpstan/phpstan": "^0.12.63"
+    },
+    "require": {
+        "php": ">=7.4.11"
+    }
 }

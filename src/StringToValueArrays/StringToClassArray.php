@@ -4,12 +4,13 @@ declare(strict_types = 1);
 
 namespace TypedArrays\StringToValueArrays;
 
-use TypedArrays\Traits\KeyToClassMethods;
+use TypedArrays\KeyToValueArray;
+use TypedArrays\Validators\ClassValidator;
+use TypedArrays\Validators\IValidate;
+use TypedArrays\Validators\NonCastedStringValidator;
 
-abstract class StringToClassArray extends StringToValueArray
+abstract class StringToClassArray extends KeyToValueArray
 {
-    use KeyToClassMethods;
-
     /**
      * @param string $key
      * @param object $value
@@ -17,32 +18,36 @@ abstract class StringToClassArray extends StringToValueArray
      */
     public function setItem(string $key, object $value): void
     {
-        $this->checkClass($value);
+        $this->validateKey($key);
 
-        $this->checkForKeyCasting($key);
+        $this->validateValue($value);
 
         $this->items[$key] = $value;
     }
 
     /**
      * @param string $key
-     * @param object $value
      * @throws \Exception
-     * @throws \TypeError
-     *
-     * Implements ArrayAccess so cannot add param type:
-     * @noinspection PhpMissingParamTypeInspection
      */
-    public function offsetSet($key, $value): void
+    public function unsetItem(string $key): void
     {
-        if(!is_string($key)){
-            throw new \TypeError('An attempt was made to set a non-string key on a typed array with string keys');
-        }
+        $this->validateKey($key);
 
-        if(!is_object($value)){
-            throw new \TypeError('An attempt was made to set a non-object value on a typed array with object values');
-        }
-
-        $this->setItem($key, $value);
+        unset($this->items[$key]);
     }
+
+    protected function getKeyValidator(): IValidate
+    {
+        return new NonCastedStringValidator();
+    }
+
+    protected function getValueValidator(): IValidate
+    {
+        return new ClassValidator($this->getClassName());
+    }
+
+    /**
+     * @return class-string
+     */
+    abstract protected function getClassName(): string;
 }

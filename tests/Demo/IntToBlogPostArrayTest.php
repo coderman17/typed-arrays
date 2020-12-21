@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types = 1);
 
@@ -53,7 +53,7 @@ final class IntToBlogPostArrayTest extends TestCase
             $intToBlogPostArray->getItems()
         );
 
-        $this::expectException('TypeError');
+        $this::expectException(\Exception::class);
         $intToBlogPostArray->setItem(0, new \stdClass());
     }
 
@@ -74,7 +74,7 @@ final class IntToBlogPostArrayTest extends TestCase
             $intToBlogPostArray->getItems()
         );
 
-        $this::expectException('TypeError');
+        $this::expectException(\Exception::class);
         $intToBlogPostArray->pushItem(new \stdClass());
     }
 }
