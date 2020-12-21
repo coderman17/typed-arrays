@@ -38,10 +38,10 @@ class TestHelpers extends TestCase
      * (expectException stops processing after the first exception is thrown)
      *
      * @param callable $method
-     * @param array $args
+     * @param array<int, mixed> $args
      * @return null|\Exception
      */
-    public static function expectExceptionOnMethod(callable $method, array $args): ?\Exception
+    public static function getExceptionOnMethod(callable $method, array $args): ?\Exception
     {
         try {
             $method(...$args);
@@ -63,8 +63,8 @@ class TestHelpers extends TestCase
     {
         $keyList = TestHelpers::STRING_KEYS_PHP_WILL_CAST_AS_INT;
 
-        for ($i = 0; $i < count($keyList); $i++){
-            $e = TestHelpers::expectExceptionOnMethod($method, [$keyList[$i], $acceptableArrayValue]);
+        foreach ($keyList as $key){
+            $e = TestHelpers::getExceptionOnMethod($method, [$key, $acceptableArrayValue]);
 
             if ($e === null){
                 $callingTest::fail('Expected an exception but one was not thrown');

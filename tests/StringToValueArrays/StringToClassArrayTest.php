@@ -74,12 +74,16 @@ final class StringToClassArrayTest extends TestCase
             $this->extendsTypedArray->setItem($stringKey, $this->permittedClassObject);
         }
 
-        foreach ($this->extendsTypedArray->getItems() as $k => $v){
-            $this::assertIsString($k);
+        foreach ($this->extendsTypedArray->getItems() as $key => $value){
+            $this::assertIsString($key);
+
+            if(!is_object($value)){
+                $this::fail('Unexpected non-object found');
+            }
 
             $this::assertSame(
                 $this->permittedClass,
-                get_class($v)
+                get_class($value)
             );
         }
     }
@@ -150,12 +154,16 @@ final class StringToClassArrayTest extends TestCase
             $this->extendsTypedArray[$stringKey] = $this->permittedClassObject;
         }
 
-        foreach ($this->extendsTypedArray->getItems() as $k => $v){
-            $this::assertIsString($k);
+        foreach ($this->extendsTypedArray->getItems() as $key => $value){
+            $this::assertIsString($key);
+
+            if(!is_object($value)){
+                $this::fail('Unexpected non-object found');
+            }
 
             $this::assertSame(
                 $this->permittedClass,
-                get_class($v)
+                get_class($value)
             );
         }
     }
@@ -277,6 +285,11 @@ final class StringToClassArrayTest extends TestCase
                 'a',
                 $key
             );
+
+            if(!is_object($value)){
+                $this::fail('Unexpected non-object found');
+            }
+
             $this::assertSame(
                 $this->permittedClassObject,
                 $value

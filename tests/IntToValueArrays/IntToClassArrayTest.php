@@ -285,6 +285,11 @@ final class IntToClassArrayTest extends TestCase
                 0,
                 $key
             );
+
+            if(!is_object($value)){
+                $this::fail('Unexpected non-object found');
+            }
+
             $this::assertSame(
                 $this->permittedClassObject,
                 $value
