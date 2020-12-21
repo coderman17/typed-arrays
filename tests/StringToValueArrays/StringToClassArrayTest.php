@@ -286,9 +286,9 @@ final class StringToClassArrayTest extends TestCase
                 $key
             );
 
-            if(!is_object($value)){
-                $this::fail('Unexpected non-object found');
-            }
+//            if(!is_object($value)){
+//                $this::fail('Unexpected non-object found');
+//            }
 
             $this::assertSame(
                 $this->permittedClassObject,
