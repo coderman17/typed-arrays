@@ -16,6 +16,7 @@ class NonCastedStringValidator implements IValidate
     /**
      * @param mixed $value
      * @throws \Exception
+     * @throws \TypeError
      */
     public function validate($value): void
     {
