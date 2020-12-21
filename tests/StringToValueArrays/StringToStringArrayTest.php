@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types = 1);
 
@@ -10,15 +10,18 @@ use Tests\TestHelpers;
 
 final class StringToStringArrayTest extends TestCase
 {
+    /**
+     * @var class-string
+     */
     protected string $fullyQualifiedClassName;
 
     protected StringToStringArray $array;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->fullyQualifiedClassName = 'TypedArrays\StringToValueArrays\StringToStringArray';
+        $this->fullyQualifiedClassName = StringToStringArray::class;
 
         $this->array = new StringToStringArray();
     }
@@ -109,14 +112,14 @@ final class StringToStringArrayTest extends TestCase
 
     public function testOffsetSetKeyError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         $this->array[0] = '0';
     }
 
     public function testOffsetSetValueError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         $this->array['a'] = 0;
     }
@@ -135,7 +138,7 @@ final class StringToStringArrayTest extends TestCase
 
     public function testOffsetGetKeyError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         echo $this->array[0];
     }
@@ -160,7 +163,7 @@ final class StringToStringArrayTest extends TestCase
 
     public function testOffsetUnsetKeyError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         unset($this->array[0]);
     }
@@ -184,7 +187,7 @@ final class StringToStringArrayTest extends TestCase
 
     public function testOffsetExistsKeyError(): void
     {
-        $this::expectException('TypeError');
+        $this::expectException(\TypeError::class);
 
         echo isset($this->array[0]);
     }
