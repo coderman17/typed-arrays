@@ -27,7 +27,7 @@ final class StringToClassArrayTest extends TestCase
 
         $this->fullyQualifiedClassName = StringToClassArray::class;
 
-        $this->permittedClassObject = new class {};
+        $this->permittedClassObject = TestHelpers::generateAnonClassObject();
 
         $this->permittedClass = get_class($this->permittedClassObject);
 
@@ -63,7 +63,7 @@ final class StringToClassArrayTest extends TestCase
 
     public function testSetItem(): void
     {
-        $setMethod = function ($key, $value){
+        $setMethod = function (string $key, object $value): void {
             $this->extendsTypedArray->setItem($key, $value);
         };
 
@@ -113,7 +113,7 @@ final class StringToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem('a', $this->permittedClassObject);
 
-        $secondPermittedClassObject = new $this->permittedClass();
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
 
         $this->extendsTypedArray->setItem('b', $secondPermittedClassObject);
 
@@ -139,7 +139,7 @@ final class StringToClassArrayTest extends TestCase
 
     public function testOffsetSet(): void
     {
-        $offsetSetMethod = function ($key, $value){
+        $offsetSetMethod = function (string $key, object $value): void {
             $this->extendsTypedArray[$key] = $value;
         };
 
@@ -193,6 +193,9 @@ final class StringToClassArrayTest extends TestCase
         );
     }
 
+    /**
+     * @psalm-suppress MixedArgument
+     */
     public function testOffsetGetKeyError(): void
     {
         $this::expectException(\TypeError::class);
@@ -206,7 +209,7 @@ final class StringToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem('a', $this->permittedClassObject);
 
-        $secondPermittedClassObject = new $this->permittedClass();
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
 
         $this->extendsTypedArray->setItem('b', $secondPermittedClassObject);
 

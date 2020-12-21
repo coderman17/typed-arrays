@@ -151,6 +151,9 @@ final class IntToStringArrayTest extends TestCase
         );
     }
 
+    /**
+     * @psalm-suppress MixedArgument
+     */
     public function testOffsetGetKeyError(): void
     {
         $this::expectException(\TypeError::class);

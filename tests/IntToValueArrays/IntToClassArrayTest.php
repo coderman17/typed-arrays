@@ -27,7 +27,7 @@ final class IntToClassArrayTest extends TestCase
 
         $this->fullyQualifiedClassName = IntToClassArray::class;
 
-        $this->permittedClassObject = new class {};
+        $this->permittedClassObject = TestHelpers::generateAnonClassObject();
 
         $this->permittedClass = get_class($this->permittedClassObject);
 
@@ -103,7 +103,7 @@ final class IntToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
 
-        $secondPermittedClassObject = new $this->permittedClass();
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
 
         $this->extendsTypedArray->setItem(1, $secondPermittedClassObject);
 
@@ -201,6 +201,9 @@ final class IntToClassArrayTest extends TestCase
         );
     }
 
+    /**
+     * @psalm-suppress MixedArgument
+     */
     public function testOffsetGetKeyError(): void
     {
         $this::expectException(\TypeError::class);
@@ -214,7 +217,7 @@ final class IntToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
 
-        $secondPermittedClassObject = new $this->permittedClass();
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
 
         $this->extendsTypedArray->setItem(1, $secondPermittedClassObject);
 

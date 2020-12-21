@@ -30,7 +30,7 @@ final class StringToIntArrayTest extends TestCase
 
     public function testSetItem(): void
     {
-        $setMethod = function ($key, $value){
+        $setMethod = function (string $key, int $value): void {
             $this->array->setItem($key, $value);
         };
 
@@ -93,7 +93,7 @@ final class StringToIntArrayTest extends TestCase
 
     public function testOffsetSet(): void
     {
-        $offsetSetMethod = function ($key, $value){
+        $offsetSetMethod = function (string $key, int $value): void{
             $this->array[$key] = $value;
         };
 
@@ -136,6 +136,9 @@ final class StringToIntArrayTest extends TestCase
         );
     }
 
+    /**
+     * @psalm-suppress MixedArgument
+     */
     public function testOffsetGetKeyError(): void
     {
         $this::expectException(\TypeError::class);

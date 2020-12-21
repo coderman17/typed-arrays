@@ -77,6 +77,11 @@ class TestHelpers extends TestCase
         }
     }
 
+    public static function generateAnonClassObject(): object
+    {
+        return new class {};
+    }
+
     /**
      * @param class-string $className
      * @param string $methodName
