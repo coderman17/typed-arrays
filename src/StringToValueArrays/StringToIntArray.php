@@ -15,6 +15,8 @@ class StringToIntArray extends KeyToValueArray
     {
         $this->validateKey($key);
 
+        $this->validateValue($value);
+
         $this->items[$key] = $value;
     }
 
