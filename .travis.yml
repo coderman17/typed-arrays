@@ -11,3 +11,5 @@ script:
   - vendor/bin/phpstan analyse tests src
   - vendor/bin/psalm
 
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
