@@ -24,12 +24,9 @@ class ClassValidator implements IValidate
     }
 
     /**
-     * @param mixed $value
-     * @throws \Exception
-     * @throws \TypeError
+     * @inheritDoc
      *
-     * An object will be passed to get_class, as the object validator would throw otherwise:
-     * @psalm-suppress MixedArgument
+     * @psalm-suppress MixedArgument //An object will be passed to get_class; object validator would throw otherwise
      */
     public function validate($value): void
     {
@@ -37,12 +34,12 @@ class ClassValidator implements IValidate
 
         try {
             $this->objectValidator->validate($value);
-        } catch (\TypeError $e) {
-            throw new \TypeError($e->getMessage() . '. The expected class is: ' . $this->className);
+        } catch (\InvalidArgumentException $e) {
+            throw new \InvalidArgumentException($e->getMessage() . '. The expected class is: ' . $this->className);
         }
 
         if (get_class($value) !== $this->className) {
-            throw new \Exception('Expected an object of class ' . $this->className . ' but received one of class ' . get_class($value), 0, $previous);
+            throw new \InvalidArgumentException('Expected an object of class ' . $this->className . ' but received one of class ' . get_class($value), 0, $previous);
         }
     }
 }

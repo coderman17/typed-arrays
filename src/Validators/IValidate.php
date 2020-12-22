@@ -8,8 +8,7 @@ interface IValidate
 {
     /**
      * @param mixed $value
-     * @throws \Exception
-     * @throws \TypeError
+     * @throws \InvalidArgumentException
      */
     public function validate($value): void;
 }

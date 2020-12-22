@@ -14,19 +14,16 @@ class NonCastedStringValidator implements IValidate
     }
 
     /**
-     * @param mixed $value
-     * @throws \Exception
-     * @throws \TypeError
+     * @inheritDoc
      *
-     * An string will be passed to get_class, as the string validator would throw otherwise:
-     * @psalm-suppress MixedArgument
+     * @psalm-suppress MixedArgument //A string will be passed to get_class, otherwise the string validator would throw
      */
     public function validate($value): void
     {
         $this->stringValidator->validate($value);
 
         if (!$this->checkForKeyCasting($value)){
-            throw new \Exception('PHP was about to silently cast the key "' . $value . '" to an integer, an exception was thrown instead');
+            throw new \InvalidArgumentException('PHP was about to silently cast the key "' . $value . '" to an integer, an exception was thrown instead');
         }
     }
 
