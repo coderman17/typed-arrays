@@ -27,7 +27,7 @@ final class StringToClassArrayTest extends TestCase
 
         $this->fullyQualifiedClassName = StringToClassArray::class;
 
-        $this->permittedClassObject = new class {};
+        $this->permittedClassObject = TestHelpers::generateAnonClassObject();
 
         $this->permittedClass = get_class($this->permittedClassObject);
 
@@ -63,7 +63,7 @@ final class StringToClassArrayTest extends TestCase
 
     public function testSetItem(): void
     {
-        $setMethod = function ($key, $value){
+        $setMethod = function (string $key, object $value): void {
             $this->extendsTypedArray->setItem($key, $value);
         };
 
@@ -74,12 +74,16 @@ final class StringToClassArrayTest extends TestCase
             $this->extendsTypedArray->setItem($stringKey, $this->permittedClassObject);
         }
 
-        foreach ($this->extendsTypedArray->getItems() as $k => $v){
-            $this::assertIsString($k);
+        foreach ($this->extendsTypedArray->getItems() as $key => $value){
+            $this::assertIsString($key);
+
+            if(!is_object($value)){
+                $this::fail('Unexpected non-object found');
+            }
 
             $this::assertSame(
                 $this->permittedClass,
-                get_class($v)
+                get_class($value)
             );
         }
     }
@@ -113,7 +117,7 @@ final class StringToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem('a', $this->permittedClassObject);
 
-        $secondPermittedClassObject = new $this->permittedClass();
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
 
         $this->extendsTypedArray->setItem('b', $secondPermittedClassObject);
 
@@ -139,7 +143,7 @@ final class StringToClassArrayTest extends TestCase
 
     public function testOffsetSet(): void
     {
-        $offsetSetMethod = function ($key, $value){
+        $offsetSetMethod = function (string $key, object $value): void {
             $this->extendsTypedArray[$key] = $value;
         };
 
@@ -150,12 +154,16 @@ final class StringToClassArrayTest extends TestCase
             $this->extendsTypedArray[$stringKey] = $this->permittedClassObject;
         }
 
-        foreach ($this->extendsTypedArray->getItems() as $k => $v){
-            $this::assertIsString($k);
+        foreach ($this->extendsTypedArray->getItems() as $key => $value){
+            $this::assertIsString($key);
+
+            if(!is_object($value)){
+                $this::fail('Unexpected non-object found');
+            }
 
             $this::assertSame(
                 $this->permittedClass,
-                get_class($v)
+                get_class($value)
             );
         }
     }
@@ -197,7 +205,8 @@ final class StringToClassArrayTest extends TestCase
     {
         $this::expectException(\TypeError::class);
 
-        echo $this->extendsTypedArray[0];
+        /** @phpstan-ignore-next-line it's fine that it doesn't do anything*/
+        $this->extendsTypedArray[0];
     }
 
     //offsetUnset:
@@ -206,7 +215,7 @@ final class StringToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem('a', $this->permittedClassObject);
 
-        $secondPermittedClassObject = new $this->permittedClass();
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
 
         $this->extendsTypedArray->setItem('b', $secondPermittedClassObject);
 
@@ -274,6 +283,11 @@ final class StringToClassArrayTest extends TestCase
                 'a',
                 $key
             );
+
+            if(!is_object($value)){
+                $this::fail('Unexpected non-object found');
+            }
+
             $this::assertSame(
                 $this->permittedClassObject,
                 $value

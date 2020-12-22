@@ -38,10 +38,10 @@ class TestHelpers extends TestCase
      * (expectException stops processing after the first exception is thrown)
      *
      * @param callable $method
-     * @param array $args
+     * @param array<int, mixed> $args
      * @return null|\Exception
      */
-    public static function expectExceptionOnMethod(callable $method, array $args): ?\Exception
+    public static function getExceptionOnMethod(callable $method, array $args): ?\Exception
     {
         try {
             $method(...$args);
@@ -63,8 +63,8 @@ class TestHelpers extends TestCase
     {
         $keyList = TestHelpers::STRING_KEYS_PHP_WILL_CAST_AS_INT;
 
-        for ($i = 0; $i < count($keyList); $i++){
-            $e = TestHelpers::expectExceptionOnMethod($method, [$keyList[$i], $acceptableArrayValue]);
+        foreach ($keyList as $key){
+            $e = TestHelpers::getExceptionOnMethod($method, [$key, $acceptableArrayValue]);
 
             if ($e === null){
                 $callingTest::fail('Expected an exception but one was not thrown');
@@ -77,37 +77,42 @@ class TestHelpers extends TestCase
         }
     }
 
+    public static function generateAnonClassObject(): object
+    {
+        return new class {};
+    }
+
     /**
      * @param class-string $className
      * @param string $methodName
-     * @param string $parameterName
+     * @param string $targetParameterName
      * @param TestCase $callingTest
      * @return string
      */
-    public static function getParameterType(string $className, string $methodName, string $parameterName, TestCase $callingTest): string
+    public static function getParameterType(string $className, string $methodName, string $targetParameterName, TestCase $callingTest): string
     {
         try {
-            $setItemMethod = new \ReflectionMethod($className, $methodName);
+            $method = new \ReflectionMethod($className, $methodName);
 
-            $params = $setItemMethod->getParameters();
+            $params = $method->getParameters();
 
             foreach ($params as $param){
-                if($param->getName() === $parameterName){
-                    if($param->getType() === null){
-                        throw new \Exception("The '" . $parameterName . "' parameter doesn't specify a type in '" . $methodName . "' method in '" . $className . "' class");
-                    }
-
+                if($param->getName() === $targetParameterName){
                     $type = $param->getType();
 
-                    if($type instanceof \ReflectionNamedType){
-                        return $type->getName();
+                    if($type === null){
+                        throw new \Exception("The '" . $targetParameterName . "' parameter doesn't specify a type in '" . $methodName . "' method in '" . $className . "' class");
                     }
 
-                    throw new \Exception("The '" . $parameterName . "' parameter's type is not recognised");
+                    if(!$type instanceof \ReflectionNamedType){
+                        throw new \Exception("The '" . $targetParameterName . "' parameter's type is not recognised");
+                    }
+
+                    return $type->getName();
                 }
             }
 
-            throw new \Exception("Couldn't find '" . $parameterName . "' parameter in '" . $methodName . "' method in '" . $className . "' class");
+            throw new \Exception("Couldn't find '" . $targetParameterName . "' parameter in '" . $methodName . "' method in '" . $className . "' class");
 
         } catch (\Exception $e) {
             $callingTest::fail($e->getMessage());

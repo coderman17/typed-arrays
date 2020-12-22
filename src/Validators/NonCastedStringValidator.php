@@ -17,6 +17,9 @@ class NonCastedStringValidator implements IValidate
      * @param mixed $value
      * @throws \Exception
      * @throws \TypeError
+     *
+     * An string will be passed to get_class, as the string validator would throw otherwise:
+     * @psalm-suppress MixedArgument
      */
     public function validate($value): void
     {

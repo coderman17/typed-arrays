@@ -148,7 +148,8 @@ final class IntToIntArrayTest extends TestCase
     {
         $this::expectException(\TypeError::class);
 
-        echo $this->array['0'];
+        /** @phpstan-ignore-next-line it's fine that it doesn't do anything*/
+        $this->array['0'];
     }
 
     //offsetUnset:

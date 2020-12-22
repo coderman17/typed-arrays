@@ -27,7 +27,7 @@ final class IntToClassArrayTest extends TestCase
 
         $this->fullyQualifiedClassName = IntToClassArray::class;
 
-        $this->permittedClassObject = new class {};
+        $this->permittedClassObject = TestHelpers::generateAnonClassObject();
 
         $this->permittedClass = get_class($this->permittedClassObject);
 
@@ -103,7 +103,7 @@ final class IntToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
 
-        $secondPermittedClassObject = new $this->permittedClass();
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
 
         $this->extendsTypedArray->setItem(1, $secondPermittedClassObject);
 
@@ -205,7 +205,8 @@ final class IntToClassArrayTest extends TestCase
     {
         $this::expectException(\TypeError::class);
 
-        echo $this->extendsTypedArray['0'];
+        /** @phpstan-ignore-next-line it's fine that it doesn't do anything*/
+        $this->extendsTypedArray['0'];
     }
 
     //offsetUnset:
@@ -214,7 +215,7 @@ final class IntToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
 
-        $secondPermittedClassObject = new $this->permittedClass();
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
 
         $this->extendsTypedArray->setItem(1, $secondPermittedClassObject);
 
@@ -282,6 +283,11 @@ final class IntToClassArrayTest extends TestCase
                 0,
                 $key
             );
+
+            if(!is_object($value)){
+                $this::fail('Unexpected non-object found');
+            }
+
             $this::assertSame(
                 $this->permittedClassObject,
                 $value
