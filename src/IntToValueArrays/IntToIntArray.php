@@ -19,6 +19,22 @@ class IntToIntArray extends KeyToValueArray
         $this->items[$key] = $value;
     }
 
+    /**
+     * @param array<int, int> $array
+     * @throws \TypeError
+     * @throws \Exception this will actually only throw a TypeError, not Exception...
+     */
+    public function bulkSetItems(array $array): void
+    {
+        foreach ($array as $key => $value){
+            $this->validateKey($key);
+
+            $this->validateValue($value);
+
+            $this->setItem($key, $value);
+        }
+    }
+
     public function unsetItem(int $key): void
     {
         unset($this->items[$key]);

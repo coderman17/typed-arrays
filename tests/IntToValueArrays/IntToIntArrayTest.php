@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnhandledExceptionInspection */
 
 declare(strict_types = 1);
 
@@ -54,6 +54,66 @@ final class IntToIntArrayTest extends TestCase
             'int',
             TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'value', $this)
         );
+    }
+
+    //bulkSetItems:
+    public function testBulkSetItems(): void
+    {
+        $array = [
+            0 => 0,
+            1 => 1
+        ];
+
+        $this->array->bulkSetItems($array);
+
+        $this::assertSame(
+            $array,
+            $this->array->getItems()
+        );
+    }
+
+    public function testBulkSetItemsParamIsTypeArray(): void
+    {
+        $this::assertSame(
+            'array',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'bulkSetItems', 'array', $this)
+        );
+    }
+
+    /**
+     * @psalm-suppress InvalidScalarArgument
+     * @throws \Exception
+     */
+    public function testBulkSetItemsKeyError(): void
+    {
+        $array = [
+            0 => 0,
+            'b' => 1
+        ];
+
+        $this::expectException(\TypeError::class);
+
+        /** @phpstan-ignore-next-line */
+        $this->array->bulkSetItems($array);
+    }
+
+    /**
+     * @psalm-suppress InvalidArgument
+     * @throws \Exception
+     */
+    public function testBulkSetItemsValueError(): void
+    {
+        $array = [
+            0 => 0,
+            1 => [
+                1 => 1
+            ]
+        ];
+
+        $this::expectException(\TypeError::class);
+
+        /** @phpstan-ignore-next-line */
+        $this->array->bulkSetItems($array);
     }
 
     //unsetItem:

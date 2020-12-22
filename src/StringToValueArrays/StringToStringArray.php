@@ -24,6 +24,22 @@ class StringToStringArray extends KeyToValueArray
     }
 
     /**
+     * @param array<string, string> $array
+     * @throws \TypeError
+     * @throws \Exception this will actually only throw a TypeError, not Exception...
+     */
+    public function bulkSetItems(array $array): void
+    {
+        foreach ($array as $key => $value){
+            $this->validateKey($key);
+
+            $this->validateValue($value);
+
+            $this->setItem($key, $value);
+        }
+    }
+
+    /**
      * @param string $key
      * @throws \Exception
      */

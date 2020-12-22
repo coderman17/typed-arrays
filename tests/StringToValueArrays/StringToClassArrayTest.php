@@ -111,6 +111,84 @@ final class StringToClassArrayTest extends TestCase
         );
     }
 
+    //bulkSetItems:
+    public function testBulkSetItems(): void
+    {
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+
+        $array = [
+            'a' => $this->permittedClassObject,
+            'b' => $secondPermittedClassObject
+        ];
+
+        $this->extendsTypedArray->bulkSetItems($array);
+
+        $this::assertSame(
+            $array,
+            $this->extendsTypedArray->getItems()
+        );
+    }
+
+    public function testBulkSetItemsParamIsTypeArray(): void
+    {
+        $this::assertSame(
+            'array',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'bulkSetItems', 'array', $this)
+        );
+    }
+
+    /**
+     * @psalm-suppress InvalidScalarArgument
+     * @throws \Exception
+     */
+    public function testBulkSetItemsKeyError(): void
+    {
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+
+        $array = [
+            'a' => $this->permittedClassObject,
+            1 => $secondPermittedClassObject
+        ];
+
+        $this::expectException(\TypeError::class);
+
+        /** @phpstan-ignore-next-line */
+        $this->extendsTypedArray->bulkSetItems($array);
+    }
+
+    public function testBulkSetItemsClassError(): void
+    {
+        $array = [
+            'a' => $this->permittedClassObject,
+            'b' => new \stdClass()
+        ];
+
+        $this::expectException(\Exception::class);
+
+        $this->extendsTypedArray->bulkSetItems($array);
+    }
+
+    /**
+     * @psalm-suppress InvalidArgument
+     * @throws \Exception
+     */
+    public function testBulkSetItemsValueError(): void
+    {
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+
+        $array = [
+            'a' => $this->permittedClassObject,
+            'b' => [
+                'b' => $secondPermittedClassObject
+            ]
+        ];
+
+        $this::expectException(\TypeError::class);
+
+        /** @phpstan-ignore-next-line */
+        $this->extendsTypedArray->bulkSetItems($array);
+    }
+
     //unsetItem:
 
     public function testUnsetItem(): void
