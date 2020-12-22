@@ -16,7 +16,7 @@ class NonCastedStringValidator implements IValidate
     /**
      * @inheritDoc
      *
-     * @psalm-suppress MixedArgument //A string will be passed to get_class, otherwise the string validator would throw
+     * @psalm-suppress MixedArgument //A string will be passed to checkForKeyCasting; otherwise the string validator would throw
      */
     public function validate($value): void
     {
