@@ -112,6 +112,7 @@ final class StringToClassArrayTest extends TestCase
     }
 
     //bulkSetItems:
+    //no need to test for numeric string key casting, as numeric strings will have already been int cast in the array
     public function testBulkSetItems(): void
     {
         $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
