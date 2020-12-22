@@ -63,6 +63,57 @@ final class StringToStringArrayTest extends TestCase
         );
     }
 
+    //bulkSetItems:
+    //no need to test for numeric string key casting, as numeric strings will have already been int cast in the array
+    public function testBulkSetItems(): void
+    {
+        $array = [
+            'a' => 'a1',
+            'b' => 'b1'
+        ];
+
+        $this->array->bulkSetItems($array);
+
+        $this::assertSame(
+            $array,
+            $this->array->getItems()
+        );
+    }
+
+    public function testBulkSetItemsParamIsTypeArray(): void
+    {
+        $this::assertSame(
+            'array',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'bulkSetItems', 'array', $this)
+        );
+    }
+
+    public function testBulkSetItemsKeyError(): void
+    {
+        $array = [
+            'a' => 'a1',
+            1 => 'b'
+        ];
+
+        $this::expectException(\InvalidArgumentException::class);
+
+        $this->array->bulkSetItems($array);
+    }
+
+     public function testBulkSetItemsValueError(): void
+    {
+        $array = [
+            'a' => 'a1',
+            'b' => [
+                'b' => 'b1'
+            ]
+        ];
+
+        $this::expectException(\InvalidArgumentException::class);
+
+        $this->array->bulkSetItems($array);
+    }
+
     //unsetItem:
 
     public function testUnsetItem(): void

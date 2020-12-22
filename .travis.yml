@@ -7,7 +7,9 @@ php:
 before_script: composer install
 
 script:
-  - vendor/bin/phpunit tests
+  - vendor/bin/phpunit tests --coverage-clover coverage.xml
   - vendor/bin/phpstan analyse tests src
   - vendor/bin/psalm
 
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

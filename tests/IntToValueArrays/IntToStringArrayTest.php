@@ -63,6 +63,56 @@ final class IntToStringArrayTest extends TestCase
         );
     }
 
+    //bulkSetItems:
+    public function testBulkSetItems(): void
+    {
+        $array = [
+            0 => 'a',
+            1 => 'b'
+        ];
+
+        $this->array->bulkSetItems($array);
+
+        $this::assertSame(
+            $array,
+            $this->array->getItems()
+        );
+    }
+
+    public function testBulkSetItemsParamIsTypeArray(): void
+    {
+        $this::assertSame(
+            'array',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'bulkSetItems', 'array', $this)
+        );
+    }
+
+    public function testBulkSetItemsKeyError(): void
+    {
+        $array = [
+            0 => 'a',
+            'b' => 'b1'
+        ];
+
+        $this::expectException(\InvalidArgumentException::class);
+
+        $this->array->bulkSetItems($array);
+    }
+
+    public function testBulkSetItemsValueError(): void
+    {
+        $array = [
+            0 => 'a',
+            1 => [
+                1 => 'b'
+            ]
+        ];
+
+        $this::expectException(\InvalidArgumentException::class);
+
+        $this->array->bulkSetItems($array);
+    }
+
     //unsetItem:
 
     public function testUnsetItem(): void

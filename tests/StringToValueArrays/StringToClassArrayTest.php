@@ -111,6 +111,75 @@ final class StringToClassArrayTest extends TestCase
         );
     }
 
+    //bulkSetItems:
+    //no need to test for numeric string key casting, as numeric strings will have already been int cast in the array
+    public function testBulkSetItems(): void
+    {
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+
+        $array = [
+            'a' => $this->permittedClassObject,
+            'b' => $secondPermittedClassObject
+        ];
+
+        $this->extendsTypedArray->bulkSetItems($array);
+
+        $this::assertSame(
+            $array,
+            $this->extendsTypedArray->getItems()
+        );
+    }
+
+    public function testBulkSetItemsParamIsTypeArray(): void
+    {
+        $this::assertSame(
+            'array',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'bulkSetItems', 'array', $this)
+        );
+    }
+
+    public function testBulkSetItemsKeyError(): void
+    {
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+
+        $array = [
+            'a' => $this->permittedClassObject,
+            1 => $secondPermittedClassObject
+        ];
+
+        $this::expectException(\InvalidArgumentException::class);
+
+        $this->extendsTypedArray->bulkSetItems($array);
+    }
+
+    public function testBulkSetItemsClassError(): void
+    {
+        $array = [
+            'a' => $this->permittedClassObject,
+            'b' => new \stdClass()
+        ];
+
+        $this::expectException(\InvalidArgumentException::class);
+
+        $this->extendsTypedArray->bulkSetItems($array);
+    }
+
+    public function testBulkSetItemsValueError(): void
+    {
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+
+        $array = [
+            'a' => $this->permittedClassObject,
+            'b' => [
+                'b' => $secondPermittedClassObject
+            ]
+        ];
+
+        $this::expectException(\InvalidArgumentException::class);
+
+        $this->extendsTypedArray->bulkSetItems($array);
+    }
+
     //unsetItem:
 
     public function testUnsetItem(): void

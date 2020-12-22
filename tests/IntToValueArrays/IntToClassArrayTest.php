@@ -97,6 +97,74 @@ final class IntToClassArrayTest extends TestCase
         );
     }
 
+    //bulkSetItems:
+    public function testBulkSetItems(): void
+    {
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+
+        $array = [
+            0 => $this->permittedClassObject,
+            1 => $secondPermittedClassObject
+        ];
+
+        $this->extendsTypedArray->bulkSetItems($array);
+
+        $this::assertSame(
+            $array,
+            $this->extendsTypedArray->getItems()
+        );
+    }
+
+    public function testBulkSetItemsParamIsTypeArray(): void
+    {
+        $this::assertSame(
+            'array',
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'bulkSetItems', 'array', $this)
+        );
+    }
+
+    public function testBulkSetItemsKeyError(): void
+    {
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+
+        $array = [
+            0 => $this->permittedClassObject,
+            'b' => $secondPermittedClassObject
+        ];
+
+        $this::expectException(\InvalidArgumentException::class);
+
+        $this->extendsTypedArray->bulkSetItems($array);
+    }
+
+    public function testBulkSetItemsClassError(): void
+    {
+        $array = [
+            0 => $this->permittedClassObject,
+            1 => new \stdClass()
+        ];
+
+        $this::expectException(\InvalidArgumentException::class);
+
+        $this->extendsTypedArray->bulkSetItems($array);
+    }
+
+    public function testBulkSetItemsValueError(): void
+    {
+        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+
+        $array = [
+            0 => $this->permittedClassObject,
+            1 => [
+               1 => $secondPermittedClassObject
+            ]
+        ];
+
+        $this::expectException(\InvalidArgumentException::class);
+
+        $this->extendsTypedArray->bulkSetItems($array);
+    }
+
     //unsetItem:
 
     public function testUnsetItem(): void
