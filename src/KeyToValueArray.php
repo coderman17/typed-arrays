@@ -64,8 +64,7 @@ abstract class KeyToValueArray implements \Iterator, \Countable, \ArrayAccess
 
     /**
      * @param int|string $offset
-     * @throws \Exception
-     * @throws \TypeError
+     * @throws \InvalidArgumentException
      * @param mixed $value
      */
     public function offsetSet($offset, $value): void
@@ -79,8 +78,7 @@ abstract class KeyToValueArray implements \Iterator, \Countable, \ArrayAccess
 
     /**
      * @param int|string $offset
-     * @throws \Exception
-     * @throws \TypeError
+     * @throws \InvalidArgumentException
      * @return mixed
      */
     public function offsetGet($offset)
@@ -92,8 +90,7 @@ abstract class KeyToValueArray implements \Iterator, \Countable, \ArrayAccess
 
     /**
      * @param int|string $offset
-     * @throws \Exception
-     * @throws \TypeError
+     * @throws \InvalidArgumentException
      * @return bool
      */
     public function offsetExists($offset): bool
@@ -105,8 +102,7 @@ abstract class KeyToValueArray implements \Iterator, \Countable, \ArrayAccess
 
     /**
      * @param int|string $offset
-     * @throws \Exception
-     * @throws \TypeError
+     * @throws \InvalidArgumentException
      */
     public function offsetUnset($offset): void
     {
@@ -117,8 +113,7 @@ abstract class KeyToValueArray implements \Iterator, \Countable, \ArrayAccess
 
     /**
      * @param mixed $key
-     * @throws \Exception
-     * @throws \TypeError
+     * @throws \InvalidArgumentException
      */
     protected function validateKey($key): void
     {
@@ -127,8 +122,7 @@ abstract class KeyToValueArray implements \Iterator, \Countable, \ArrayAccess
 
     /**
      * @param mixed $value
-     * @throws \Exception
-     * @throws \TypeError
+     * @throws \InvalidArgumentException
      */
     protected function validateValue($value): void
     {

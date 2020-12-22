@@ -14,7 +14,7 @@ abstract class IntToClassArray extends KeyToValueArray
     /**
      * @param int $key
      * @param object $value
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function setItem(int $key, object $value): void
     {
@@ -49,7 +49,7 @@ abstract class IntToClassArray extends KeyToValueArray
 
     /**
      * @param object $value
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function pushItem(object $value): void
     {

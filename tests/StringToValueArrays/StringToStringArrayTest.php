@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
 
 declare(strict_types = 1);
 
@@ -173,14 +173,14 @@ final class StringToStringArrayTest extends TestCase
 
     public function testOffsetSetKeyError(): void
     {
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         $this->array[0] = '0';
     }
 
     public function testOffsetSetValueError(): void
     {
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         $this->array['a'] = 0;
     }
@@ -199,7 +199,7 @@ final class StringToStringArrayTest extends TestCase
 
     public function testOffsetGetKeyError(): void
     {
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         /** @phpstan-ignore-next-line it's fine that it doesn't do anything*/
         $this->array[0];
@@ -225,7 +225,7 @@ final class StringToStringArrayTest extends TestCase
 
     public function testOffsetUnsetKeyError(): void
     {
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         unset($this->array[0]);
     }
@@ -249,7 +249,7 @@ final class StringToStringArrayTest extends TestCase
 
     public function testOffsetExistsKeyError(): void
     {
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         echo isset($this->array[0]);
     }
