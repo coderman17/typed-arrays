@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
 
 declare(strict_types = 1);
 
@@ -53,7 +53,7 @@ final class IntToBlogPostArrayTest extends TestCase
             $intToBlogPostArray->getItems()
         );
 
-        $this::expectException(\Exception::class);
+        $this::expectException(\InvalidArgumentException::class);
         $intToBlogPostArray->setItem(0, new \stdClass());
     }
 
@@ -74,7 +74,7 @@ final class IntToBlogPostArrayTest extends TestCase
             $intToBlogPostArray->getItems()
         );
 
-        $this::expectException(\Exception::class);
+        $this::expectException(\InvalidArgumentException::class);
         $intToBlogPostArray->pushItem(new \stdClass());
     }
 }

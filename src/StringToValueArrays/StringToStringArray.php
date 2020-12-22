@@ -14,7 +14,7 @@ class StringToStringArray extends KeyToValueArray
     /**
      * @param string $key
      * @param string $value
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function setItem(string $key, string $value): void
     {
@@ -25,7 +25,7 @@ class StringToStringArray extends KeyToValueArray
 
     /**
      * @param string $key
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function unsetItem(string $key): void
     {

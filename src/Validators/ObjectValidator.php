@@ -7,13 +7,12 @@ namespace TypedArrays\Validators;
 class ObjectValidator implements IValidate
 {
     /**
-     * @param mixed $value
-     * @throws \TypeError
+     * @inheritDoc
      */
     public function validate($value): void
     {
         if (!is_object($value)) {
-            throw new \TypeError('Expected an object type but received a ' . gettype($value));
+            throw new \InvalidArgumentException('Expected an object type but received a ' . gettype($value));
         }
     }
 }

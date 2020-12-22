@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
 
 declare(strict_types = 1);
 
@@ -90,7 +90,7 @@ final class StringToClassArrayTest extends TestCase
 
     public function testSetItemClassError(): void
     {
-        $this::expectException(\Exception::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         $this->extendsTypedArray->setItem('a', new \stdClass());
     }
@@ -170,21 +170,21 @@ final class StringToClassArrayTest extends TestCase
 
     public function testOffsetSetKeyError(): void
     {
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         $this->extendsTypedArray[0] = $this->permittedClassObject;
     }
 
     public function testOffsetSetValueError(): void
     {
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         $this->extendsTypedArray['a'] = true;
     }
 
     public function testOffsetSetClassError(): void
     {
-        $this::expectException(\Exception::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         $this->extendsTypedArray['a'] = new \stdClass();
     }
@@ -203,7 +203,7 @@ final class StringToClassArrayTest extends TestCase
 
     public function testOffsetGetKeyError(): void
     {
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         /** @phpstan-ignore-next-line it's fine that it doesn't do anything*/
         $this->extendsTypedArray[0];
@@ -231,7 +231,7 @@ final class StringToClassArrayTest extends TestCase
 
     public function testOffsetUnsetKeyError(): void
     {
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         unset($this->extendsTypedArray[0]);
     }
@@ -255,7 +255,7 @@ final class StringToClassArrayTest extends TestCase
 
     public function testOffsetExistsKeyError(): void
     {
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         echo isset($this->extendsTypedArray[0]);
     }
