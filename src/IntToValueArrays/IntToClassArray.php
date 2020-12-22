@@ -24,21 +24,6 @@ abstract class IntToClassArray extends KeyToValueArray
     }
 
     /**
-     * @param array<int, object> $array
-     * @throws \InvalidArgumentException
-     */
-    public function bulkSetItems(array $array): void
-    {
-        foreach ($array as $key => $value){
-            $this->validateKey($key);
-
-            $this->validateValue($value);
-
-            $this->setItem($key, $value);
-        }
-    }
-
-    /**
      * @param int $key
      */
     public function unsetItem(int $key): void

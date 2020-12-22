@@ -124,7 +124,6 @@ final class IntToClassArrayTest extends TestCase
     }
 
     /**
-     * @psalm-suppress InvalidScalarArgument
      * @throws \Exception
      */
     public function testBulkSetItemsKeyError(): void
@@ -138,7 +137,6 @@ final class IntToClassArrayTest extends TestCase
 
         $this::expectException(\InvalidArgumentException::class);
 
-        /** @phpstan-ignore-next-line */
         $this->extendsTypedArray->bulkSetItems($array);
     }
 
@@ -155,7 +153,6 @@ final class IntToClassArrayTest extends TestCase
     }
 
     /**
-     * @psalm-suppress InvalidArgument
      * @throws \Exception
      */
     public function testBulkSetItemsValueError(): void
@@ -171,7 +168,6 @@ final class IntToClassArrayTest extends TestCase
 
         $this::expectException(\InvalidArgumentException::class);
 
-        /** @phpstan-ignore-next-line */
         $this->extendsTypedArray->bulkSetItems($array);
     }
 

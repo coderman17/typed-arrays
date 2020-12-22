@@ -101,6 +101,23 @@ abstract class KeyToValueArray implements \Iterator, \Countable, \ArrayAccess
     }
 
     /**
+     * @param array $array
+     * @throws \InvalidArgumentException
+     *
+     * @psalm-suppress MixedAssignment //The type of $value needs to be ambiguous here
+     */
+    public function bulkSetItems(array $array): void
+    {
+        foreach ($array as $key => $value){
+            $this->validateKey($key);
+
+            $this->validateValue($value);
+
+            $this->items[$key] = $value;
+        }
+    }
+
+    /**
      * @param int|string $offset
      * @throws \InvalidArgumentException
      */

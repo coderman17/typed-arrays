@@ -8,7 +8,7 @@ parameters:
             # ignored because it's intentionally not specified
             message: '#.+no value type specified in iterable type array.+#'
             path: src\KeyToValueArray.php
-            count: 2
+            count: 3
         -
             # ignored because generics seem too complex to look into at the moment
             message: '#.+implements generic interface.+but does not specify its types.+#'

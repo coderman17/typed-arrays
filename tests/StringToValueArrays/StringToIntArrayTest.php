@@ -89,7 +89,6 @@ final class StringToIntArrayTest extends TestCase
     }
 
     /**
-     * @psalm-suppress InvalidScalarArgument
      * @throws \Exception
      */
     public function testBulkSetItemsKeyError(): void
@@ -101,12 +100,10 @@ final class StringToIntArrayTest extends TestCase
 
         $this::expectException(\InvalidArgumentException::class);
 
-        /** @phpstan-ignore-next-line */
         $this->array->bulkSetItems($array);
     }
 
     /**
-     * @psalm-suppress InvalidArgument
      * @throws \Exception
      */
     public function testBulkSetItemsValueError(): void
@@ -120,7 +117,6 @@ final class StringToIntArrayTest extends TestCase
 
         $this::expectException(\InvalidArgumentException::class);
 
-        /** @phpstan-ignore-next-line */
         $this->array->bulkSetItems($array);
     }
 

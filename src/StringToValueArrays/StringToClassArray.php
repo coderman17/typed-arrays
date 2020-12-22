@@ -26,21 +26,6 @@ abstract class StringToClassArray extends KeyToValueArray
     }
 
     /**
-     * @param array<string, object> $array
-     * @throws \InvalidArgumentException
-     */
-    public function bulkSetItems(array $array): void
-    {
-        foreach ($array as $key => $value){
-            $this->validateKey($key);
-
-            $this->validateValue($value);
-
-            $this->setItem($key, $value);
-        }
-    }
-
-    /**
      * @param string $key
      * @throws \InvalidArgumentException
      */
