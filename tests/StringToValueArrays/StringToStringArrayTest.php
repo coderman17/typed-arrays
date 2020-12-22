@@ -88,9 +88,6 @@ final class StringToStringArrayTest extends TestCase
         );
     }
 
-    /**
-     * @throws \Exception
-     */
     public function testBulkSetItemsKeyError(): void
     {
         $array = [
@@ -103,10 +100,7 @@ final class StringToStringArrayTest extends TestCase
         $this->array->bulkSetItems($array);
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function testBulkSetItemsValueError(): void
+     public function testBulkSetItemsValueError(): void
     {
         $array = [
             'a' => 'a1',

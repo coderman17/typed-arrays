@@ -123,9 +123,6 @@ final class IntToClassArrayTest extends TestCase
         );
     }
 
-    /**
-     * @throws \Exception
-     */
     public function testBulkSetItemsKeyError(): void
     {
         $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
@@ -152,9 +149,6 @@ final class IntToClassArrayTest extends TestCase
         $this->extendsTypedArray->bulkSetItems($array);
     }
 
-    /**
-     * @throws \Exception
-     */
     public function testBulkSetItemsValueError(): void
     {
         $secondPermittedClassObject = TestHelpers::generateAnonClassObject();

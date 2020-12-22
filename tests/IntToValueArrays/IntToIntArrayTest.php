@@ -80,9 +80,6 @@ final class IntToIntArrayTest extends TestCase
         );
     }
 
-    /**
-     * @throws \Exception
-     */
     public function testBulkSetItemsKeyError(): void
     {
         $array = [
@@ -95,9 +92,6 @@ final class IntToIntArrayTest extends TestCase
         $this->array->bulkSetItems($array);
     }
 
-    /**
-     * @throws \Exception
-     */
     public function testBulkSetItemsValueError(): void
     {
         $array = [
