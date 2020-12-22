@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
 
 declare(strict_types = 1);
 
@@ -91,7 +91,7 @@ final class IntToIntArrayTest extends TestCase
             'b' => 1
         ];
 
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         /** @phpstan-ignore-next-line */
         $this->array->bulkSetItems($array);
@@ -110,7 +110,7 @@ final class IntToIntArrayTest extends TestCase
             ]
         ];
 
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         /** @phpstan-ignore-next-line */
         $this->array->bulkSetItems($array);

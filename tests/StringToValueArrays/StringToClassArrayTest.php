@@ -150,7 +150,7 @@ final class StringToClassArrayTest extends TestCase
             1 => $secondPermittedClassObject
         ];
 
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         /** @phpstan-ignore-next-line */
         $this->extendsTypedArray->bulkSetItems($array);
@@ -163,7 +163,7 @@ final class StringToClassArrayTest extends TestCase
             'b' => new \stdClass()
         ];
 
-        $this::expectException(\Exception::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         $this->extendsTypedArray->bulkSetItems($array);
     }
@@ -183,7 +183,7 @@ final class StringToClassArrayTest extends TestCase
             ]
         ];
 
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         /** @phpstan-ignore-next-line */
         $this->extendsTypedArray->bulkSetItems($array);

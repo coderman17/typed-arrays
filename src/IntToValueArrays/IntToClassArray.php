@@ -25,8 +25,7 @@ abstract class IntToClassArray extends KeyToValueArray
 
     /**
      * @param array<int, object> $array
-     * @throws \TypeError
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function bulkSetItems(array $array): void
     {

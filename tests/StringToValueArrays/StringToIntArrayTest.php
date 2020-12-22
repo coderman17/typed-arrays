@@ -99,7 +99,7 @@ final class StringToIntArrayTest extends TestCase
             1 => 1
         ];
 
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         /** @phpstan-ignore-next-line */
         $this->array->bulkSetItems($array);
@@ -118,7 +118,7 @@ final class StringToIntArrayTest extends TestCase
             ]
         ];
 
-        $this::expectException(\TypeError::class);
+        $this::expectException(\InvalidArgumentException::class);
 
         /** @phpstan-ignore-next-line */
         $this->array->bulkSetItems($array);

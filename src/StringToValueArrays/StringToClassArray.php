@@ -27,8 +27,7 @@ abstract class StringToClassArray extends KeyToValueArray
 
     /**
      * @param array<string, object> $array
-     * @throws \TypeError
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function bulkSetItems(array $array): void
     {

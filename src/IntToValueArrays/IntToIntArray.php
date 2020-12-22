@@ -21,8 +21,7 @@ class IntToIntArray extends KeyToValueArray
 
     /**
      * @param array<int, int> $array
-     * @throws \TypeError
-     * @throws \Exception this will actually only throw a TypeError, not Exception...
+     * @throws \InvalidArgumentException
      */
     public function bulkSetItems(array $array): void
     {
