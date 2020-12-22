@@ -66,8 +66,8 @@ class TestHelpers extends TestCase
         foreach ($keyList as $key){
             $e = TestHelpers::getExceptionOnMethod($method, [$key, $acceptableArrayValue]);
 
-            if ($e === null){
-                $callingTest::fail('Expected an exception but one was not thrown');
+            if (!$e instanceOf \InvalidArgumentException){
+                $callingTest::fail('Expected an InvalidArgumentException but one was not thrown');
             }
 
             $callingTest::assertSame(
