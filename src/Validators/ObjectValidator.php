@@ -12,7 +12,7 @@ class ObjectValidator implements IValidate
     public function validate($value): void
     {
         if (!is_object($value)) {
-            throw new \InvalidArgumentException('Expected an object type but received a ' . gettype($value));
+            throw new \InvalidArgumentException('Expected type "object" but received type "' . gettype($value) . '"');
         }
     }
 }

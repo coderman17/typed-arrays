@@ -12,7 +12,7 @@ class IntValidator implements IValidate
     public function validate($value): void
     {
         if (!is_int($value)) {
-            throw new \InvalidArgumentException('Expected an integer type but received a ' . gettype($value));
+            throw new \InvalidArgumentException('Expected type "integer" but received type "' . gettype($value) . '"');
         }
     }
 }
