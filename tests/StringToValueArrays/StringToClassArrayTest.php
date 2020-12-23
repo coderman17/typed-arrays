@@ -27,36 +27,42 @@ final class StringToClassArrayTest extends TestCase
 
         $this->fullyQualifiedClassName = StringToClassArray::class;
 
-        $this->permittedClassObject = TestHelpers::generateAnonClassObject();
+        $this->permittedClassObject = TestHelpers::newEmptyClassObject();
 
         $this->permittedClass = get_class($this->permittedClassObject);
 
-        //This sets the className property on construction only for testing purposes
-        //A genuine extending class of StringToClassArray would rightly have this hardcoded
-        $this->extendsTypedArray = new class($this->permittedClass) extends StringToClassArray
+        $this->extendsTypedArray = $this->newExtendingClassObject($this->permittedClass);
+    }
+
+    //This sets the className property on construction only for testing purposes
+    //A genuine extending class of StringToClassArray would rightly have this hardcoded
+    protected function newExtendingClassObject(string $permittedClass, array $array = null): StringToClassArray
+    {
+        return new class($permittedClass, $array) extends StringToClassArray
+        {
+            protected string $className;
+
+            public function __construct(string $className, array $array = null)
             {
-                protected string $className;
+                $this->className = $className;
 
-                public function __construct(string $className)
-                {
-                    $this->className = $className;
+                parent::__construct($array);
+            }
 
-                    parent::__construct();
-                }
-
-                /**
-                 * @return class-string
-                 *
-                 * It's not possible to generate a class-string from an anonymous class:
-                 * @psalm-suppress MoreSpecificReturnType
-                 * @psalm-suppress LessSpecificReturnStatement
-                 */
-                protected function getClassName(): string
-                {
-                    /** @phpstan-ignore-next-line */
-                    return $this->className;
-                }
-            };
+            /**
+             * @return class-string
+             *
+             * It's not possible to generate a class-string from an anonymous class:
+             * @psalm-suppress MoreSpecificReturnType
+             * @psalm-suppress LessSpecificReturnStatement
+             * @
+             */
+            protected function getClassName(): string
+            {
+                /** @phpstan-ignore-next-line */
+                return $this->className;
+            }
+        };
     }
 
     //setItem & getItems:
@@ -111,36 +117,36 @@ final class StringToClassArrayTest extends TestCase
         );
     }
 
-    //bulkSetItems:
+    //bulkSetItemson construct:
     //no need to test for numeric string key casting, as numeric strings will have already been int cast in the array
-    public function testBulkSetItems(): void
+    public function testConstructorBulkSetItems(): void
     {
-        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+        $secondPermittedClassObject = TestHelpers::newEmptyClassObject();
 
         $array = [
             'a' => $this->permittedClassObject,
             'b' => $secondPermittedClassObject
         ];
 
-        $this->extendsTypedArray->bulkSetItems($array);
+        $extendsTypedArray = $this->newExtendingClassObject($this->permittedClass, $array);
 
         $this::assertSame(
             $array,
-            $this->extendsTypedArray->getItems()
+            $extendsTypedArray->getItems()
         );
     }
 
-    public function testBulkSetItemsParamIsTypeArray(): void
+    public function testArrayParamIsTypeArray(): void
     {
         $this::assertSame(
             'array',
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'bulkSetItems', 'array', $this)
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, '__construct', 'array', $this)
         );
     }
 
-    public function testBulkSetItemsKeyError(): void
+    public function testConstructorArrayKeyError(): void
     {
-        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+        $secondPermittedClassObject = TestHelpers::newEmptyClassObject();
 
         $array = [
             'a' => $this->permittedClassObject,
@@ -149,10 +155,10 @@ final class StringToClassArrayTest extends TestCase
 
         $this::expectException(\InvalidArgumentException::class);
 
-        $this->extendsTypedArray->bulkSetItems($array);
+        $this->newExtendingClassObject($this->permittedClass, $array);
     }
 
-    public function testBulkSetItemsClassError(): void
+    public function testConstructorArrayClassError(): void
     {
         $array = [
             'a' => $this->permittedClassObject,
@@ -161,12 +167,12 @@ final class StringToClassArrayTest extends TestCase
 
         $this::expectException(\InvalidArgumentException::class);
 
-        $this->extendsTypedArray->bulkSetItems($array);
+        $this->newExtendingClassObject($this->permittedClass, $array);
     }
 
-    public function testBulkSetItemsValueError(): void
+    public function testConstructorArrayValueError(): void
     {
-        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+        $secondPermittedClassObject = TestHelpers::newEmptyClassObject();
 
         $array = [
             'a' => $this->permittedClassObject,
@@ -177,7 +183,7 @@ final class StringToClassArrayTest extends TestCase
 
         $this::expectException(\InvalidArgumentException::class);
 
-        $this->extendsTypedArray->bulkSetItems($array);
+        $this->newExtendingClassObject($this->permittedClass, $array);
     }
 
     //unsetItem:
@@ -186,7 +192,7 @@ final class StringToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem('a', $this->permittedClassObject);
 
-        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+        $secondPermittedClassObject = TestHelpers::newEmptyClassObject();
 
         $this->extendsTypedArray->setItem('b', $secondPermittedClassObject);
 
@@ -284,7 +290,7 @@ final class StringToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem('a', $this->permittedClassObject);
 
-        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+        $secondPermittedClassObject = TestHelpers::newEmptyClassObject();
 
         $this->extendsTypedArray->setItem('b', $secondPermittedClassObject);
 
