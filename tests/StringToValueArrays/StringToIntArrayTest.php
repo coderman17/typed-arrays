@@ -100,7 +100,7 @@ final class StringToIntArrayTest extends TestCase
         new StringToIntArray($array);
     }
 
-    public function testBulkSetItemsValueError(): void
+    public function testConstructorArrayValueError(): void
     {
         $array = [
             'a' => 0,

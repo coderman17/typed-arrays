@@ -100,7 +100,7 @@ final class StringToStringArrayTest extends TestCase
         new StringToStringArray($array);
     }
 
-     public function testBulkSetItemsValueError(): void
+     public function testConstructorArrayValueError(): void
     {
         $array = [
             'a' => 'a1',

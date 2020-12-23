@@ -92,7 +92,7 @@ final class IntToIntArrayTest extends TestCase
         new IntToIntArray($array);
     }
 
-    public function testBulkSetItemsValueError(): void
+    public function testConstructorArrayValueError(): void
     {
         $array = [
             0 => 0,
