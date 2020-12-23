@@ -23,7 +23,7 @@ class NonCastedStringValidator implements IValidate
         $this->stringValidator->validate($value);
 
         if (!$this->checkForKeyCasting($value)){
-            throw new \InvalidArgumentException('PHP was about to silently cast the key "' . $value . '" to an integer, an exception was thrown instead');
+            throw new \InvalidArgumentException('PHP was about to silently cast "' . $value . '" to an integer, an exception was thrown instead');
         }
     }
 

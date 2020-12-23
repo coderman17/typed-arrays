@@ -12,7 +12,7 @@ class StringValidator implements IValidate
     public function validate($value): void
     {
         if (!is_string($value)) {
-            throw new \InvalidArgumentException('Expected a string type but received a ' . gettype($value));
+            throw new \InvalidArgumentException('Expected type "string" but received type "' . gettype($value) . '"');
         }
     }
 }

@@ -30,16 +30,14 @@ class ClassValidator implements IValidate
      */
     public function validate($value): void
     {
-        $previous = null;
-
         try {
             $this->objectValidator->validate($value);
         } catch (\InvalidArgumentException $e) {
-            throw new \InvalidArgumentException($e->getMessage() . '. The expected class is: ' . $this->className);
+            throw new \InvalidArgumentException($e->getMessage() . '. The expected object class is: "' . $this->className . '"');
         }
 
         if (get_class($value) !== $this->className) {
-            throw new \InvalidArgumentException('Expected an object of class ' . $this->className . ' but received one of class ' . get_class($value), 0, $previous);
+            throw new \InvalidArgumentException('Expected an object of class "' . $this->className . '" but received one of class "' . get_class($value) . '"');
         }
     }
 }
