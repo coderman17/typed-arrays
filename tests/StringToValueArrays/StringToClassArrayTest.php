@@ -117,7 +117,7 @@ final class StringToClassArrayTest extends TestCase
         );
     }
 
-    //bulkSetItemson construct:
+    //bulkSetItems on construct:
     //no need to test for numeric string key casting, as numeric strings will have already been int cast in the array
     public function testConstructorBulkSetItems(): void
     {
