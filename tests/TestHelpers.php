@@ -77,7 +77,7 @@ class TestHelpers extends TestCase
         }
     }
 
-    public static function generateAnonClassObject(): object
+    public static function newEmptyClassObject(): object
     {
         return new class {};
     }

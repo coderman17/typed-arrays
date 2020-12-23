@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpExpressionResultUnusedInspection */
 
 declare(strict_types = 1);
 
@@ -63,31 +63,31 @@ final class IntToStringArrayTest extends TestCase
         );
     }
 
-    //bulkSetItems:
-    public function testBulkSetItems(): void
+    //bulkSetItems on construct:
+    public function testConstructorBulkSetItems(): void
     {
         $array = [
             0 => 'a',
             1 => 'b'
         ];
 
-        $this->array->bulkSetItems($array);
+        $newTypedArray = new IntToStringArray($array);
 
         $this::assertSame(
             $array,
-            $this->array->getItems()
+            $newTypedArray->getItems()
         );
     }
 
-    public function testBulkSetItemsParamIsTypeArray(): void
+    public function testArrayParamIsTypeArray(): void
     {
         $this::assertSame(
             'array',
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'bulkSetItems', 'array', $this)
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, '__construct', 'array', $this)
         );
     }
 
-    public function testBulkSetItemsKeyError(): void
+    public function testConstructorArrayKeyError(): void
     {
         $array = [
             0 => 'a',
@@ -96,10 +96,10 @@ final class IntToStringArrayTest extends TestCase
 
         $this::expectException(\InvalidArgumentException::class);
 
-        $this->array->bulkSetItems($array);
+        new IntToStringArray($array);
     }
 
-    public function testBulkSetItemsValueError(): void
+    public function testConstructorArrayValueError(): void
     {
         $array = [
             0 => 'a',
@@ -110,7 +110,7 @@ final class IntToStringArrayTest extends TestCase
 
         $this::expectException(\InvalidArgumentException::class);
 
-        $this->array->bulkSetItems($array);
+        new IntToStringArray($array);
     }
 
     //unsetItem:
