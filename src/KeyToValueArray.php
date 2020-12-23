@@ -14,11 +14,19 @@ abstract class KeyToValueArray implements \Iterator, \Countable, \ArrayAccess
 
     protected IValidate $valueValidator;
 
-    public function __construct()
+    /**
+     * @param array|null $array
+     * @throws \InvalidArgumentException
+     */
+    public function __construct(array $array = null)
     {
         $this->keyValidator = $this->getKeyValidator();
 
         $this->valueValidator = $this->getValueValidator();
+
+        if ($array !== null) {
+            $this->bulkSetItems($array);
+        }
     }
 
     public function getItems(): array
@@ -106,7 +114,7 @@ abstract class KeyToValueArray implements \Iterator, \Countable, \ArrayAccess
      *
      * @psalm-suppress MixedAssignment //The type of $value needs to be ambiguous here
      */
-    public function bulkSetItems(array $array): void
+    protected function bulkSetItems(array $array): void
     {
         foreach ($array as $key => $value){
             $this->validateKey($key);

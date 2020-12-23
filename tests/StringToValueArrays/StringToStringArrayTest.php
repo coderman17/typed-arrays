@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpExpressionResultUnusedInspection */
 
 declare(strict_types = 1);
 
@@ -63,32 +63,32 @@ final class StringToStringArrayTest extends TestCase
         );
     }
 
-    //bulkSetItems:
+    //bulkSetItems on construct:
     //no need to test for numeric string key casting, as numeric strings will have already been int cast in the array
-    public function testBulkSetItems(): void
+    public function testConstructorBulkSetItems(): void
     {
         $array = [
             'a' => 'a1',
             'b' => 'b1'
         ];
 
-        $this->array->bulkSetItems($array);
+        $newTypedArray = new StringToStringArray($array);
 
         $this::assertSame(
             $array,
-            $this->array->getItems()
+            $newTypedArray->getItems()
         );
     }
 
-    public function testBulkSetItemsParamIsTypeArray(): void
+    public function testArrayParamIsTypeArray(): void
     {
         $this::assertSame(
             'array',
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'bulkSetItems', 'array', $this)
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, '__construct', 'array', $this)
         );
     }
 
-    public function testBulkSetItemsKeyError(): void
+    public function testConstructorArrayKeyError(): void
     {
         $array = [
             'a' => 'a1',
@@ -97,10 +97,10 @@ final class StringToStringArrayTest extends TestCase
 
         $this::expectException(\InvalidArgumentException::class);
 
-        $this->array->bulkSetItems($array);
+        new StringToStringArray($array);
     }
 
-     public function testBulkSetItemsValueError(): void
+     public function testConstructorArrayValueError(): void
     {
         $array = [
             'a' => 'a1',
@@ -111,7 +111,7 @@ final class StringToStringArrayTest extends TestCase
 
         $this::expectException(\InvalidArgumentException::class);
 
-        $this->array->bulkSetItems($array);
+        new StringToStringArray($array);
     }
 
     //unsetItem:

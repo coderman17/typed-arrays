@@ -27,21 +27,27 @@ final class IntToClassArrayTest extends TestCase
 
         $this->fullyQualifiedClassName = IntToClassArray::class;
 
-        $this->permittedClassObject = TestHelpers::generateAnonClassObject();
+        $this->permittedClassObject = TestHelpers::newEmptyClassObject();
 
         $this->permittedClass = get_class($this->permittedClassObject);
 
-        //This sets the className property on construction only for testing purposes
-        //A genuine extending class of IntToClassArray would rightly have this hardcoded
-        $this->extendsTypedArray = new class($this->permittedClass) extends IntToClassArray
+
+        $this->extendsTypedArray = $this->newExtendingClassObject($this->permittedClass);
+    }
+
+    //This sets the className property on construction only for testing purposes
+    //A genuine extending class of IntToClassArray would rightly have this hardcoded
+    protected function newExtendingClassObject(string $permittedClass, array $array = null): IntToClassArray
+    {
+        return new class($permittedClass, $array) extends IntToClassArray
         {
             protected string $className;
 
-            public function __construct(string $className)
+            public function __construct(string $className, array $array = null)
             {
                 $this->className = $className;
 
-                parent::__construct();
+                parent::__construct($array);
             }
 
             /**
@@ -97,35 +103,35 @@ final class IntToClassArrayTest extends TestCase
         );
     }
 
-    //bulkSetItems:
-    public function testBulkSetItems(): void
+    //bulkSetItems on construct:
+    public function testConstructorBulkSetItems(): void
     {
-        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+        $secondPermittedClassObject = TestHelpers::newEmptyClassObject();
 
         $array = [
             0 => $this->permittedClassObject,
             1 => $secondPermittedClassObject
         ];
 
-        $this->extendsTypedArray->bulkSetItems($array);
+        $extendsTypedArray = $this->newExtendingClassObject($this->permittedClass, $array);
 
         $this::assertSame(
             $array,
-            $this->extendsTypedArray->getItems()
+            $extendsTypedArray->getItems()
         );
     }
 
-    public function testBulkSetItemsParamIsTypeArray(): void
+    public function testArrayParamIsTypeArray(): void
     {
         $this::assertSame(
             'array',
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'bulkSetItems', 'array', $this)
+            TestHelpers::getParameterType($this->fullyQualifiedClassName, '__construct', 'array', $this)
         );
     }
 
-    public function testBulkSetItemsKeyError(): void
+    public function testConstructorArrayKeyError(): void
     {
-        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+        $secondPermittedClassObject = TestHelpers::newEmptyClassObject();
 
         $array = [
             0 => $this->permittedClassObject,
@@ -134,10 +140,10 @@ final class IntToClassArrayTest extends TestCase
 
         $this::expectException(\InvalidArgumentException::class);
 
-        $this->extendsTypedArray->bulkSetItems($array);
+        $this->newExtendingClassObject($this->permittedClass, $array);
     }
 
-    public function testBulkSetItemsClassError(): void
+    public function testConstructorArrayClassError(): void
     {
         $array = [
             0 => $this->permittedClassObject,
@@ -146,12 +152,12 @@ final class IntToClassArrayTest extends TestCase
 
         $this::expectException(\InvalidArgumentException::class);
 
-        $this->extendsTypedArray->bulkSetItems($array);
+        $this->newExtendingClassObject($this->permittedClass, $array);
     }
 
-    public function testBulkSetItemsValueError(): void
+    public function testConstructorArrayValueError(): void
     {
-        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+        $secondPermittedClassObject = TestHelpers::newEmptyClassObject();
 
         $array = [
             0 => $this->permittedClassObject,
@@ -162,7 +168,7 @@ final class IntToClassArrayTest extends TestCase
 
         $this::expectException(\InvalidArgumentException::class);
 
-        $this->extendsTypedArray->bulkSetItems($array);
+        $this->newExtendingClassObject($this->permittedClass, $array);
     }
 
     //unsetItem:
@@ -171,7 +177,7 @@ final class IntToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
 
-        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+        $secondPermittedClassObject = TestHelpers::newEmptyClassObject();
 
         $this->extendsTypedArray->setItem(1, $secondPermittedClassObject);
 
@@ -283,7 +289,7 @@ final class IntToClassArrayTest extends TestCase
     {
         $this->extendsTypedArray->setItem(0, $this->permittedClassObject);
 
-        $secondPermittedClassObject = TestHelpers::generateAnonClassObject();
+        $secondPermittedClassObject = TestHelpers::newEmptyClassObject();
 
         $this->extendsTypedArray->setItem(1, $secondPermittedClassObject);
 
