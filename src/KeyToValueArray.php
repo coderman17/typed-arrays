@@ -14,6 +14,10 @@ abstract class KeyToValueArray implements \Iterator, \Countable, \ArrayAccess
 
     protected IValidate $valueValidator;
 
+    /**
+     * @param array|null $array
+     * @throws \InvalidArgumentException
+     */
     public function __construct(array $array = null)
     {
         $this->keyValidator = $this->getKeyValidator();
