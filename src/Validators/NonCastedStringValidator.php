@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace TypedArrays\Validators;
 
-class NonCastedStringValidator implements IValidate
+class NonCastedStringValidator implements ValidatorInterface
 {
     protected StringValidator $stringValidator;
 

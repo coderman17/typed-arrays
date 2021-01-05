@@ -4,15 +4,15 @@ declare(strict_types = 1);
 
 namespace TypedArrays;
 
-use TypedArrays\Validators\IValidate;
+use TypedArrays\Validators\ValidatorInterface;
 
-abstract class KeyToValueArray implements \Iterator, \Countable, \ArrayAccess
+abstract class AbstractTypedArray implements \Iterator, \Countable, \ArrayAccess
 {
     protected array $items = [];
 
-    protected IValidate $keyValidator;
+    protected ValidatorInterface $keyValidator;
 
-    protected IValidate $valueValidator;
+    protected ValidatorInterface $valueValidator;
 
     /**
      * @param array|null $array
@@ -154,8 +154,8 @@ abstract class KeyToValueArray implements \Iterator, \Countable, \ArrayAccess
         $this->valueValidator->validate($value);
     }
 
-    abstract protected function getKeyValidator(): IValidate;
+    abstract protected function getKeyValidator(): ValidatorInterface;
 
-    abstract protected function getValueValidator(): IValidate;
+    abstract protected function getValueValidator(): ValidatorInterface;
 }
 

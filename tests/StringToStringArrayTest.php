@@ -2,69 +2,76 @@
 
 declare(strict_types = 1);
 
-namespace Tests\IntToValueArrays;
+namespace Tests;
 
-use TypedArrays\IntToValueArrays\IntToIntArray;
+use TypedArrays\StringToStringArray;
 use PHPUnit\Framework\TestCase;
-use Tests\TestHelpers;
 
-final class IntToIntArrayTest extends TestCase
+final class StringToStringArrayTest extends TestCase
 {
     /**
      * @var class-string
      */
     protected string $fullyQualifiedClassName;
 
-    protected IntToIntArray $array;
+    protected StringToStringArray $array;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->fullyQualifiedClassName = IntToIntArray::class;
+        $this->fullyQualifiedClassName = StringToStringArray::class;
 
-        $this->array = new IntToIntArray();
+        $this->array = new StringToStringArray();
     }
 
     //setItem & getItems:
 
     public function testSetItem(): void
     {
-        $this->array->setItem(0, 0);
+        $setMethod = function (string $key, string $value): void{
+            $this->array->setItem($key, $value);
+        };
 
-        $this::assertSame(
-            [
-                0 => 0
-            ],
-            $this->array->getItems()
-        );
+        TestHelpers::checkForSilentKeyTypeCastingException($setMethod, 'a', $this);
+
+        //These tests check that PHP isn't quietly converting string keys to integers
+        foreach (TestHelpers::STRING_KEYS_PHP_WILL_NOT_CAST_AS_INT as $stringKey){
+            $this->array->setItem($stringKey, 'a');
+        }
+
+        foreach ($this->array->getItems() as $k => $v){
+            $this::assertIsString($k);
+            $this::assertIsString($v);
+        }
     }
 
-    public function testSetItemKeyIsTypeInt(): void
+    public function testSetItemKeyIsTypeString(): void
     {
         $this::assertSame(
-            'int',
+            'string',
             TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'key', $this)
         );
     }
 
-    public function testSetItemValueIsTypeInt(): void
+    public function testSetItemValueIsTypeString(): void
     {
         $this::assertSame(
-            'int',
+            'string',
             TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'value', $this)
         );
     }
 
     //bulkSetItems on construct:
+    //no need to test for numeric string key casting, as numeric strings will have already been int cast in the array
     public function testConstructorBulkSetItems(): void
     {
         $array = [
-            0 => 0,
-            1 => 1
+            'a' => 'a1',
+            'b' => 'b1'
         ];
 
-        $newTypedArray = new IntToIntArray($array);
+        $newTypedArray = new StringToStringArray($array);
 
         $this::assertSame(
             $array,
@@ -83,74 +90,52 @@ final class IntToIntArrayTest extends TestCase
     public function testConstructorArrayKeyError(): void
     {
         $array = [
-            0 => 0,
-            'b' => 1
+            'a' => 'a1',
+            1 => 'b'
         ];
 
         $this::expectException(\InvalidArgumentException::class);
 
-        new IntToIntArray($array);
+        new StringToStringArray($array);
     }
 
-    public function testConstructorArrayValueError(): void
+     public function testConstructorArrayValueError(): void
     {
         $array = [
-            0 => 0,
-            1 => [
-                1 => 1
+            'a' => 'a1',
+            'b' => [
+                'b' => 'b1'
             ]
         ];
 
         $this::expectException(\InvalidArgumentException::class);
 
-        new IntToIntArray($array);
+        new StringToStringArray($array);
     }
 
     //unsetItem:
 
     public function testUnsetItem(): void
     {
-        $this->array->setItem(0, 0);
+        $this->array->setItem('a', 'a1');
 
-        $this->array->setItem(1, 1);
+        $this->array->setItem('b', 'b1');
 
-        $this->array->unsetItem(0);
+        $this->array->unsetItem('a');
 
         $this::assertSame(
             [
-                1 => 1
+                'b' => 'b1'
             ],
             $this->array->getItems()
         );
     }
 
-    public function testUnsetItemKeyIsTypeInt(): void
+    public function testUnsetItemKeyIsTypeString(): void
     {
         $this::assertSame(
-            'int',
+            'string',
             TestHelpers::getParameterType($this->fullyQualifiedClassName, 'unsetItem', 'key', $this)
-        );
-    }
-
-    //pushItem:
-
-    public function testPushItem(): void
-    {
-        $this->array->pushItem(0);
-
-        $this::assertSame(
-            [
-                0 => 0
-            ],
-            $this->array->getItems()
-        );
-    }
-
-    public function testPushItemValueIsTypeInt(): void
-    {
-        $this::assertSame(
-            'int',
-            TestHelpers::getParameterType($this->fullyQualifiedClassName, 'pushItem', 'value', $this)
         );
     }
 
@@ -158,39 +143,46 @@ final class IntToIntArrayTest extends TestCase
 
     public function testOffsetSet(): void
     {
-        $this->array[0] = 0;
+        $offsetSetMethod = function (string $key, string $value): void{
+            $this->array[$key] = $value;
+        };
 
-        $this::assertSame(
-            [
-                0 => 0
-            ],
-            $this->array->getItems()
-        );
+        TestHelpers::checkForSilentKeyTypeCastingException($offsetSetMethod, 'a', $this);
+
+        //These tests check that PHP isn't quietly converting string keys to integers
+        foreach (TestHelpers::STRING_KEYS_PHP_WILL_NOT_CAST_AS_INT as $stringKey){
+            $this->array[$stringKey] = 'a';
+        }
+
+        foreach ($this->array->getItems() as $k => $v){
+            $this::assertIsString($k);
+            $this::assertIsString($v);
+        }
     }
 
     public function testOffsetSetKeyError(): void
     {
         $this::expectException(\InvalidArgumentException::class);
 
-        $this->array['0'] = 0;
+        $this->array[0] = '0';
     }
 
     public function testOffsetSetValueError(): void
     {
         $this::expectException(\InvalidArgumentException::class);
 
-        $this->array[0] = '0';
+        $this->array['a'] = 0;
     }
 
     //offsetGet:
 
     public function testOffsetGet(): void
     {
-        $this->array->setItem(0, 0);
+        $this->array->setItem('a', 'a1');
 
         $this::assertSame(
-            0,
-            $this->array[0]
+            'a1',
+            $this->array['a']
         );
     }
 
@@ -199,22 +191,22 @@ final class IntToIntArrayTest extends TestCase
         $this::expectException(\InvalidArgumentException::class);
 
         /** @phpstan-ignore-next-line it's fine that it doesn't do anything*/
-        $this->array['0'];
+        $this->array[0];
     }
 
     //offsetUnset:
 
     public function testOffsetUnset(): void
     {
-        $this->array->setItem(0, 0);
+        $this->array->setItem('a', 'a1');
 
-        $this->array->setItem(1, 1);
+        $this->array->setItem('b', 'b1');
 
-        unset($this->array[0]);
+        unset($this->array['a']);
 
         $this::assertSame(
             [
-                1 => 1
+                'b' => 'b1'
             ],
             $this->array->getItems()
         );
@@ -224,23 +216,23 @@ final class IntToIntArrayTest extends TestCase
     {
         $this::expectException(\InvalidArgumentException::class);
 
-        unset($this->array['0']);
+        unset($this->array[0]);
     }
 
     //offsetExists:
 
     public function testOffsetExists(): void
     {
-        $this->array->setItem(0, 0);
+        $this->array->setItem('a', 'a1');
 
         $this::assertSame(
             true,
-            isset($this->array[0])
+            isset($this->array['a'])
         );
 
         $this::assertSame(
             false,
-            isset($this->array[1])
+            isset($this->array['b'])
         );
     }
 
@@ -248,14 +240,14 @@ final class IntToIntArrayTest extends TestCase
     {
         $this::expectException(\InvalidArgumentException::class);
 
-        echo isset($this->array['0']);
+        echo isset($this->array[0]);
     }
 
     //countable:
 
     public function testCountable(): void
     {
-        $this->array->setItem(0, 0);
+        $this->array->setItem('a', 'a1');
 
         $this::assertSame(
             1,
@@ -267,15 +259,15 @@ final class IntToIntArrayTest extends TestCase
 
     public function testIterator(): void
     {
-        $this->array->setItem(0, 0);
+        $this->array->setItem('a', 'a1');
 
         foreach ($this->array as $key => $value) {
             $this::assertSame(
-                0,
+                'a',
                 $key
             );
             $this::assertSame(
-                0,
+                'a1',
                 $value
             );
         }

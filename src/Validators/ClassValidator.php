@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace TypedArrays\Validators;
 
-class ClassValidator implements IValidate
+class ClassValidator implements ValidatorInterface
 {
     /**
      * @var class-string
