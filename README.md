@@ -24,7 +24,7 @@ Add this to your composer.json file:
     }
   ],
   "require": {
-    "coderman17/typed-arrays": "0.2.0"
+    "coderman17/typed-arrays": "0.3.0"
   }
 ```
 Then run `composer update`
