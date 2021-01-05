@@ -2,46 +2,38 @@
 
 declare(strict_types = 1);
 
-namespace Tests\IntToValueArrays;
+namespace Tests;
 
-use TypedArrays\IntToValueArrays\IntToStringArray;
+use TypedArrays\IntToIntArray;
 use PHPUnit\Framework\TestCase;
-use Tests\TestHelpers;
 
-final class IntToStringArrayTest extends TestCase
+final class IntToIntArrayTest extends TestCase
 {
     /**
      * @var class-string
      */
     protected string $fullyQualifiedClassName;
 
-    protected IntToStringArray $array;
+    protected IntToIntArray $array;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->fullyQualifiedClassName = IntToStringArray::class;
+        $this->fullyQualifiedClassName = IntToIntArray::class;
 
-        $this->array = new IntToStringArray();
+        $this->array = new IntToIntArray();
     }
 
     //setItem & getItems:
 
     public function testSetItem(): void
     {
-        $this->array->setItem(0, '0');
-        $this->array->setItem(1, '1.0');
-        $this->array->setItem(2, 'two');
-        $this->array->setItem(3, 'false');
-        $this->array->setItem(4, 'null');
+        $this->array->setItem(0, 0);
+
         $this::assertSame(
             [
-                0 => '0',
-                1 => '1.0',
-                2 => 'two',
-                3 => 'false',
-                4 => 'null'
+                0 => 0
             ],
             $this->array->getItems()
         );
@@ -55,10 +47,10 @@ final class IntToStringArrayTest extends TestCase
         );
     }
 
-    public function testSetItemValueIsTypeString(): void
+    public function testSetItemValueIsTypeInt(): void
     {
         $this::assertSame(
-            'string',
+            'int',
             TestHelpers::getParameterType($this->fullyQualifiedClassName, 'setItem', 'value', $this)
         );
     }
@@ -67,11 +59,11 @@ final class IntToStringArrayTest extends TestCase
     public function testConstructorBulkSetItems(): void
     {
         $array = [
-            0 => 'a',
-            1 => 'b'
+            0 => 0,
+            1 => 1
         ];
 
-        $newTypedArray = new IntToStringArray($array);
+        $newTypedArray = new IntToIntArray($array);
 
         $this::assertSame(
             $array,
@@ -90,42 +82,42 @@ final class IntToStringArrayTest extends TestCase
     public function testConstructorArrayKeyError(): void
     {
         $array = [
-            0 => 'a',
-            'b' => 'b1'
+            0 => 0,
+            'b' => 1
         ];
 
         $this::expectException(\InvalidArgumentException::class);
 
-        new IntToStringArray($array);
+        new IntToIntArray($array);
     }
 
     public function testConstructorArrayValueError(): void
     {
         $array = [
-            0 => 'a',
+            0 => 0,
             1 => [
-                1 => 'b'
+                1 => 1
             ]
         ];
 
         $this::expectException(\InvalidArgumentException::class);
 
-        new IntToStringArray($array);
+        new IntToIntArray($array);
     }
 
     //unsetItem:
 
     public function testUnsetItem(): void
     {
-        $this->array->setItem(0, 'a');
+        $this->array->setItem(0, 0);
 
-        $this->array->setItem(1, 'b');
+        $this->array->setItem(1, 1);
 
         $this->array->unsetItem(0);
 
         $this::assertSame(
             [
-                1 => 'b'
+                1 => 1
             ],
             $this->array->getItems()
         );
@@ -143,20 +135,20 @@ final class IntToStringArrayTest extends TestCase
 
     public function testPushItem(): void
     {
-        $this->array->pushItem('0');
+        $this->array->pushItem(0);
 
         $this::assertSame(
             [
-                0 => '0'
+                0 => 0
             ],
             $this->array->getItems()
         );
     }
 
-    public function testPushItemValueIsTypeString(): void
+    public function testPushItemValueIsTypeInt(): void
     {
         $this::assertSame(
-            'string',
+            'int',
             TestHelpers::getParameterType($this->fullyQualifiedClassName, 'pushItem', 'value', $this)
         );
     }
@@ -165,11 +157,11 @@ final class IntToStringArrayTest extends TestCase
 
     public function testOffsetSet(): void
     {
-        $this->array[0] = '0';
+        $this->array[0] = 0;
 
         $this::assertSame(
             [
-                0 => '0'
+                0 => 0
             ],
             $this->array->getItems()
         );
@@ -179,24 +171,24 @@ final class IntToStringArrayTest extends TestCase
     {
         $this::expectException(\InvalidArgumentException::class);
 
-        $this->array['0'] = 'a';
+        $this->array['0'] = 0;
     }
 
     public function testOffsetSetValueError(): void
     {
         $this::expectException(\InvalidArgumentException::class);
 
-        $this->array[0] = 0;
+        $this->array[0] = '0';
     }
 
     //offsetGet:
 
     public function testOffsetGet(): void
     {
-        $this->array->setItem(0, 'a');
+        $this->array->setItem(0, 0);
 
         $this::assertSame(
-            'a',
+            0,
             $this->array[0]
         );
     }
@@ -213,15 +205,15 @@ final class IntToStringArrayTest extends TestCase
 
     public function testOffsetUnset(): void
     {
-        $this->array->setItem(0, 'a');
+        $this->array->setItem(0, 0);
 
-        $this->array->setItem(1, 'b');
+        $this->array->setItem(1, 1);
 
         unset($this->array[0]);
 
         $this::assertSame(
             [
-                1 => 'b'
+                1 => 1
             ],
             $this->array->getItems()
         );
@@ -238,7 +230,7 @@ final class IntToStringArrayTest extends TestCase
 
     public function testOffsetExists(): void
     {
-        $this->array->setItem(0, 'a');
+        $this->array->setItem(0, 0);
 
         $this::assertSame(
             true,
@@ -262,7 +254,7 @@ final class IntToStringArrayTest extends TestCase
 
     public function testCountable(): void
     {
-        $this->array->setItem(0, 'a');
+        $this->array->setItem(0, 0);
 
         $this::assertSame(
             1,
@@ -274,7 +266,7 @@ final class IntToStringArrayTest extends TestCase
 
     public function testIterator(): void
     {
-        $this->array->setItem(0, 'a');
+        $this->array->setItem(0, 0);
 
         foreach ($this->array as $key => $value) {
             $this::assertSame(
@@ -282,7 +274,7 @@ final class IntToStringArrayTest extends TestCase
                 $key
             );
             $this::assertSame(
-                'a',
+                0,
                 $value
             );
         }

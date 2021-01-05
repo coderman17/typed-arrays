@@ -2,14 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace TypedArrays\IntToValueArrays;
+namespace TypedArrays;
 
-use TypedArrays\KeyToValueArray;
 use TypedArrays\Validators\ClassValidator;
 use TypedArrays\Validators\IntValidator;
-use TypedArrays\Validators\IValidate;
+use TypedArrays\Validators\ValidatorInterface;
 
-abstract class IntToClassArray extends KeyToValueArray
+abstract class IntToClassArray extends AbstractTypedArray
 {
     /**
      * @param int $key
@@ -42,12 +41,12 @@ abstract class IntToClassArray extends KeyToValueArray
         array_push($this->items, $value);
     }
 
-    protected function getKeyValidator(): IValidate
+    protected function getKeyValidator(): ValidatorInterface
     {
         return new IntValidator();
     }
 
-    protected function getValueValidator(): IValidate
+    protected function getValueValidator(): ValidatorInterface
     {
         return new ClassValidator($this->getClassName());
     }

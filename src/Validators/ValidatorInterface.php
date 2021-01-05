@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace TypedArrays\Validators;
 
-interface IValidate
+interface ValidatorInterface
 {
     /**
      * @param mixed $value

@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace TypedArrays\Validators;
 
-class IntValidator implements IValidate
+class IntValidator implements ValidatorInterface
 {
     /**
      * @inheritDoc

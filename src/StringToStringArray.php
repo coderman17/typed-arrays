@@ -2,14 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace TypedArrays\StringToValueArrays;
+namespace TypedArrays;
 
-use TypedArrays\KeyToValueArray;
 use TypedArrays\Validators\NonCastedStringValidator;
-use TypedArrays\Validators\IValidate;
+use TypedArrays\Validators\ValidatorInterface;
 use TypedArrays\Validators\StringValidator;
 
-class StringToStringArray extends KeyToValueArray
+class StringToStringArray extends AbstractTypedArray
 {
     /**
      * @param string $key
@@ -34,12 +33,12 @@ class StringToStringArray extends KeyToValueArray
         unset($this->items[$key]);
     }
 
-    protected function getKeyValidator(): IValidate
+    protected function getKeyValidator(): ValidatorInterface
     {
         return new NonCastedStringValidator();
     }
 
-    protected function getValueValidator(): IValidate
+    protected function getValueValidator(): ValidatorInterface
     {
         return new StringValidator();
     }
