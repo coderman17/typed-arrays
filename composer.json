@@ -31,6 +31,6 @@
         "phpstan/phpstan": "^0.12.63"
     },
     "require": {
-        "php": ">=7.4.11"
+        "php": "7.4.*"
     }
 }
